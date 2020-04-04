@@ -1,0 +1,54 @@
+package org.fzu.cs03.daoyun.share;
+
+import org.fzu.cs03.daoyun.utils.SessionMapUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+
+@Component
+public class UserSecurityInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    SessionMapUtils sessionMapUtils;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        Object obj = request.getSession().getAttribute("userName");
+        String userName ;
+
+        if (obj == null) userName = null;
+        else userName = obj.toString();
+
+        if (obj == null || ! sessionMapUtils.isActiveSession(userName,request)) {
+//            response.sendRedirect(request.getContextPath() + "/signin");
+            response.reset();
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json;charset=UTF-8");
+            PrintWriter pw = response.getWriter();
+            pw.write("非法操作，请先登录或提权. 非法代码: "+
+                    request.getSession().getId() + "");
+            pw.flush();
+            pw.close();
+
+//            System.out.println("非法登录");
+            return false; //若为true,response.getWriter();会被重新调用，会报错.
+        }
+        System.out.println("已验证的登录");
+//      request.getSession().setMaxInactiveInterval(3) ; // 删除该会话
+//        request.getad
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    }
+}
