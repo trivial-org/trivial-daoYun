@@ -23,7 +23,7 @@ public class DataDictionaryController {
 
     private final Logger logger = LoggerFactory.getLogger(DataDictionaryController.class);
 
-    @DeleteMapping(value = "/dataDictionary")
+    @DeleteMapping(value = "dataDictionary")
     public String deleteData(@RequestParam(value = "dictCode" ,required = true) long dictCode,
                              @RequestParam(value = "dataCode" ,required = true) long dataCode,
                              HttpServletRequest request){

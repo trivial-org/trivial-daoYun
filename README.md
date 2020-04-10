@@ -6,11 +6,12 @@ Engeering practice
 
 
 
-### 功能更新 2020/4/8
+### 功能更新 2020/4/10
 
 ---
 
-- 新增手机绑定用户名，可以通过手机，用户名登录。登录成功返回用户ID（验证码认证暂时关闭）
+- 新增手机绑定用户名，可以通过手机，用户名登录。登录成功返回用户ID（验证码认证暂时关闭，又开启了）
+- 判断用户是否存在的接口转移到了/signup/user/下
 - 新增用户名合法性检查
 - 新增注销功能
 - 改用logger，在关键点设置了日志
@@ -18,10 +19,126 @@ Engeering practice
 - 新增创建班课，更新班课信息，删除班课
 - 新增加入班课，退出班课
 - 新增 ”我加入的班课“ ”我创建的班课“
+- 新增查看我加入的班课信息，查看我加入的班课成员信息
+- 新增班课成员信息的分页请请求（需要加一个请求页面记录总数的）
+
+---
+1，上述权限控制并不完善，如普通用户可删除班课等等，等到**团**把其他的弄完了，统一补上。
+2，部分还不是软删除实现，后面再统一成软删除。
 
 ---
 
-需要加一个请求页面记录总数的
+**1，post/get/put/delete示例**
+
+---
+
+- /signup/user：（get，判断用户是否存在）
+  例子：http://47.95.120.250:8080/signup/user?userName=superAdmin
+
+- /cloudClass/members (get，获取班课成员)
+  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000
+
+- /cloudClass/members (get，获取班课成员,分页)
+  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000&page=1&pageSize=10
+
+- /cloudClass/members (post，加入班课)
+  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000
+  
+- /cloudClass/members (delete，退出班课)
+  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000
+  
+- /cloudClass/members (put，修改成员信息)
+  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000
+  {
+        private String userClassName;
+        private String userClassSchool;
+        private String userClassCollege;
+        private String userClassMajor;  
+        private String userClassNumber; 学号
+        可以任选其中n个，不一定要填满
+  }
+  
+- /cloudClass (post，创建班课)
+  例子：http://47.95.120.250:8080/cloudClass
+  {
+      private String className;
+      private String teacherName;
+      private String grade;
+      private String teachingMateria;
+      private String school;
+      private String college;
+      private String lessonStartDate;
+      private String lessonEndDate;
+      private String introduction;
+      可以任选其中n个，不一定要填满
+  }
+  **返回班课号**
+  
+- /cloudClass (get，查看班课信息)
+  例子：http://47.95.120.250:8080/cloudClass?orgCode=10000
+
+- /cloudClass (put，更新班课信息)
+  例子：http://47.95.120.250:8080/cloudClass?orgCode=10000
+  {
+      private String className;
+      private String teacherName;
+      private String grade;
+      private String teachingMateria;
+      private String school;
+      private String college;
+      private String lessonStartDate;
+      private String lessonEndDate;
+      private String introduction;
+  	可以任选其中n个，不一定要填满
+  }
+
+- /cloudClass (delete，删除班课)
+  例子：http://47.95.120.250:8080/cloudClass?orgCode=10000
+  
+- /dataDictionary (post，插入字典)
+  例子：http://47.95.120.250:8080/dataDictionary
+  {
+      private Long dictCode ;
+      private String dictName;
+      private Long dataCode;
+      private String dataName;
+  }
+  
+- /dataDictionary (get，查看字典)
+  例子：http://47.95.120.250:8080/dataDictionary?dictCode=1000
+  
+- /dataDictionary (get，模糊查询字典)
+  例子：http://47.95.120.250:8080/dataDictionary?dictCode=1000&dataName=欧
+  
+- /dataDictionary (delete，删除字典数据)
+  例子：http://47.95.120.250:8080/dataDictionary??dictCode=1000&dataCode=10001
+  
+- /profilePhoto (post，上传图片)
+  例子：http://47.95.120.250:8080/profilePhoto
+  {
+  	profilePhoto:文件
+  	**注意，这个用form-data格式**
+  }
+  **返回图片名，根据这个去服务器下载对应资源**
+  
+- /profilePhoto (get，下载图片)
+  例子：http://47.95.120.250:8080/profilePhoto?profilePhotoName=一个名字
+
+- /signout (post，注销)
+  例子：http://47.95.120.250:8080/signout?userName=用户名
+  
+- /user/joinedClass (get，查看加入的班级)
+  例子：http://47.95.120.250:8080/user/joinedClass
+  
+- /user/createdClass (get，查看创建的班级)
+  例子：http://47.95.120.250:8080/user/createdClass
+  
+  
+---
+
+
+
+
 
 
 
@@ -72,9 +189,9 @@ Engeering practice
   	"verificationCode":"xxx"
   }
 
-- /userExist：（get）
+- /signup/user：（get）
 
-  例子：http://47.95.120.250:8080/userExist?userName=superAdmin
+  例子：http://47.95.120.250:8080/signup/user?userName=superAdmin
 
 - /verification/mail：（get)
 

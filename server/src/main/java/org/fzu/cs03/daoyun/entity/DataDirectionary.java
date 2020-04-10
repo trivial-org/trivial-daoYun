@@ -4,12 +4,12 @@ import org.springframework.stereotype.Component;
 
 //@Component
 public class DataDirectionary {
-    private long dictCode ;
+    private Long dictCode ;
     private String dictName;
-    private long dataCode;
+    private Long dataCode;
     private String dataName;
 
-    public void setDictCode(long dictCode) {
+    public void setDictCode(Long dictCode) {
         this.dictCode = dictCode;
     }
 
@@ -17,7 +17,7 @@ public class DataDirectionary {
         this.dictName = dictName;
     }
 
-    public void setDataCode(long dataCode) {
+    public void setDataCode(Long dataCode) {
         this.dataCode = dataCode;
     }
 
@@ -25,7 +25,7 @@ public class DataDirectionary {
         this.dataName = dataName;
     }
 
-    public long getDictCode() {
+    public Long getDictCode() {
         return dictCode;
     }
 
@@ -33,7 +33,7 @@ public class DataDirectionary {
         return dictName;
     }
 
-    public long getDataCode() {
+    public Long getDataCode() {
         return dataCode;
     }
 

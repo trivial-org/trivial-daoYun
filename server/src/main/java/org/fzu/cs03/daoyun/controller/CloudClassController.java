@@ -38,7 +38,7 @@ public class CloudClassController {
 
     @GetMapping(value = "/cloudClass")
     public String getCloudClassInfo(
-            @RequestParam(value = "orgCode" ,required = true) long orgCode,
+            @RequestParam(value = "orgCode" ,required = true) Long orgCode,
             HttpServletRequest request){
         try{
             return cloudClassService.getOrgInfoByOrgCode(orgCode, request);
@@ -49,7 +49,7 @@ public class CloudClassController {
 
     @PutMapping(value = "/cloudClass")
     public String updateCloudClassInfo(
-            @RequestParam(value = "orgCode" ,required = true) long orgCode,
+            @RequestParam(value = "orgCode" ,required = true) Long orgCode,
             @RequestBody CloudClass cloudClass,
             HttpServletRequest request){
 
