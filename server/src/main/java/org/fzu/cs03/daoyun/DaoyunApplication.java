@@ -1,15 +1,9 @@
 package org.fzu.cs03.daoyun;
 
-import org.fzu.cs03.daoyun.mapper.StudentMapper;
-import org.fzu.cs03.daoyun.service.MailService;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
-
-import javax.sql.DataSource;
 
 //@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 //@SpringBootApplication

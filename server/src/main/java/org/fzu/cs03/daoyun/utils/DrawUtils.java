@@ -14,11 +14,12 @@ import java.util.Random;
 
 public class DrawUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(DrawUtils.class);
 
     private static final String[] FONT_TYPES = { "\u5b8b\u4f53", "\u65b0\u5b8b\u4f53", "\u9ed1\u4f53", "\u6977\u4f53", "\u96b6\u4e66" };
 
     private static final int VALICATE_CODE_LENGTH = 4;
+
+    private final Logger logger = LoggerFactory.getLogger(DrawUtils.class);
 
     /**
      * 设置背景颜色及大小，干扰线

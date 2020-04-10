@@ -1,6 +1,8 @@
 package org.fzu.cs03.daoyun.share;
 
 import org.fzu.cs03.daoyun.utils.SessionMapUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,6 +18,8 @@ public class UserSecurityInterceptor implements HandlerInterceptor {
     @Autowired
     SessionMapUtils sessionMapUtils;
 
+    private final Logger logger = LoggerFactory.getLogger(UserSecurityInterceptor.class);
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object obj = request.getSession().getAttribute("userName");
@@ -23,6 +27,8 @@ public class UserSecurityInterceptor implements HandlerInterceptor {
 
         if (obj == null) userName = null;
         else userName = obj.toString();
+
+//        request.getRequestURI(); 获得请求的页面
 
         if (obj == null || ! sessionMapUtils.isActiveSession(userName,request)) {
 //            response.sendRedirect(request.getContextPath() + "/signin");
@@ -35,10 +41,15 @@ public class UserSecurityInterceptor implements HandlerInterceptor {
             pw.flush();
             pw.close();
 
+            logger.info(request.getSession().getId() + " 非法访问: "+ request.getRequestURI());
 //            System.out.println("非法登录");
             return false; //若为true,response.getWriter();会被重新调用，会报错.
         }
-        System.out.println("已验证的登录");
+//        System.out.println("已验证的登录");
+        logger.info(userName + " 受验证访问: "+ request.getRequestURI());
+//        String info = userName + "：已验证的登录";
+//        logger.info(info);
+
 //      request.getSession().setMaxInactiveInterval(3) ; // 删除该会话
 //        request.getad
         return true;

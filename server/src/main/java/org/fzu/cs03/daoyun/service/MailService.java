@@ -1,5 +1,7 @@
 package org.fzu.cs03.daoyun.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
@@ -27,6 +29,8 @@ public class MailService {
     private final String fileName ="templates/register-code-template.html";
     private String template_html = "null";
 
+    private final Logger logger = LoggerFactory.getLogger(MailService.class);
+
 //    @Autowired
     public MailService(){
 
@@ -36,17 +40,10 @@ public class MailService {
             template_html = new String(bdata, StandardCharsets.UTF_8);
 //            System.out.println(template_html);
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            logger.error(e.toString());
         }
 
-//        try {
-//            System.out.println( new ClassPathResource("templates/register-code-template.html"));
-//            this.template_html = this.readTemplate(new ClassPathResource("templates/register-code-template.html"));
-
-//        classpath:templates/register-code-template.html
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
@@ -71,7 +68,6 @@ public class MailService {
 
     public void sendTemplateMail(String to, String userName,String code)  {
         String dyn_html = new String(template_html);
-
 
         Pattern wp = Pattern.compile("\\{userName}", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
         Matcher m = wp.matcher(dyn_html);
@@ -101,8 +97,10 @@ public class MailService {
             javaMailSender.send(mimeMessage);
 
         } catch (MessagingException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            logger.error(e.toString());
         }
+
 
 
 

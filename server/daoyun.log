@@ -1,0 +1,216 @@
+2020-04-08 22:36:38.828  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:36:38.833  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:36:39.082  INFO 19212 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-04-08 22:36:39.083  INFO 19212 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-04-08 22:36:43.062  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:36:43.087  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:36:43.087  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:36:43.433  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:36:43.436  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4353 ms
+2020-04-08 22:36:44.668  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:36:45.271  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:36:45.405  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:36:45.412  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 7.79 seconds (JVM running for 12.49)
+2020-04-08 22:39:56.342  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-08 22:39:56.343  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-08 22:39:56.359  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms
+2020-04-08 22:39:57.504  WARN 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [1,109] milliseconds.
+2020-04-08 22:41:15.603  INFO 19212 --- [Thread-5] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:41:17.940  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:41:17.943  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:41:19.250  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:41:19.259  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:41:19.260  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:41:19.365  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:41:19.366  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1398 ms
+2020-04-08 22:41:19.882  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:41:20.552  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:41:20.666  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:41:20.667  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 2.903 seconds (JVM running for 287.745)
+2020-04-08 22:41:20.671  INFO 19212 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-04-08 22:41:24.412  INFO 19212 --- [Thread-8] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:41:27.270  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:41:27.271  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:41:29.127  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:41:29.128  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:41:29.129  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:41:29.222  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:41:29.223  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1948 ms
+2020-04-08 22:41:29.604  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:41:29.813  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:41:30.252  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:41:30.254  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 3.078 seconds (JVM running for 297.331)
+2020-04-08 22:41:30.257  INFO 19212 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-04-08 22:43:27.666  INFO 19212 --- [Thread-13] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:43:31.643  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:43:31.643  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:43:33.318  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:43:33.322  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:43:33.323  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:43:33.405  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:43:33.406  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1757 ms
+2020-04-08 22:43:33.794  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:43:33.908  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:43:33.944  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:43:33.945  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 2.459 seconds (JVM running for 421.023)
+2020-04-08 22:43:33.947  INFO 19212 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-04-08 22:43:43.433  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-08 22:43:43.440  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-08 22:43:43.445  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2020-04-08 22:43:44.201  INFO 19212 --- [Thread-18] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:43:49.929  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:43:49.929  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:43:51.236  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:43:51.237  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:43:51.238  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:43:51.292  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:43:51.292  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1358 ms
+2020-04-08 22:43:51.550  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:43:51.710  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:43:51.771  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:43:51.773  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 1.948 seconds (JVM running for 438.85)
+2020-04-08 22:43:51.775  INFO 19212 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-04-08 22:44:45.798  INFO 19212 --- [Thread-23] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:44:48.143  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:44:48.143  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:44:49.537  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:44:49.539  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:44:49.541  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:44:49.656  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:44:49.657  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1508 ms
+2020-04-08 22:44:50.248  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:44:50.599  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:44:50.675  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:44:50.679  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 2.635 seconds (JVM running for 497.757)
+2020-04-08 22:44:50.686  INFO 19212 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-04-08 22:44:51.183  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-08 22:44:51.184  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-08 22:44:51.187  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2020-04-08 22:47:30.345  INFO 19212 --- [Thread-28] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:47:32.092  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:47:32.092  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:47:32.724  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:47:32.726  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:47:32.726  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:47:32.792  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:47:32.793  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 695 ms
+2020-04-08 22:47:33.117  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:47:33.383  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:47:33.458  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:47:33.461  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 1.436 seconds (JVM running for 660.538)
+2020-04-08 22:47:33.465  INFO 19212 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-04-08 22:47:45.784  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-08 22:47:45.785  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-08 22:47:45.790  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2020-04-08 22:47:45.817  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.f.c.d.c.DataDictionaryController       : 进入了，测试一下
+2020-04-08 22:47:45.879  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-08 22:47:46.480  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-08 22:49:26.838  INFO 19212 --- [Thread-33] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:49:26.839  INFO 19212 --- [Thread-33] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-04-08 22:49:26.891  INFO 19212 --- [Thread-33] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-04-08 22:49:29.206  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:49:29.207  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:49:30.054  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:49:30.055  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:49:30.056  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:49:30.146  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:49:30.146  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 931 ms
+2020-04-08 22:49:30.680  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:49:30.944  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:49:30.987  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:49:30.989  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 1.884 seconds (JVM running for 778.066)
+2020-04-08 22:49:30.991  INFO 19212 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-04-08 22:50:29.378  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-08 22:50:29.380  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-08 22:50:29.386  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2020-04-08 22:50:29.389  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] o.f.c.d.c.DataDictionaryController       : 进入了，测试一下
+2020-04-08 22:50:29.390  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2020-04-08 22:50:29.430  INFO 19212 --- [http-nio-0.0.0.0-8080-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2020-04-08 22:52:36.293  INFO 19212 --- [Thread-38] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:52:36.294  INFO 19212 --- [Thread-38] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2020-04-08 22:52:36.325  INFO 19212 --- [Thread-38] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2020-04-08 22:52:38.053  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:52:38.053  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:52:39.026  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:52:39.028  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:52:39.028  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:52:39.089  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:52:39.091  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1029 ms
+2020-04-08 22:52:39.161  WARN 19212 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataDictionaryController' defined in file [G:\development\trivial-daoYun\server\target\classes\org\fzu\cs03\daoyun\controller\DataDictionaryController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [org.fzu.cs03.daoyun.controller.DataDictionaryController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47957311]
+2020-04-08 22:52:39.164  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-04-08 22:52:39.188  INFO 19212 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-04-08 22:52:39.233 ERROR 19212 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataDictionaryController' defined in file [G:\development\trivial-daoYun\server\target\classes\org\fzu\cs03\daoyun\controller\DataDictionaryController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [org.fzu.cs03.daoyun.controller.DataDictionaryController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47957311]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:572) ~[spring-beans-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:879) ~[spring-beans-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:878) ~[spring-context-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550) ~[spring-context-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141) ~[spring-boot-2.2.5.RELEASE.jar:2.2.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747) ~[spring-boot-2.2.5.RELEASE.jar:2.2.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.2.5.RELEASE.jar:2.2.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) ~[spring-boot-2.2.5.RELEASE.jar:2.2.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) ~[spring-boot-2.2.5.RELEASE.jar:2.2.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215) ~[spring-boot-2.2.5.RELEASE.jar:2.2.5.RELEASE]
+	at org.fzu.cs03.daoyun.DaoyunApplication.main(DaoyunApplication.java:22) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-2.2.5.RELEASE.jar:2.2.5.RELEASE]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [org.fzu.cs03.daoyun.controller.DataDictionaryController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47957311]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:734) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:666) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:382) ~[spring-context-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:363) ~[spring-context-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:311) ~[spring-context-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1094) ~[spring-beans-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	... 20 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: Lorg/fzu/cs03/daoyun/service/DataDictionaryService;
+	at java.base/java.lang.Class.getDeclaredFields0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredFields(Class.java:3061) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredFields(Class.java:2248) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:729) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: org.fzu.cs03.daoyun.service.DataDictionaryService
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521) ~[na:na]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:144) ~[spring-boot-devtools-2.2.5.RELEASE.jar:2.2.5.RELEASE]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521) ~[na:na]
+	... 30 common frames omitted
+
+2020-04-08 22:53:21.747  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:53:21.748  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:53:22.926  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:53:22.930  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:53:22.931  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:53:23.037  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:53:23.038  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1286 ms
+2020-04-08 22:53:23.483  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:53:23.637  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:53:23.714  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:53:23.716  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 2.106 seconds (JVM running for 1010.793)
+2020-04-08 22:53:23.720  INFO 19212 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-04-08 22:53:53.575  INFO 19212 --- [Thread-43] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:56:42.845  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Starting DaoyunApplication on DESKTOP-F22BJS2 with PID 19212 (G:\development\trivial-daoYun\server\target\classes started by Mu.xx in G:\development\trivial-daoYun\server)
+2020-04-08 22:56:42.845  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : The following profiles are active: dev
+2020-04-08 22:56:44.139  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-08 22:56:44.140  INFO 19212 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-08 22:56:44.141  INFO 19212 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-08 22:56:44.211  INFO 19212 --- [restartedMain] o.a.c.c.C.[Tomcat-3].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2020-04-08 22:56:44.216  INFO 19212 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1365 ms
+2020-04-08 22:56:44.610  INFO 19212 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-08 22:56:44.836  INFO 19212 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-08 22:56:44.884  INFO 19212 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-08 22:56:44.893  INFO 19212 --- [restartedMain] org.fzu.cs03.daoyun.DaoyunApplication    : Started DaoyunApplication in 2.15 seconds (JVM running for 1211.97)
+2020-04-08 22:56:44.898  INFO 19212 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-04-08 22:57:34.824  INFO 19212 --- [Thread-67] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

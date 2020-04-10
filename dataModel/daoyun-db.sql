@@ -66,7 +66,7 @@ create table authorization
    auz_level            int,
    auz_order            int not null,
    auz_name             varchar(20) not null,
-   auz_url              varchar(200),
+   auz_url              varchar(255),
    auz_param            varchar(200),
    auz_description      varchar(200),
    extend_json          bigint,
@@ -211,7 +211,7 @@ create table discussion_file
    discussion_file_id   bigint not null,
    file_type_id         bigint not null,
    file_name            varchar(20) not null,
-   file_url             varchar(200),
+   file_url             varchar(255),
    file_binary          mediumblob,
    file_hash            varchar(200),
    uploader             varchar(20) not null,
@@ -331,7 +331,7 @@ create table menu
    menu_order           int not null,
    is_root              bool,
    menu_name            varchar(20) not null,
-   menu_url             varchar(200),
+   menu_url             varchar(255),
    menu_description     varchar(200),
    extend_json          bigint,
    creation_date        datetime not null,
@@ -383,7 +383,7 @@ create table org_file
    file_type_id         bigint not null,
    parent_file_id       bigint,
    file_name            varchar(30) not null,
-   file_url             varchar(200),
+   file_url             varchar(255),
    file_binary          mediumblob,
    file_level           int,
    file_hash            varchar(200),
@@ -556,132 +556,97 @@ create index idx_org_id on published_task
 /*==============================================================*/
 create table r_org__file
 (
-   org__org_file_id     bigint not null,
    org_id               bigint not null,
    org_file_id          bigint not null,
-   primary key (org__org_file_id)
+   is_deleted           bool not null,
+   primary key (org_id,org_file_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
 /* Index: index_org_file_id                                     */
 /*==============================================================*/
-create index index_org_file_id on r_org__file
+create index idx_org_file_id on r_org__file
 (
    org_file_id
 );
 
-/*==============================================================*/
-/* Index: index_org_id                                          */
-/*==============================================================*/
-create index index_org_id on r_org__file
-(
-   org_id
-);
 
 /*==============================================================*/
 /* Table: r_org_role__auz                                       */
 /*==============================================================*/
 create table r_org_role__auz
 (
-   org_role__auz_id     bigint not null,
    org_role_id          bigint not null,
    authorization_id     bigint not null,
-   primary key (org_role__auz_id)
+   is_deleted           bool not null,
+   primary key (org_role_id,authorization_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
 /* Index: index_auz_id                                          */
 /*==============================================================*/
-create index index_auz_id on r_org_role__auz
+create index idx_auz_id on r_org_role__auz
 (
    authorization_id
 );
 
-/*==============================================================*/
-/* Index: index_org_role_id                                     */
-/*==============================================================*/
-create index index_org_role_id on r_org_role__auz
-(
-   org_role_id
-);
 
 /*==============================================================*/
 /* Table: r_org_role__menu                                      */
 /*==============================================================*/
 create table r_org_role__menu
 (
-   org_role__menu_id    bigint not null,
    org_role_id          bigint not null,
    menu_id              bigint not null,
-   primary key (org_role__menu_id)
+   is_deleted           bool not null,
+   primary key (org_role_id,menu_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
 /* Index: index_menu_id                                         */
 /*==============================================================*/
-create index index_menu_id on r_org_role__menu
+create index idx_menu_id on r_org_role__menu
 (
    menu_id
 );
 
-/*==============================================================*/
-/* Index: index_org_role_id                                     */
-/*==============================================================*/
-create index index_org_role_id on r_org_role__menu
-(
-   org_role_id
-);
 
 /*==============================================================*/
 /* Table: r_role__auz                                           */
 /*==============================================================*/
 create table r_role__auz
 (
-   role__auz_id         bigint not null,
    role_id              bigint not null,
    authorization_id     bigint not null,
-   primary key (role__auz_id)
+   is_deleted           bool not null,
+   primary key (role_id,authorization_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
 /* Index: index_auz_id                                          */
 /*==============================================================*/
-create index index_auz_id on r_role__auz
+create index idx_auz_id on r_role__auz
 (
    authorization_id
 );
 
-/*==============================================================*/
-/* Index: index_role_id                                         */
-/*==============================================================*/
-create index index_role_id on r_role__auz
-(
-   role_id
-);
 
 /*==============================================================*/
 /* Table: r_role__menu                                          */
 /*==============================================================*/
 create table r_role__menu
 (
-   role__menu_id        bigint not null,
    role_id              bigint not null,
    menu_id              bigint not null,
-   primary key (role__menu_id)
+   is_deleted           bool not null,
+   primary key (role_id,menu_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
-/*==============================================================*/
-/* Index: index_role_id                                         */
-/*==============================================================*/
-create index index_role_id on r_role__menu
-(
-   role_id
-);
 
 /*==============================================================*/
 /* Index: index_menu_id                                         */
 /*==============================================================*/
-create index index_menu_id on r_role__menu
+create index idx_menu_id on r_role__menu
 (
    menu_id
 );
@@ -691,24 +656,16 @@ create index index_menu_id on r_role__menu
 /*==============================================================*/
 create table r_user__group
 (
-   user__group_id       bigint not null auto_increment,
    user_id              bigint not null,
    group_id             bigint not null,
-   primary key (user__group_id)
+   is_deleted           bool not null,
+   primary key (user_id,group_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
-
-/*==============================================================*/
-/* Index: index_user_id                                         */
-/*==============================================================*/
-create index index_user_id on r_user__group
-(
-   user_id
-);
 
 /*==============================================================*/
 /* Index: Index_group_id                                        */
 /*==============================================================*/
-create index Index_group_id on r_user__group
+create index idx_group_id on r_user__group
 (
    group_id
 );
@@ -718,19 +675,12 @@ create index Index_group_id on r_user__group
 /*==============================================================*/
 create table r_user__org
 (
-   user__org_id         bigint not null auto_increment,
    user_id              bigint not null,
    org_id               bigint not null,
-   primary key (user__org_id)
+   is_deleted           bool not null,
+   primary key (user_id,org_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
-/*==============================================================*/
-/* Index: index_user_id                                         */
-/*==============================================================*/
-create index index_user_id on r_user__org
-(
-   user_id
-);
 
 /*==============================================================*/
 /* Index: Index_org_id                                          */
@@ -745,64 +695,51 @@ create index Index_org_id on r_user__org
 /*==============================================================*/
 create table r_user__org_role
 (
-   user__org_role_id    bigint not null,
    user_id              bigint not null,
    org_role_id          bigint not null,
-   primary key (user__org_role_id)
+   is_deleted           bool not null,
+   primary key (user_id,org_role_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
 /* Index: index_org_role_id                                     */
 /*==============================================================*/
-create index index_org_role_id on r_user__org_role
+create index idx_org_role_id on r_user__org_role
 (
    org_role_id
 );
 
-/*==============================================================*/
-/* Index: index_user_id                                         */
-/*==============================================================*/
-create index index_user_id on r_user__org_role
-(
-   user_id
-);
 
 /*==============================================================*/
 /* Table: r_user__user_msg                                      */
 /*==============================================================*/
 create table r_user__user_msg
 (
-   user__umsg_id        bigint not null,
    user_id              bigint not null,
    umsg_id              bigint not null,
-   primary key (user__umsg_id)
+   is_deleted           bool not null,
+   primary key (user_id,umsg_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
 /* Index: index_umsg_id                                         */
 /*==============================================================*/
-create index index_umsg_id on r_user__user_msg
+create index idx_umsg_id on r_user__user_msg
 (
    umsg_id
 );
 
-/*==============================================================*/
-/* Index: index_user_id                                         */
-/*==============================================================*/
-create index index_user_id on r_user__user_msg
-(
-   user_id
-);
 
 /*==============================================================*/
 /* Table: rich_text                                             */
 /*==============================================================*/
 create table rich_text
 (
-   rich_text_id         bigint not null,
+   rich_text_id         bigint not null auto_increment,
    rich_text            text,
    rich_text_type_code  bigint,
    rich_text_type_name  varchar(20),
+   is_deleted           bool not null,
    primary key (rich_text_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -931,7 +868,7 @@ create table task_file
    file_type_id         bigint not null,
    submit_task_id       bigint not null,
    file_name            varchar(20) not null,
-   file_url             varchar(200),
+   file_url             varchar(255),
    file_binary          mediumblob,
    file_hash            varchar(200),
    uploader             varchar(20) not null,
@@ -985,7 +922,7 @@ create table temp_file
    user_id              bigint not null,
    file_type_id         bigint not null,
    file_name            varchar(20) not null,
-   file_url             varchar(200),
+   file_url             varchar(255),
    file_binary          mediumblob,
    file_hash            varchar(200),
    extend_json          bigint,
@@ -1029,6 +966,7 @@ create table user
    province             varchar(20),
    nation               varchar(20),
    profile_photo        mediumblob,
+   profile_photo_url    varchar(255),        
    experience           int,
    coin                 int,
    signin_date          datetime,
@@ -1111,8 +1049,8 @@ create table user_msg
 /*==============================================================*/
 create table user_org_info
 (
-   user_org_info_id     bigint not null auto_increment,
    user_id              bigint not null,
+   org_id               bigint not null,
    user_org_name        varchar(20),
    user_org_exp         int,
    use_org_coin         int,
@@ -1121,6 +1059,7 @@ create table user_org_info
    user_org_school      varchar(20),
    user_org_college     varchar(20),
    user_org_major       varchar(20),
+   user_org_number      varchar(20),
    user_org_desc        varchar(200),
    extend_json          bigint,
    creation_date        datetime not null,
@@ -1130,15 +1069,16 @@ create table user_org_info
    is_deleted           bool not null,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (user_org_info_id)
+   primary key (user_id,org_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
 /* Index: idx_user_id                                           */
 /*==============================================================*/
-create index idx_user_id on user_org_info
+
+create index idx_org_id on user_org_info
 (
-   user_id
+   org_id
 );
 
 

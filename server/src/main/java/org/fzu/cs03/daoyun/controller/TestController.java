@@ -2,32 +2,28 @@ package org.fzu.cs03.daoyun.controller;
 
 
 import org.fzu.cs03.daoyun.entity.Role;
-import org.fzu.cs03.daoyun.entity.Student;
 import org.fzu.cs03.daoyun.entity.User;
-import org.fzu.cs03.daoyun.mapper.RoleMapper;
-import org.fzu.cs03.daoyun.service.StudentServiceImpl;
 import org.fzu.cs03.daoyun.service.entity.RoleService;
 import org.fzu.cs03.daoyun.service.entity.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.LiteDeviceResolver;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 //import sun.jvm.hotspot.debugger.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 
 //@Controller
 //@ResponseBody
 @RestController
-public class StudentController {
+@CrossOrigin
+public class TestController {
 
-    @Autowired
-    private StudentServiceImpl studentService;
 
     @Autowired
     private RoleService roleService;
@@ -48,6 +44,8 @@ public class StudentController {
 
     @RequestMapping("device")
     public String index(HttpServletRequest request){
+//        String info = "用户: " + request.getSession().getId() + "， 欲访问: "+request.getRequestURI();
+
         LiteDeviceResolver deviceResolver = new LiteDeviceResolver();
         Device device = deviceResolver.resolveDevice(request);
 

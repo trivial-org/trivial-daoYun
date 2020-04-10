@@ -7,22 +7,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class Role {
 
-    static public final int SUPER_ADMIN = 1;
-    static public final int VIP_USER = 2;
-    static public final int ORDINARY_USER = 3;
+    static public final Long SUPER_ADMIN = 1L;
+    static public final Long VIP_USER = 2L;
+    static public final Long ORDINARY_USER = 3L;
 
-    private long roleId;
-    private long roleTemplateId;
+    private Long roleId;
+    private Long roleTemplateId;
     private boolean isTemplate;
-    private long roleCode;
+    private Long roleCode;
     private String roleName;
     private String creationDate;
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public void setRoleTemplateId(long roleTemplateId) {
+    public void setRoleTemplateId(Long roleTemplateId) {
         this.roleTemplateId = roleTemplateId;
     }
 
@@ -30,7 +30,7 @@ public class Role {
         isTemplate = template;
     }
 
-    public void setRoleCode(long roleCode) {
+    public void setRoleCode(Long roleCode) {
         this.roleCode = roleCode;
     }
 
@@ -42,11 +42,23 @@ public class Role {
         this.creationDate = creationDate;
     }
 
-    public long getRoleId() {
+    public static Long getSuperAdmin() {
+        return SUPER_ADMIN;
+    }
+
+    public static Long getVipUser() {
+        return VIP_USER;
+    }
+
+    public static Long getOrdinaryUser() {
+        return ORDINARY_USER;
+    }
+
+    public Long getRoleId() {
         return roleId;
     }
 
-    public long getRoleTemplateId() {
+    public Long getRoleTemplateId() {
         return roleTemplateId;
     }
 
@@ -54,7 +66,7 @@ public class Role {
         return isTemplate;
     }
 
-    public long getRoleCode() {
+    public Long getRoleCode() {
         return roleCode;
     }
 

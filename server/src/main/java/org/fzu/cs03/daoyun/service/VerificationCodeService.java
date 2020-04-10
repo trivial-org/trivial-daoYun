@@ -31,7 +31,8 @@ public class VerificationCodeService {
 
     private DrawUtils drawUtils = new DrawUtils();
     private RandomCodeUtils randomCodeUtils = new RandomCodeUtils();
-    private static final Logger logger = LoggerFactory.getLogger(VerificationCodeService.class);
+
+    private final Logger logger = LoggerFactory.getLogger(VerificationCodeService.class);
 
     public byte[] generateCode(HttpSession session) throws VerificationCodeException{
 

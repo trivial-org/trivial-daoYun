@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.fzu.cs03</groupId>
-    <artifactId>daoyun_mysql127</artifactId>
-    <version>0.0.1</version>
+    <artifactId>daoyun</artifactId>
+    <version>0.0.2</version>
     <name>daoyun</name>
     <description>daoYun Server (using Spring Boot)</description>
 
@@ -38,10 +38,24 @@
             <url>https://dl.bintray.com/spring/jars/</url>
         </repository>
 
+        <repository>
+            <id>maven_central</id>
+            <url>https://repo1.maven.org/maven2//</url>
+        </repository>
+
     </repositories>
 
 
+
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
+
 
         <!-- 引入 device检查 -->
         <dependency>

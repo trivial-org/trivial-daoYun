@@ -5,7 +5,10 @@ import org.fzu.cs03.daoyun.exception.VerificationCodeException;
 import org.fzu.cs03.daoyun.service.MailVerificationService;
 import org.fzu.cs03.daoyun.service.ResponseService;
 import org.fzu.cs03.daoyun.service.VerificationCodeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin
 public class VerificationCodeController {
 
     @Autowired
@@ -23,6 +27,8 @@ public class VerificationCodeController {
 
     @Autowired
     ResponseService responseService;
+
+    private final Logger logger = LoggerFactory.getLogger(VerificationCodeController.class);
 
     @GetMapping(value = "/verification/code")
     public void getVerificationCode(HttpServletRequest request, HttpServletResponse response){
@@ -42,7 +48,7 @@ public class VerificationCodeController {
 
         } catch (Exception e){
 //            e.printStackTrace();
-            responseService.responseGET(StatusCode.RESPONSE_ERR,e.toString(),"");
+            responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }
 
 

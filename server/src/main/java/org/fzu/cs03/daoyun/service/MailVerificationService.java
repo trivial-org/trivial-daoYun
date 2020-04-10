@@ -5,6 +5,8 @@ import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.User;
 import org.fzu.cs03.daoyun.exception.MailVerificationException;
 import org.fzu.cs03.daoyun.exception.SignUpException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,7 @@ public class MailVerificationService {
     static public final String mailVerificationCodeCreateDate = "mailVerificationCodeCreateDate";
     static public final String verificationEmail = "verificationEmail";
 
+    private final Logger logger = LoggerFactory.getLogger(MailVerificationService.class);
 
     @Autowired
     private MailService mailService;
@@ -63,7 +66,7 @@ public class MailVerificationService {
             session.setAttribute( MailVerificationService.verificationEmail, email);
 //                System.out.println(code);
             mailService.sendTemplateMail(email,"兄弟",code);
-            return responseService.responseGET(StatusCode.RESPONSE_OK,"","");
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"验证码发送成功");
         }
         else throw new MailVerificationException("请求邮件验证码太频繁");
     }
@@ -75,7 +78,7 @@ public class MailVerificationService {
         Date mailVerificationCodeCreateDate = (Date) session.getAttribute(MailVerificationService.mailVerificationCodeCreateDate);
         String bindEmail = (String) session.getAttribute(MailVerificationService.verificationEmail);
 
-        if (mailVerificationCode == null || mailVerificationCodeCreateDate == null){
+        if (mailVerificationCode == null || mailVerificationCodeCreateDate == null || bindEmail == null){
             throw new MailVerificationException("请先获取邮件验证码");
         }
         else{

@@ -7,6 +7,8 @@ import org.fzu.cs03.daoyun.exception.MailVerificationException;
 import org.fzu.cs03.daoyun.exception.SignUpException;
 import org.fzu.cs03.daoyun.exception.VerificationCodeException;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -21,7 +23,6 @@ import java.util.regex.Pattern;
 @Component
 public class SignUpService {
 
-
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -31,8 +32,12 @@ public class SignUpService {
     @Autowired
     private VerificationCodeService verificationCodeService;
 
+    private final Logger logger = LoggerFactory.getLogger(SignUpService.class);
+
     boolean checkUserName(String userName){
-        String pattern = "^[a-zA-Z][a-zA-Z0-9_]\\w{5,17}$";
+//        ^[a-zA-Z][a-zA-Z0-9_]\\w{5,17}$
+//        ^[a-zA-Z]\\w{5,17}$
+        String pattern = "^[a-zA-Z][a-zA-Z0-9_]{5,17}$";
         return Pattern.matches(pattern,userName);
     }
 
@@ -65,7 +70,7 @@ public class SignUpService {
 
     public String signUp(User user, HttpSession session) throws Exception{
             this.createAccount(user, session);
-            return responseService.responsePOST(StatusCode.RESPONSE_OK,"注册成功");
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"注册成功");
     }
 
 
@@ -73,9 +78,9 @@ public class SignUpService {
         boolean exist = false;
         exist = userMapper.userExist(userName);
         if (exist) {
-            return responseService.responseGET(StatusCode.RESPONSE_OK,"","found");
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"","found");
         }
-        return responseService.responseGET(StatusCode.RESPONSE_OK,"","not found");
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"","not found");
     }
 
 

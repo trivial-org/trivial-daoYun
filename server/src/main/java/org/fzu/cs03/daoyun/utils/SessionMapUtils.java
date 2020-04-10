@@ -1,5 +1,7 @@
 package org.fzu.cs03.daoyun.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.mobile.device.Device;
@@ -14,6 +16,8 @@ import java.util.Map;
 public class SessionMapUtils {
 
     private static Map<String, JSONObject> SessionMap = new HashMap<String,JSONObject>();
+
+    private final Logger logger = LoggerFactory.getLogger(SessionMapUtils.class);
 
 //    public boolean containSession(String userName, DeviceType deviceType){
 //        if (! SessionMap.containsKey(userName)) return false;
@@ -30,7 +34,8 @@ public class SessionMapUtils {
             return  jsonObject.get(deviceType.getName()).equals(request.getSession().getId());
 
         } catch (JSONException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            logger.error(e.toString());
         }
         return false;
     }
@@ -47,7 +52,8 @@ public class SessionMapUtils {
             SessionMap.put(userName,jsonObject);
 
         } catch (JSONException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
@@ -69,7 +75,8 @@ public class SessionMapUtils {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
