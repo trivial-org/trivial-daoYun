@@ -4,6 +4,7 @@ import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.ClassMemberUpdate;
 import org.fzu.cs03.daoyun.entity.CloudClass;
 import org.fzu.cs03.daoyun.entity.DataDirectionary;
+import org.fzu.cs03.daoyun.mapper.UserMapper;
 import org.fzu.cs03.daoyun.service.ClassMemberService;
 import org.fzu.cs03.daoyun.service.CloudClassService;
 import org.fzu.cs03.daoyun.service.ResponseService;
@@ -37,13 +38,13 @@ import javax.servlet.http.HttpServletRequest;
 public class ClassMemberController {
 
     @Autowired
-    CloudClassService cloudClassService;
-
+    private CloudClassService cloudClassService;
     @Autowired
-    ResponseService responseService;
-
+    private UserMapper userMapper;
     @Autowired
-    ClassMemberService classMemberService;
+    private ResponseService responseService;
+    @Autowired
+    private ClassMemberService classMemberService;
 
     private final Logger logger = LoggerFactory.getLogger(ClassMemberController.class);
 

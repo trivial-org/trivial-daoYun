@@ -9,6 +9,7 @@ import org.fzu.cs03.daoyun.entity.DataDirectionary;
 import org.fzu.cs03.daoyun.entity.Orgnization;
 import org.fzu.cs03.daoyun.exception.CloudClassException;
 import org.fzu.cs03.daoyun.exception.DataDictionaryException;
+import org.fzu.cs03.daoyun.exception.OrgMemberException;
 import org.fzu.cs03.daoyun.exception.OrgnizationException;
 import org.fzu.cs03.daoyun.mapper.OrgMemberMapper;
 import org.fzu.cs03.daoyun.mapper.OrgnizationMapper;
@@ -69,6 +70,7 @@ public class CloudClassService {
         orgnizationMapper.cerateOrgnization(orgCode,orgName,richTextId,dateStr,creator,false);
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         //创建者与组织的关系
+        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
         classMemberService.addUserToClass(userId,orgId);
 
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"创建成功",orgCode);
@@ -88,8 +90,15 @@ public class CloudClassService {
 
 
     public String updateClassInfoByOrgCode(Long orgCode, CloudClass updateInfo,  HttpServletRequest request) throws Exception{
-        Long richTextId = orgnizationMapper.geRichTextIdByOrgCode(orgCode);
+        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        Long userId = userMapper.getUserIdByUserName(userName);
+        Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
+        if (orgId == null)
+            throw new OrgMemberException("班课不存在");
+        if (!orgMemberMapper.userInOrgnization(userId,orgId))
+            throw new OrgMemberException("用户不在该班课中");
 
+        Long richTextId = orgnizationMapper.geRichTextIdByOrgCode(orgCode);
         richTextService.updateRichText(richTextId,updateInfo);
 
 //        String classInfo = richTextService.getRichText(richTextId);
@@ -112,10 +121,12 @@ public class CloudClassService {
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if ( ! orgnizationMapper.OrgExistByOrgId(orgId))
             throw new CloudClassException("班课不存在，删除失败");
+        if (!orgMemberMapper.userInOrgnization(userId,orgId))
+            throw new OrgMemberException("用户不在该班课中");
+
         //删除班级+班级-成员联系
         this.deleteCloudClass(orgId);
         classMemberService.removeAllUsersFromClass(orgId);
-
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除成功");
     }
 

@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.fzu.cs03</groupId>
     <artifactId>daoyun</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <name>daoyun</name>
     <description>daoYun Server (using Spring Boot)</description>
 

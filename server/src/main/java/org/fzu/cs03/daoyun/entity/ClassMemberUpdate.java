@@ -12,6 +12,11 @@ public class ClassMemberUpdate {
     private String userClassCollege;
     private String userClassMajor;
     private String userClassNumber;
+    private String userClassNickName;
+
+    public void setUserClassNickName(String userNickName) {
+        this.userClassNickName = userNickName;
+    }
 
     public void setUserClassName(String userClassName) {
         this.userClassName = userClassName;
@@ -52,5 +57,9 @@ public class ClassMemberUpdate {
 
     public String getUserClassNumber() {
         return userClassNumber;
+    }
+
+    public String getUserClassNickName() {
+        return userClassNickName;
     }
 }

@@ -42,15 +42,15 @@ public class WebMvcConf implements WebMvcConfigurer {
 //
 //    正确的解决跨域问题的方法时使用CorsFilter过滤器。代码如下：
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "OPTIONS","PUT","DELETE")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
-    }
+    // @Override
+    // public void addCorsMappings(CorsRegistry registry) {
+        // registry.addMapping("/api/**")
+                // .allowedOrigins("*")
+                // .allowedMethods("GET", "POST", "OPTIONS","PUT","DELETE")
+                // .allowedHeaders("*")
+                // .allowCredentials(true)
+                // .maxAge(3600);
+    // }
 
 
 

@@ -19,6 +19,7 @@ public class ClassMember {
         this.userName = userName;
     }
 
+
     public void setRichTextId(Long richTextId) {
         this.richTextId = richTextId;
     }

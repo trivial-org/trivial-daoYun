@@ -3,11 +3,19 @@ package org.fzu.cs03.daoyun.entity;
 import org.springframework.stereotype.Component;
 
 @Component
+/**
+ * @description: 该实体描述了user表对应的所有字段，只内部可见
+ * @author: Mu.xx
+ * @date: 2020/4/15 14:48
+ * @param: null
+ * @return:
+ */
 public class User {
     private long userId;
     private long roleId;
     private String userName;
     private String nickName;
+    private String studentId;
     private String password;
     private String phone;
     private String email;
@@ -15,6 +23,7 @@ public class User {
     private String birthDate;
     private String address,city,province,nation;
     private int experience,coin;
+    private String profilePhotoUrl;
 
     private String mobileToken,webToken,pcToken;
     private String mobileTokenCreateDate,webTokenCreateDate,pcTokenCreateDate;
@@ -22,6 +31,32 @@ public class User {
 
     private String verificationCode;
     private String mailVerificationCode;
+
+    private String college;
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public String getProfilePhotoUrl() {
+        return profilePhotoUrl;
+    }
+
+    public void setProfilePhotoUrl(String profilePhotoUrl) {
+        this.profilePhotoUrl = profilePhotoUrl;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;

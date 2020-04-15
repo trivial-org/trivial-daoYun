@@ -48,7 +48,7 @@ public class SignInService {
         if (! userMapper.userExist(userName)) throw new SignInException("用户不存在");
         if (! userMapper.getUserPassword(userName).equals(password)) throw new SignInException("密码不正确");
         //验证码认证
-//        verificationCodeService.verify(new Date(),user.getVerificationCode(),request.getSession());
+        verificationCodeService.verify(new Date(),user.getVerificationCode(),request.getSession());
 
         if (obj == null)
             oldUserName = null;

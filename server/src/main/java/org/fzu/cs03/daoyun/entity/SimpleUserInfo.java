@@ -1,33 +1,48 @@
 package org.fzu.cs03.daoyun.entity;
 
 /**
- * @description: 该实体描述了用户可更新的字段，外部可见
+ * @description: 该实体描述了一个用户的简单描述，仅包含用户的非敏感信息
  * @author: Mu.xx
- * @date: 2020/4/9 23:50
+ * @date: 2020/4/15 14:44
  */
-public class UserUpdate {
+public class SimpleUserInfo {
+    private Long userId;
+    private String userName;
     private String nickName;
-    private String gender;
-    private String profilePhotoUrl;
     private String studentId;
-
-    private String school;
-    private String major;
-    private String education;
-    private String college;
+    private String school,education,major;
     private String birthDate;
     private String address,city,province,nation;
+    private String profilePhotoUrl;
+    private String college;
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public String getCollege() {
+        return college;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+
+    public String getProfilePhotoUrl() {
+        return profilePhotoUrl;
     }
 
     public void setProfilePhotoUrl(String profilePhotoUrl) {
         this.profilePhotoUrl = profilePhotoUrl;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public void setStudentId(String studentId) {
@@ -38,16 +53,12 @@ public class UserUpdate {
         this.school = school;
     }
 
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
     public void setEducation(String education) {
         this.education = education;
     }
 
-    public void setCollege(String college) {
-        this.college = college;
+    public void setMajor(String major) {
+        this.major = major;
     }
 
     public void setBirthDate(String birthDate) {
@@ -70,16 +81,16 @@ public class UserUpdate {
         this.nation = nation;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
     public String getNickName() {
         return nickName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getProfilePhotoUrl() {
-        return profilePhotoUrl;
     }
 
     public String getStudentId() {
@@ -90,16 +101,12 @@ public class UserUpdate {
         return school;
     }
 
-    public String getMajor() {
-        return major;
-    }
-
     public String getEducation() {
         return education;
     }
 
-    public String getCollege() {
-        return college;
+    public String getMajor() {
+        return major;
     }
 
     public String getBirthDate() {
