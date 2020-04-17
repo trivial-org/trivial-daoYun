@@ -36,7 +36,7 @@ Engeering practice
   例子：http://47.95.120.250:8080/user/info
   
   ```java
-  private String nickName;
+  private String nickname;
   private String gender;
   private String profilePhotoUrl;
   private String studentId;

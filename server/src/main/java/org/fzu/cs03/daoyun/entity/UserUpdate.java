@@ -6,11 +6,10 @@ package org.fzu.cs03.daoyun.entity;
  * @date: 2020/4/9 23:50
  */
 public class UserUpdate {
-    private String nickName;
+    private String nickname;
     private String gender;
     private String profilePhotoUrl;
     private String studentId;
-
     private String school;
     private String major;
     private String education;
@@ -18,12 +17,17 @@ public class UserUpdate {
     private String birthDate;
     private String address,city,province,nation;
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+
+    public void setNickname(String nickName) {
+        this.nickname = nickName;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public void setProfilePhotoUrl(String profilePhotoUrl) {
@@ -70,12 +74,8 @@ public class UserUpdate {
         this.nation = nation;
     }
 
-    public String getNickName() {
-        return nickName;
-    }
-
-    public String getGender() {
-        return gender;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getProfilePhotoUrl() {

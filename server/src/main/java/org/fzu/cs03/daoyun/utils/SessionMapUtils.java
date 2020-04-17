@@ -19,12 +19,6 @@ public class SessionMapUtils {
 
     private final Logger logger = LoggerFactory.getLogger(SessionMapUtils.class);
 
-//    public boolean containSession(String userName, DeviceType deviceType){
-//        if (! SessionMap.containsKey(userName)) return false;
-//        JSONObject jsonObject = SessionMap.get(userName);
-//        return jsonObject.has(deviceType.getName());
-//    }
-
     public boolean isActiveSession(String userName, HttpServletRequest request){
         try{
             if (! SessionMap.containsKey(userName)) return false;

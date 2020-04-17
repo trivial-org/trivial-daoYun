@@ -10,12 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Random;
 
-@Component
+@Service
 public class MailVerificationService {
 
     // 进行验证的最大等待时间

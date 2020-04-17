@@ -56,7 +56,7 @@ public class ClassMemberService {
         String classMajor = allUserInfo.getMajor();
         String classCollege = allUserInfo.getCollege();
         String userName = allUserInfo.getUserName();
-        String nickName = allUserInfo.getNickName();
+        String nickName = allUserInfo.getNickname();
         String classNumber = allUserInfo.getStudentId();
         if (nickName == null)
             nickName = userName;

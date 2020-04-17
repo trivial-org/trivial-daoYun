@@ -64,15 +64,17 @@ public interface UserMapper {
                                 String province, String nation);
 
     //获取用户可更新信息
-    @Select("SELECT nickname, student_id, gender, profile_photo_url FROM user WHERE user_id = #{userId}")
+    @Select("SELECT nickname, student_id, gender, profile_photo_url, school, major, college," +
+            "education, birth_date, address, city, province, nation" +
+            " FROM user WHERE user_id = #{userId}")
     UserUpdate getUserUpdatableInfoByUserId(Long userId);
 
     //获取SimpleUserInfo
-    @Select("SELECT user_id, nickname, student_id, gender, school, college, education, major, birth_date, address, city, province, nation, profile_photo_url FROM user WHERE user_id = #{userId}")
+    @Select("SELECT user_id, username userName, nickname, student_id, gender, school, college, education, major, birth_date, address, city, province, nation, profile_photo_url FROM user WHERE user_id = #{userId}")
     SimpleUserInfo getSimpleUserInfoByUserId(Long userId);
 
     //获取AllUserInfo
-    @Select("SELECT user_id, role_id, username, nickname, student_id, gender, phone, email, school, college, education, major, birth_date, address, city, province, nation, experience, coin, profile_photo_url FROM user WHERE user_id = #{userId}")
+    @Select("SELECT user_id, role_id, username userName, nickname, student_id, gender, phone, email, school, college, education, major, birth_date, address, city, province, nation, experience, coin, profile_photo_url FROM user WHERE user_id = #{userId}")
     AllUserInfo getAllUserInfoByUserId(Long userId);
 
 

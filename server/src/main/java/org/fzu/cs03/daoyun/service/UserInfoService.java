@@ -62,21 +62,44 @@ public class UserInfoService {
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"",jsonArray);
     }
 
+    // 本地测试正常，服务器运行报nullPointer Exception? 2020/4/16
+    // 经测试:数据库读入时为空，查询信息就为空报错。
+    // 因此要先判断一下如果是空，直接新数据替换
     public String updateUserInfo(UserUpdate userUpdate,  HttpServletRequest request) throws Exception{
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
-        UserUpdate oldUserUpdatableInfo = userMapper.getUserUpdatableInfoByUserId(userId);
-        //个体用jsonobj,list用jsonarray
-        JSONObject oldJsonObject = (JSONObject) JSON.toJSON(oldUserUpdatableInfo);
-        JSONObject newJsonObject = (JSONObject) JSON.toJSON(userUpdate);
-
-        for(Map.Entry<String, Object> entry: newJsonObject.entrySet()){
-            if (entry.getValue() != null)
-                oldJsonObject.put(entry.getKey(),entry.getValue());
+        if (userUpdate == null){
+            throw new UserInfoException("提交的用户信息为空");
         }
 
-        UserUpdate newUserInfo = JSON.toJavaObject(oldJsonObject,UserUpdate.class);
-        userMapper.updateUserInfoByUserId(userId,newUserInfo.getNickName(),newUserInfo.getStudentId(),
+        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        Long userId = userMapper.getUserIdByUserName(userName);
+        if (userId == null){
+            throw new UserInfoException("未查询到用户");
+        }
+        UserUpdate oldUserUpdatableInfo = userMapper.getUserUpdatableInfoByUserId(userId);
+        UserUpdate newUserInfo = null;
+
+        if (oldUserUpdatableInfo != null){
+            //个体用jsonobj,list用jsonarray
+            JSONObject oldJsonObject = (JSONObject) JSON.toJSON(oldUserUpdatableInfo);
+            JSONObject newJsonObject = (JSONObject) JSON.toJSON(userUpdate);
+
+            if(oldJsonObject == null || newJsonObject == null){
+                throw new UserInfoException("实体fastJson转化异常");
+            }
+
+            for(Map.Entry<String, Object> entry: newJsonObject.entrySet()){
+                if (entry.getValue() != null)
+                    oldJsonObject.put(entry.getKey(),entry.getValue());
+            }
+            newUserInfo = JSON.toJavaObject(oldJsonObject,UserUpdate.class);
+            if(newJsonObject == null)
+                throw new UserInfoException("fastJson实体转化异常");
+        }
+        else{
+            newUserInfo = userUpdate;
+        }
+
+        userMapper.updateUserInfoByUserId(userId,newUserInfo.getNickname(),newUserInfo.getStudentId(),
                 newUserInfo.getGender(),newUserInfo.getProfilePhotoUrl(),newUserInfo.getSchool(),
                 newUserInfo.getMajor(),newUserInfo.getCollege(),newUserInfo.getEducation(),
                 newUserInfo.getBirthDate(),newUserInfo.getAddress(),newUserInfo.getCity(),

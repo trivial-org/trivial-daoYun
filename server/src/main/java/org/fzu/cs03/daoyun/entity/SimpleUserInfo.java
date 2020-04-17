@@ -8,13 +8,22 @@ package org.fzu.cs03.daoyun.entity;
 public class SimpleUserInfo {
     private Long userId;
     private String userName;
-    private String nickName;
+    private String nickname;
+    private String gender;
     private String studentId;
     private String school,education,major;
     private String birthDate;
     private String address,city,province,nation;
     private String profilePhotoUrl;
     private String college;
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
 
     public String getCollege() {
         return college;
@@ -41,8 +50,8 @@ public class SimpleUserInfo {
         this.userName = userName;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickName) {
+        this.nickname = nickname;
     }
 
     public void setStudentId(String studentId) {
@@ -89,8 +98,8 @@ public class SimpleUserInfo {
         return userName;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getStudentId() {

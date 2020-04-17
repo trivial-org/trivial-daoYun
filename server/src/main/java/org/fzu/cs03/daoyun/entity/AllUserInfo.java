@@ -18,7 +18,8 @@ public class AllUserInfo {
     private Long userId;
     private Long roleId;
     private String userName;
-    private String nickName;
+    private String nickname;
+    private String gender;
     private String studentId;
     private String phone;
     private String email;
@@ -28,6 +29,14 @@ public class AllUserInfo {
     private Integer experience,coin;
     private String profilePhotoUrl;
     private String college;
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
 
     public String getCollege() {
         return college;
@@ -57,8 +66,8 @@ public class AllUserInfo {
         this.userName = userName;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public void setStudentId(String studentId) {
@@ -125,8 +134,8 @@ public class AllUserInfo {
         return userName;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getStudentId() {
