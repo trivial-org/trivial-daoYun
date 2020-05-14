@@ -6,8 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 
 //@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-//@SpringBootApplication
-@SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class) // 关闭 while error page(错误访问回显)
+@SpringBootApplication
+//@MapperScan("org.fzu.cs03.daoyun.mapper")
+//@SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class) // 关闭 while error page(错误访问回显)
 @MapperScan("org.fzu.cs03.daoyun")
 public class DaoyunApplication {
 

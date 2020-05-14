@@ -1,11 +1,8 @@
 package org.fzu.cs03.daoyun.controller;
 
-import org.apache.ibatis.annotations.Delete;
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.CloudClass;
-import org.fzu.cs03.daoyun.entity.DataDirectionary;
 import org.fzu.cs03.daoyun.service.CloudClassService;
-import org.fzu.cs03.daoyun.service.DataDictionaryService;
 import org.fzu.cs03.daoyun.service.ResponseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -48,7 +48,7 @@ public class SignInService {
         if (! userMapper.userExist(userName)) throw new SignInException("用户不存在");
         if (! userMapper.getUserPassword(userName).equals(password)) throw new SignInException("密码不正确");
         //验证码认证
-        verificationCodeService.verify(new Date(),user.getVerificationCode(),request.getSession());
+//        verificationCodeService.verify(new Date(),user.getVerificationCode(),request.getSession());
 
         if (obj == null)
             oldUserName = null;
@@ -68,10 +68,12 @@ public class SignInService {
         if (oldUserName != null && ! oldUserName.equals(userName) ) {
             sessionMapUtils.removeSession(oldUserName,request);
         }
+        Long userId = userMapper.getUserIdByUserName(userName);
+
         request.getSession().setAttribute("userName",userName);
+//        request.getSession().setAttribute("userId",userId);
         sessionMapUtils.updateSession(userName, request);
 
-        long userId = userMapper.getUserIdByUserName(userName);
 
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"登录成功",userId);
     }

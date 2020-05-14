@@ -7,6 +7,135 @@ Engeering practice
 - controller层提供交互接口
 - service层提供服务（service之间操作mapper层，同文件分为底层服务和逻辑控制服务，底层服务提供事务级数据库操作，逻辑控制做合法性检查，底层服务可能service之间存在共享，是否要将这两层完全剥离？再抽象一个事务级Dao层？）
 - mapper层提供与数据库交互
+- mapper层逐步取消exister，直接使用getter，如果为空返回null。
+
+
+
+
+### 功能更新 2020/5/15
+---
+
+- 更新数据字典
+
+- 更新签到功能
+
+- 全部替换为软删除
+
+- 重构了部分数据库表结构
+
+- 引入mybatis-plus，新的代码都使用软删除
+
+  
+
+#### post/get/put/delete示例
+
+---
+
+- **/dataDictionary (delete，删除数据字典数据)**
+  
+  例子：http://47.95.120.250:8080/dataDictionary?dictName=xxx&dataName=xxx
+  
+  
+  
+- **/dataDictionary (put，更新数据字典数据)**
+  
+  例子：http://47.95.120.250:8080/dataDictionary
+  
+  **body参数**：
+  
+  ```java
+  private String dictName;
+  private String dataName;
+  private Long dataOrder;
+  private String newDictName;
+  private String newDataName;
+  ```
+  
+  
+  
+- **/dataDictionary (post，插入数据字典数据)**
+  
+  例子：http://47.95.120.250:8080/dataDictionary
+  
+  **body参数**：
+  
+  ```java
+  private Long id;
+  private String dictName;
+  private String dataName;
+  private Long dataOrder;
+  private Boolean deleted;
+  ```
+  
+  
+  
+- **/dataDictionary (GetMapping，获得数据字典数据)**
+  
+  例子：http://47.95.120.250:8080/dataDictionary?getAll=0&dictName=xxxx&dataName=xxxx&page=1&pageSize=10
+  
+  当**getAll=1**或**dictName为空**时，返回整个数据字典
+  
+  **dataName为空**时，返回**dictName定义**的整个字典类下的所有数据记录
+  
+  **dataName非空时**，返回**dictName定义**的整个字典类下的**对dataName模糊匹配**的数据记录
+
+
+
+- **/activities (PostMapping，创建活动)**
+
+  例子：http://47.95.120.250:8080/activitie
+  
+  **body参数**：
+  
+  ```java
+  private Long activityTypeId;		//活动类型，签到为1
+  private String answer;				//活动答案：可以是签到顺序，如123456789
+  private Integer maxscore;			//活动分数
+  private String activityDescription; //活动描述
+  private Long orgCode; 				//活动对应的班课号
+  ```
+
+
+
+- **/activities (GetMapping，获得某班课下所有活动，返回信息包含活动id)**
+
+  例子：http://47.95.120.250:8080/activitie?orgCode=xxxxx
+
+
+
+- **/activities (PutMapping，关闭班课活动)**
+
+  例子：http://47.95.120.250:8080/activitie?activityId=xxxxx
+
+
+
+- **/activities/records (PostMapping，参加班课活动)**
+
+  例子：http://47.95.120.250:8080/activities/records
+
+  **body参数**：
+
+  ```java
+private Long activityId; //活动id
+private String answer;   //提交的答案
+  ```
+
+
+
+- **/activities/records (GetMapping，获取班课活动的参加情况，包括回答错误的记录)**
+
+  例子：http://47.95.120.250:8080/activities/records?activityId=xxxxx&page=1&pageSize=10
+
+
+
+---
+
+
+
+
+
+
+
 
 
 

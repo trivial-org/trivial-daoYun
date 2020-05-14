@@ -5,10 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.fzu.cs03.daoyun.GlobalConstant;
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.CloudClass;
-import org.fzu.cs03.daoyun.entity.DataDirectionary;
 import org.fzu.cs03.daoyun.entity.Orgnization;
 import org.fzu.cs03.daoyun.exception.CloudClassException;
-import org.fzu.cs03.daoyun.exception.DataDictionaryException;
 import org.fzu.cs03.daoyun.exception.OrgMemberException;
 import org.fzu.cs03.daoyun.exception.OrgnizationException;
 import org.fzu.cs03.daoyun.mapper.OrgMemberMapper;
@@ -23,7 +21,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 
 @Service
@@ -95,7 +92,7 @@ public class CloudClassService {
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
-        if (!orgMemberMapper.userInOrgnization(userId,orgId))
+        if (Boolean.FALSE == orgMemberMapper.userInOrgnization(userId,orgId))
             throw new OrgMemberException("用户不在该班课中");
 
         Long richTextId = orgnizationMapper.geRichTextIdByOrgCode(orgCode);
@@ -121,7 +118,7 @@ public class CloudClassService {
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if ( ! orgnizationMapper.OrgExistByOrgId(orgId))
             throw new CloudClassException("班课不存在，删除失败");
-        if (!orgMemberMapper.userInOrgnization(userId,orgId))
+        if (Boolean.FALSE == orgMemberMapper.userInOrgnization(userId,orgId))
             throw new OrgMemberException("用户不在该班课中");
 
         //删除班级+班级-成员联系

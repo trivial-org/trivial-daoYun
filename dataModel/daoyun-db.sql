@@ -9,20 +9,21 @@
 /*==============================================================*/
 create table activity_type
 (
-   activity_type_id     bigint not null auto_increment,
+   id     bigint not null auto_increment,
    activity_type_code   bigint not null,
    activity_type_order  int not null,
    activity_type_name   varchar(20) not null,
    activity_type_description varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (activity_type_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -30,20 +31,21 @@ create table activity_type
 /*==============================================================*/
 create table announcement
 (
-   annc_id              bigint not null auto_increment,
+   id              bigint not null auto_increment,
    org_id               bigint not null,
    annc_content         varchar(200) not null,
    publihser            varchar(20) not null,
    publisher_nickname   varchar(20),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (annc_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -59,7 +61,7 @@ create index idx_org_id on announcement
 /*==============================================================*/
 create table authorization
 (
-   authorization_id     bigint not null auto_increment,
+   id     bigint not null auto_increment,
    auz_type_id          bigint not null,
    auz_code             bigint not null,
    parent_auz_id        bigint,
@@ -70,14 +72,15 @@ create table authorization
    auz_param            varchar(200),
    auz_description      varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (authorization_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -85,20 +88,21 @@ create table authorization
 /*==============================================================*/
 create table auz_type
 (
-   auz_type_id          bigint not null auto_increment,
+   id          bigint not null auto_increment,
    auz_type_code        bigint not null,
    auz_type_order       int not null,
    auz_type_name        varchar(20) not null,
    auz_type_desc        varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (auz_type_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -106,7 +110,7 @@ create table auz_type
 /*==============================================================*/
 create table comment
 (
-   comment_id           bigint not null,
+   id           bigint not null,
    discussion_id        bigint not null,
    reply_id             bigint,
    quote_id             bigint,
@@ -115,14 +119,15 @@ create table comment
    comment_level        int not null,
    comment_order        int not null,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (comment_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -133,43 +138,73 @@ create index idx_discussion_id on comment
    discussion_id
 );
 
+
+
 /*==============================================================*/
-/* Table: data_dictionary                                       */
+/* Table: data_dictionary_key                                    */
 /*==============================================================*/
-create table data_dictionary
+create table data_dictionary_key
 (
-   record_id            bigint not null auto_increment,
-   dict_code            bigint not null,
+   id                   bigint not null auto_increment,
+   dict_code            bigint,
    dict_name            varchar(20) not null,
    dict_description     varchar(200),
-   data_code            bigint,
-   data_name            varchar(20) not null,
-   data_order           int,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (record_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
 /* Index: idx_dict_code                                         */
 /*==============================================================*/
-create index idx_dict_code on data_dictionary
+create index idx_dict_code on data_dictionary_key
 (
    dict_code
 );
 
+
+/*==============================================================*/
+/* Table: data_dictionary_value                                       */
+/*==============================================================*/
+create table data_dictionary_value
+(
+   id                   bigint not null auto_increment,
+   dict_id              bigint not null,
+   data_code            bigint,
+   data_name            varchar(20) not null,
+   data_order           int,
+   extend_json          bigint,
+   creation_date        datetime,
+   creator              varchar(20),
+   last_modification_date datetime,
+   last_modifier        varchar(20),
+   is_deleted           bool,
+   deletion_date        datetime,
+   deleter              varchar(20),
+   version              bigint,
+   primary key (id)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
+
+/*==============================================================*/
+/* Index: idx_dict_code                                         */
+/*==============================================================*/
+create index idx_dict_code on data_dictionary_value
+(
+   dict_id
+);
 /*==============================================================*/
 /* Table: discussion                                            */
 /*==============================================================*/
 create table discussion
 (
-   discussion_id        bigint not null auto_increment,
+   id        bigint not null auto_increment,
    org_id               bigint,
    task_id              bigint,
    discussion_type_code bigint,
@@ -177,14 +212,15 @@ create table discussion
    discussion_title     varchar(200) not null,
    author_nickname      varchar(20),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (discussion_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -208,7 +244,7 @@ create index idx_task_id on discussion
 /*==============================================================*/
 create table discussion_file
 (
-   discussion_file_id   bigint not null,
+   id   bigint not null,
    file_type_id         bigint not null,
    file_name            varchar(20) not null,
    file_url             varchar(255),
@@ -217,14 +253,15 @@ create table discussion_file
    uploader             varchar(20) not null,
    download_count       int,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (discussion_file_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -232,19 +269,20 @@ create table discussion_file
 /*==============================================================*/
 create table file_type
 (
-   file_type_id         bigint not null,
+   id         bigint not null,
    file_type_code       bigint not null,
    file_type_name       varchar(20) not null,
    file_type_desc       varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (file_type_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -252,7 +290,7 @@ create table file_type
 /*==============================================================*/
 create table org_group
 (
-   group_id             bigint not null auto_increment,
+   id             bigint not null auto_increment,
    org_id               bigint not null,
    group_plan_id        bigint,
    group_code           bigint not null,
@@ -263,14 +301,15 @@ create table org_group
    group_type_name      varchar(20),
    group_description    varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (group_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -295,19 +334,20 @@ create index idx_org_id on org_group
 /*==============================================================*/
 create table group_plan
 (
-   group_plan_id        bigint not null,
+   id        bigint not null,
    org_id               bigint not null,
    group_plan_name      varchar(20) not null,
    group_plan_order     int not null,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (group_plan_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -323,7 +363,7 @@ create index idx_org_id on group_plan
 /*==============================================================*/
 create table menu
 (
-   menu_id              bigint not null auto_increment,
+   id              bigint not null auto_increment,
    menu_code            bigint not null,
    menu_type_code       int not null,
    parent_menu_id       bigint,
@@ -334,14 +374,15 @@ create table menu
    menu_url             varchar(255),
    menu_description     varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (menu_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -349,21 +390,22 @@ create table menu
 /*==============================================================*/
 create table org
 (
-   org_id               bigint not null auto_increment,
+   id               bigint not null auto_increment,
    org_code             bigint not null,
    parent_org_id        bigint,
    is_root              bool,
    org_name             varchar(20) not null,
    org_description      varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (org_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -379,7 +421,7 @@ create unique index uk_org_code on org
 /*==============================================================*/
 create table org_file
 (
-   org_file_id          bigint not null auto_increment,
+   id          bigint not null auto_increment,
    file_type_id         bigint not null,
    parent_file_id       bigint,
    file_name            varchar(30) not null,
@@ -390,14 +432,15 @@ create table org_file
    uploader             varchar(20) not null,
    download_count       int not null,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (org_file_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -405,20 +448,21 @@ create table org_file
 /*==============================================================*/
 create table org_msg
 (
-   omsg_id              bigint not null auto_increment,
+   id              bigint not null auto_increment,
    org_id               bigint not null,
    msg_content          bigint not null,
    sender               varchar(20) not null,
    sender_nickname      varchar(20),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (omsg_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -434,7 +478,7 @@ create index idx_org_id on org_msg
 /*==============================================================*/
 create table org_role
 (
-   org_role_id          bigint not null auto_increment,
+   id                   bigint not null auto_increment,
    org_role_template_id bigint,
    is_template          bool not null,
    org_role_template_order int,
@@ -442,14 +486,15 @@ create table org_role
    org_role_name        varchar(20) not null,
    org_role_description varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (org_role_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -457,22 +502,24 @@ create table org_role
 /*==============================================================*/
 create table participate_in_activity
 (
-   participate_in_activity_id bigint not null auto_increment,
+   id                   bigint not null auto_increment,
    activity_id          bigint not null,
    user_id              bigint,
    group_id             bigint,
    submit_param         varchar(200),
-   edit_times           int not null,
+   edit_times           int,
    score                int,
+   valid                bool,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (participate_in_activity_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -488,26 +535,27 @@ create index idx_activity_id on participate_in_activity
 /*==============================================================*/
 create table published_activity
 (
-   activity_id          bigint not null auto_increment,
+   id          bigint not null auto_increment,
    activity_type_id     bigint not null,
    org_id               bigint not null,
    group_plan_id        bigint,
    activity_name        varchar(20),
-   is_active            bool not null,
+   is_active            bool,
    activity_description varchar(200),
    activity_param       varchar(200),
-   begin_date           datetime not null,
+   begin_date           datetime,
    end_date             datetime,
    maxscore             int,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (activity_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -523,24 +571,25 @@ create index idx_org_id on published_activity
 /*==============================================================*/
 create table published_task
 (
-   task_id              bigint not null auto_increment,
+   id              bigint not null auto_increment,
    org_id               bigint not null,
    task_type_id         bigint not null,
    group_plan_id        bigint,
-   task_name            varchar(20) not null,
-   publisher_name       varchar(20) not null,
-   begin_date           datetime not null,
-   end_date             datetime not null,
+   task_name            varchar(20),
+   publisher_name       varchar(20),
+   begin_date           datetime,
+   end_date             datetime,
    maxscore             int,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (task_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -558,7 +607,8 @@ create table r_org__file
 (
    org_id               bigint not null,
    org_file_id          bigint not null,
-   is_deleted           bool not null,
+   is_deleted           bool,
+   version              bigint,
    primary key (org_id,org_file_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -578,7 +628,8 @@ create table r_org_role__auz
 (
    org_role_id          bigint not null,
    authorization_id     bigint not null,
-   is_deleted           bool not null,
+   is_deleted           bool,
+   version              bigint,
    primary key (org_role_id,authorization_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -598,7 +649,8 @@ create table r_org_role__menu
 (
    org_role_id          bigint not null,
    menu_id              bigint not null,
-   is_deleted           bool not null,
+   is_deleted           bool,
+   version              bigint,
    primary key (org_role_id,menu_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -618,7 +670,8 @@ create table r_role__auz
 (
    role_id              bigint not null,
    authorization_id     bigint not null,
-   is_deleted           bool not null,
+   is_deleted           bool,
+   version              bigint,
    primary key (role_id,authorization_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -638,7 +691,8 @@ create table r_role__menu
 (
    role_id              bigint not null,
    menu_id              bigint not null,
-   is_deleted           bool not null,
+   is_deleted           bool,
+   version              bigint,
    primary key (role_id,menu_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -658,7 +712,8 @@ create table r_user__group
 (
    user_id              bigint not null,
    group_id             bigint not null,
-   is_deleted           bool not null,
+   is_deleted           bool,
+   version              bigint,
    primary key (user_id,group_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -677,7 +732,8 @@ create table r_user__org
 (
    user_id              bigint not null,
    org_id               bigint not null,
-   is_deleted           bool not null,
+   is_deleted           bool,
+   version              bigint,
    primary key (user_id,org_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -697,7 +753,8 @@ create table r_user__org_role
 (
    user_id              bigint not null,
    org_role_id          bigint not null,
-   is_deleted           bool not null,
+   is_deleted           bool,
+   version              bigint,
    primary key (user_id,org_role_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -717,7 +774,8 @@ create table r_user__user_msg
 (
    user_id              bigint not null,
    umsg_id              bigint not null,
-   is_deleted           bool not null,
+   is_deleted           bool,
+   version              bigint,
    primary key (user_id,umsg_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
@@ -735,12 +793,13 @@ create index idx_umsg_id on r_user__user_msg
 /*==============================================================*/
 create table rich_text
 (
-   rich_text_id         bigint not null auto_increment,
+   id                   bigint not null auto_increment,
    rich_text            text,
    rich_text_type_code  bigint,
    rich_text_type_name  varchar(20),
-   is_deleted           bool not null,
-   primary key (rich_text_id)
+   is_deleted           bool,
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -748,7 +807,7 @@ create table rich_text
 /*==============================================================*/
 create table role
 (
-   role_id              bigint not null auto_increment,
+   id              bigint not null auto_increment,
    role_template_id     bigint,
    is_template          bool not null,
    role_template_order  int,
@@ -756,14 +815,15 @@ create table role
    role_name            varchar(20) not null,
    role_description     varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (role_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -771,7 +831,7 @@ create table role
 /*==============================================================*/
 create table signin_history
 (
-   signin_history_id    bigint not null auto_increment,
+   id    bigint not null auto_increment,
    user_id              bigint not null,
    signin_ip            varchar(20),
    signin_date          datetime not null,
@@ -779,14 +839,15 @@ create table signin_history
    device_type          int not null,
    device_mac           varchar(20),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (signin_history_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -802,24 +863,25 @@ create index idx_user_id on signin_history
 /*==============================================================*/
 create table submit_task
 (
-   submit_task_id       bigint not null auto_increment,
+   id       bigint not null auto_increment,
    task_id              bigint not null,
    user_id              bigint,
    group_id             bigint,
    submit_content       varchar(500) not null,
    submit_type          int not null,
    uploader             varchar(20) not null,
-   edit_times           int not null,
+   edit_times           int,
    score                int,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (submit_task_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -835,20 +897,21 @@ create index idx_task_id on submit_task
 /*==============================================================*/
 create table sys_log
 (
-   sys_log_id           bigint not null auto_increment,
+   id           bigint not null auto_increment,
    user_id              bigint not null,
    op_type              int not null,
    op_description       varchar(200),
    op_time              datetime not null,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (sys_log_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -864,7 +927,7 @@ create index idx_user_id on sys_log
 /*==============================================================*/
 create table task_file
 (
-   task_file_id         bigint not null,
+   id         bigint not null,
    file_type_id         bigint not null,
    submit_task_id       bigint not null,
    file_name            varchar(20) not null,
@@ -874,14 +937,15 @@ create table task_file
    uploader             varchar(20) not null,
    download_count       int,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (task_file_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -897,20 +961,21 @@ create index idx_submit_task_id on task_file
 /*==============================================================*/
 create table task_type
 (
-   task_type_id         bigint not null auto_increment,
+   id         bigint not null auto_increment,
    task_type_code       bigint not null,
    task_type_order      int not null,
    task_name            varchar(20) not null,
    task_type_description varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (task_type_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -918,7 +983,7 @@ create table task_type
 /*==============================================================*/
 create table temp_file
 (
-   temp_file_id         bigint not null,
+   id         bigint not null,
    user_id              bigint not null,
    file_type_id         bigint not null,
    file_name            varchar(20) not null,
@@ -926,14 +991,15 @@ create table temp_file
    file_binary          mediumblob,
    file_hash            varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (temp_file_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -949,7 +1015,7 @@ create index idx_user_id on temp_file
 /*==============================================================*/
 create table user
 (
-   user_id              bigint not null auto_increment,
+   id              bigint not null auto_increment,
    role_id              bigint not null,
    username             varchar(20) not null,
    password             varchar(200) not null,
@@ -976,7 +1042,7 @@ create table user
    last_signin_date     datetime,
    sign_count           int,
    continue_signin_count int,
-   is_active            bool not null,
+   is_active            bool,
    unlock_date          datetime,
    is_signin            bool,
    mobile_token         varchar(100),
@@ -989,14 +1055,15 @@ create table user
    pc_token_create_date datetime,
    pc_token_end_date    datetime,
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (user_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -1029,21 +1096,22 @@ create unique index idx_username on user
 /*==============================================================*/
 create table user_msg
 (
-   umsg_id              bigint not null auto_increment,
+   id              bigint not null auto_increment,
    msg_content          bigint not null,
    sender               varchar(20) not null,
    sender_nickname      varchar(20),
    receiver             varchar(20) not null,
    receiver_nickname    varchar(20),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
-   primary key (umsg_id)
+   version              bigint,
+   primary key (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 
 /*==============================================================*/
@@ -1064,13 +1132,14 @@ create table user_org_info
    user_org_number      varchar(20),
    user_org_desc        varchar(200),
    extend_json          bigint,
-   creation_date        datetime not null,
+   creation_date        datetime,
    creator              varchar(20),
    last_modification_date datetime,
    last_modifier        varchar(20),
-   is_deleted           bool not null,
+   is_deleted           bool,
    deletion_date        datetime,
    deleter              varchar(20),
+   version              bigint,
    primary key (user_id,org_id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 

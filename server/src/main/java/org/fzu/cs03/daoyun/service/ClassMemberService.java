@@ -45,7 +45,7 @@ public class ClassMemberService {
 
     private final Logger logger = LoggerFactory.getLogger(ClassMemberService.class);
 
-    public boolean userInOrgnization(Long userId, Long orgId){
+    public Boolean userInOrgnization(Long userId, Long orgId){
         return orgMemberMapper.userInOrgnization(userId,orgId);
     }
 
@@ -85,7 +85,7 @@ public class ClassMemberService {
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
-        if (this.userInOrgnization(userId,orgId))
+        if (Boolean.TRUE == this.userInOrgnization(userId,orgId))
             throw new OrgMemberException("用户已经存在于该班课中");
         this.addUserToClass(userId,orgId);
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"加入成功");
@@ -97,7 +97,7 @@ public class ClassMemberService {
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
-        if (!this.userInOrgnization(userId,orgId))
+        if (Boolean.FALSE == this.userInOrgnization(userId,orgId))
             throw new OrgMemberException("用户不在该班课中");
 
         this.removeUserFromClass(userId,orgId);
@@ -116,7 +116,7 @@ public class ClassMemberService {
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
-        if ( ! this.userInOrgnization(userId,orgId))
+        if ( Boolean.FALSE ==  this.userInOrgnization(userId,orgId))
             throw new OrgMemberException("用户不在该班课中");
 
         Long richId = orgMemberMapper.getRichTextId(userId,orgId);
@@ -133,7 +133,7 @@ public class ClassMemberService {
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
-        if (!this.userInOrgnization(userId,orgId))
+        if (Boolean.FALSE ==  this.userInOrgnization(userId,orgId))
             throw new OrgMemberException("用户不在该班课中");
 
         List<ClassMember> res = orgMemberMapper.getMembersByOrgId(orgId);
@@ -153,7 +153,7 @@ public class ClassMemberService {
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
-        if (!this.userInOrgnization(userId,orgId))
+        if (Boolean.FALSE == this.userInOrgnization(userId,orgId))
             throw new OrgMemberException("用户不在该班课中");
 
         List<ClassMember> res = orgMemberMapper.getMembersPageByOrgId(orgId,pageSize,(page-1)*pageSize);
@@ -187,10 +187,7 @@ public class ClassMemberService {
     }
 
     public void removeUserFromClass(Long userId, Long orgId) throws Exception {
-//        if (orgId == null)
-//            throw new OrgMemberException("班课不存在");
-//        if (!this.userInOrgnization(userId,orgId))
-//            throw new OrgMemberException("用户不在该班课中");
+
         //删除班级-成员的联系
         Long richTextId = orgMemberMapper.getRichTextId(userId,orgId);
         orgMemberMapper.deleteUserFromOrgnization(userId,orgId);

@@ -20,7 +20,7 @@ public interface OrgMemberMapper {
 
     // 班级成员的增删查改
     @Select("SELECT COUNT(user_id) FROM user_org_info WHERE user_id = #{userId} and org_id = #{orgId} ")
-    boolean userInOrgnization(Long userId,Long orgId);
+    Boolean userInOrgnization(Long userId,Long orgId);
 
 //    @Insert("INSERT INTO user_org_info (user_id, org_id) VALUES (#{userId}, #{orgId} )")
 //    void userJoinOrgnization(long userId,long orgId);
@@ -58,10 +58,10 @@ public interface OrgMemberMapper {
 //    @Select("SELECT r.extend_json FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.user_id ")
 //    List<Long> getMembersRichTextIdByOrgId(long orgId);
 
-    @Select("SELECT u.user_id userId, u.username userName, r.user_org_exp userClassExp, r.extend_json richTextId FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.user_id")
+    @Select("SELECT u.id userId, u.username userName, r.user_org_exp userClassExp, r.extend_json richTextId FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.id")
     List<ClassMember> getMembersByOrgId(long orgId);
 
-    @Select("SELECT u.user_id userId, u.username userName, r.user_org_exp userClassExp, r.extend_json richTextId FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.user_id LIMIT #{limit} OFFSET #{offset} ")
+    @Select("SELECT u.id userId, u.username userName, r.user_org_exp userClassExp, r.extend_json richTextId FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.id LIMIT #{limit} OFFSET #{offset} ")
     List<ClassMember> getMembersPageByOrgId(long orgId, long limit, long offset);
 
 

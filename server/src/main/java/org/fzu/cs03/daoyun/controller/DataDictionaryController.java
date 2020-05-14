@@ -1,7 +1,8 @@
 package org.fzu.cs03.daoyun.controller;
 
 import org.fzu.cs03.daoyun.StatusCode;
-import org.fzu.cs03.daoyun.entity.DataDirectionary;
+import org.fzu.cs03.daoyun.entity.DataDictionary;
+import org.fzu.cs03.daoyun.entity.DataDictionaryUpdate;
 import org.fzu.cs03.daoyun.service.DataDictionaryService;
 import org.fzu.cs03.daoyun.service.ResponseService;
 import org.slf4j.Logger;
@@ -23,37 +24,71 @@ public class DataDictionaryController {
 
     private final Logger logger = LoggerFactory.getLogger(DataDictionaryController.class);
 
-    @DeleteMapping(value = "dataDictionary")
-    public String deleteData(@RequestParam(value = "dictCode" ,required = true) long dictCode,
-                             @RequestParam(value = "dataCode" ,required = true) long dataCode,
+    @DeleteMapping(value = "/dataDictionary")
+    public String deleteData(@RequestParam(value = "dictName" ,required = true) String dictName,
+                             @RequestParam(value = "dataName" ,required = true) String dataName,
                              HttpServletRequest request){
         try{
-            return dataDictionaryService.deleteData(dictCode,dataCode);
+            return dataDictionaryService.deleteData(dictName,dataName);
         } catch (Exception e) {
-//            e.printStackTrace();
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+
+    @PutMapping(value = "/dataDictionary")
+    public String updateData(@RequestBody DataDictionaryUpdate dataDictionaryUpdate,
+                             HttpServletRequest request){
+        try{
+            if (dataDictionaryUpdate.getDictName() == null)
+                return responseService.responseFactory(StatusCode.RESPONSE_ERR,"字典名，数据名不可为空");
+
+            if( dataDictionaryUpdate.getDataName()!=null &&
+                    dataDictionaryUpdate.getNewDataName() != null)
+                dataDictionaryService.updateValue(dataDictionaryUpdate);
+
+            if( dataDictionaryUpdate.getDataName()!=null &&
+                    dataDictionaryUpdate.getDataOrder() != null)
+                dataDictionaryService.updateValueOrder(dataDictionaryUpdate);
+
+            if(dataDictionaryUpdate.getNewDictName() != null)
+                dataDictionaryService.updateKey(dataDictionaryUpdate);
+
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"更新成功");
+        } catch (Exception e) {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }
     }
 
     @PostMapping(value = "/dataDictionary")
-    public String insertData(@RequestBody DataDirectionary dataDirectionary, HttpServletRequest request){
+    public String insertData(@RequestBody DataDictionary dataDictionary, HttpServletRequest request){
         try{
-            return dataDictionaryService.insertData(dataDirectionary);
+            return dataDictionaryService.insertData(dataDictionary);
         } catch (Exception e) {
 //            e.printStackTrace();
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }
     }
 
+
     @GetMapping(value = "/dataDictionary")
-    public String getData(@RequestParam(value = "dictCode" ,required = true) long dictCode,
+    public String getData(@RequestParam(value = "getAll" ,required = true) Boolean getAll,
+                          @RequestParam(value = "dictName" ,required = false) String dictName,
                           @RequestParam(value = "dataName" ,required = false) String dataName,
+                          @RequestParam(value = "page" ,required = true) Long page,
+                          @RequestParam(value = "pageSize" ,required = true) Long pageSize,
                           HttpServletRequest request){
         try{
-            if (dataName == null) return dataDictionaryService.getDataDictionaryByDictCode(dictCode);
-            else return dataDictionaryService.getDataDictionaryByDataName(dictCode,dataName);
+            if (getAll == true || dictName == null)
+                return dataDictionaryService.getAllData(page,pageSize);
+
+            if (dataName == null)
+                return dataDictionaryService.getDataByDictName(dictName,page,pageSize);
+            else
+                return dataDictionaryService.
+                        getDataByDictNameAndDataName(dictName, dataName, page, pageSize);
+
         } catch (Exception e) {
-//            e.printStackTrace();
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }
     }
