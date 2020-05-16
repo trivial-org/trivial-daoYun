@@ -27,7 +27,7 @@ Engeering practice
 
 ---
 ##### 角色管理
-- **@PostMapping(value = "/role")  新增角色 **
+- **@PostMapping(value = "/role")  新增角色**
 
   例子：http://IP_Address:8080/role
 
@@ -41,7 +41,7 @@ Engeering practice
   
   
   
-- **@PutMapping(value = "/role")  更新角色信息**
+- **@PutMapping(value = "/role") 更新角色信息**
 
   例子：http://IP_Address:8080/role 
 
@@ -57,13 +57,13 @@ Engeering practice
   
   
   
-- **@DeleteMapping(value = "/role")  删除角色信息**
+- **@DeleteMapping(value = "/role") 删除角色信息**
 
   例子：http://IP_Address:8080/role?roleId=xxxx (利用get可以获取到role id)
   
   
   
-- **@GetMapping(value = "/role")  获取角色信息**
+- **@GetMapping(value = "/role") 获取角色信息**
 
   例子：http://IP_Address:8080/role?page=1&pageSize=10 
 
@@ -86,7 +86,7 @@ Engeering practice
 
   
   
-- **@PutMapping(value = "/params/class")  更新系统参数**
+- **@PutMapping(value = "/params/class") 更新系统参数**
 
   例子：http://IP_Address:8080/params/class 
 
@@ -102,7 +102,7 @@ Engeering practice
 
   
   
-- **@DeleteMapping(value = "/params/class")  删除系统参数**
+- **@DeleteMapping(value = "/params/class") 删除系统参数**
 
   例子：http://IP_Address:8080/params/class?paramId=xxxx 
   
@@ -110,7 +110,7 @@ Engeering practice
   
   
   
-- **@GetMapping(value = "/params/class")  根据班课号获取系统参数**
+- **@GetMapping(value = "/params/class") 根据班课号获取系统参数**
 
   例子：http://IP_Address:8080/params/class?orgCode=xxx&page=1&pageSize=10 
 
@@ -145,14 +145,14 @@ Engeering practice
 
 
 
-- **@PutMapping(value = "/super/users")  更新用户信息**
+- **@PutMapping(value = "/super/users") 更新用户信息**
 
   例子：http://IP_Address:8080/params/class 
 
   **body参数**：
   
   ```java
-    private Long id			//指定更新用户的id
+    private Long id		//指定更新用户的id
   	//具体更新信息选填
     private Long roleId; 		
     private String username; 	
@@ -181,7 +181,7 @@ Engeering practice
   
   
   
-- **@GetMapping(value = "/super/users")  获取所有用户信息，分页显示**
+- **@GetMapping(value = "/super/users") 获取所有用户信息，分页显示**
 
   例子：http://IP_Address:8080/role&page=1&pageSize=10
 
@@ -203,7 +203,7 @@ Engeering practice
 
 
 
-- **@PutMapping(value = "/structure/orgs/schools")  更新学校信息**
+- **@PutMapping(value = "/structure/orgs/schools") 更新学校信息**
 
   例子：http://IP_Address:8080/structure/orgs/schools 
 
@@ -225,7 +225,7 @@ Engeering practice
   
   
   
-- **@GetMapping(value = "/structure/orgs/schools")  获取所有学校**
+- **@GetMapping(value = "/structure/orgs/schools") 获取所有学校**
 
   例子：http://IP_Address:8080/structure/orgs/schools&page=1&pageSize=10
 
@@ -238,7 +238,7 @@ Engeering practice
   **body参数**：
   
   ```java
-    private Long schoolId;  	//表明该学院属于哪一个学校
+    private Long schoolId;  //表明该学院属于哪一个学校
     private String collegeName;
     private String collegeDesc;
   ```
@@ -246,7 +246,7 @@ Engeering practice
 
 
 
-- **@PutMapping(value = "/structure/orgs/colleges")  更新学院信息**
+- **@PutMapping(value = "/structure/orgs/colleges") 更新学院信息**
 
   例子：http://IP_Address:8080/structure/orgs/colleges 
 
@@ -284,7 +284,7 @@ Engeering practice
   **body参数**：
   
   ```java
-    private Long collegeId;  	//表明该专业属于哪一个学院
+    private Long collegeId;  //表明该专业属于哪一个学院
     private String majorName;
     private String majorDesc;
   ```
@@ -292,15 +292,15 @@ Engeering practice
 
 
 
-- **@PutMapping(value = "/structure/orgs/majors")  更新专业信息**
+- **@PutMapping(value = "/structure/orgs/majors") 更新专业信息**
 
   例子：http://IP_Address:8080/structure/orgs/majors 
 
   **body参数**：
   
   ```java
-    private Long id;			//指向更新对象id
-    private Long collegeId;  	//表明该专业属于哪一个学院
+    private Long id;		//指向更新对象id
+    private Long collegeId; //表明该专业属于哪一个学院
     private String majorName;
     private String majorDesc;
   ```
@@ -315,7 +315,7 @@ Engeering practice
   
   
   
-- **@GetMapping(value = "/structure/orgs/majors")  获取专业**
+- **@GetMapping(value = "/structure/orgs/majors") 获取专业**
 
   例子：http://IP_Address:8080/structure/orgs/majors?collegeId&page=1&pageSize=10
 
@@ -323,7 +323,7 @@ Engeering practice
   
   
   
-- **@GetMapping(value = "/structure/orgs/classes")  获取某专业下的课程**
+- **@GetMapping(value = "/structure/orgs/classes") 获取某专业下的课程**
 
   例子：http://IP_Address:8080/structure/orgs/classes?majorId&page=1&pageSize=10
 
