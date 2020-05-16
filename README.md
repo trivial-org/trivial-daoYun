@@ -28,7 +28,7 @@ Engeering practice
 ---
 ##### 角色管理
 - **@PostMapping(value = "/role")  新增角色 **
-  例子：http://47.95.120.250:8080/role
+  例子：http://IP_Address:8080/role
   **body参数**：
   
   ```java
@@ -40,12 +40,12 @@ Engeering practice
   
   
 - **@PutMapping(value = "/role")  更新角色信息**
-  例子：http://47.95.120.250:8080/role 
+  例子：http://IP_Address:8080/role 
   **body参数**:
   
   ```java
-  	private Long id;  		//指定更新目标的id
-  	//具体更新信息选填
+    private Long id;  		//指定更新目标的id
+    //具体更新信息选填
     private Long roleCode;  
     private String roleName;
     private String roleDescription;
@@ -54,17 +54,17 @@ Engeering practice
   
   
 - **@DeleteMapping(value = "/role")  删除角色信息**
-  例子：http://47.95.120.250:8080/role?roleId=xxxx (利用get可以获取到role id)
+  例子：http://IP_Address:8080/role?roleId=xxxx (利用get可以获取到role id)
   
   
   
 - **@GetMapping(value = "/role")  获取角色信息**
-  例子：http://47.95.120.250:8080/role?page=1&pageSize=10 (利用get可以获取到role id)
+  例子：http://IP_Address:8080/role?page=1&pageSize=10 (利用get可以获取到role id)
 
 ---
 ##### 系统参数
 - **@PostMapping(value = "/params/class") 新增系统参数**
-  例子：http://47.95.120.250:8080/params/class
+  例子：http://IP_Address:8080/params/class
   **body参数**：
   
   ```java
@@ -77,7 +77,7 @@ Engeering practice
   
   
 - **@PutMapping(value = "/params/class")  更新系统参数**
-  例子：http://47.95.120.250:8080/params/class 
+  例子：http://IP_Address:8080/params/class 
   **body参数**
   
   ```java
@@ -91,18 +91,18 @@ Engeering practice
   
   
 - **@DeleteMapping(value = "/params/class")  删除系统参数**
-  例子：http://47.95.120.250:8080/params/class?paramId=xxxx (利用get可以获取到paramId)
+  例子：http://IP_Address:8080/params/class?paramId=xxxx (利用get可以获取到paramId)
   
   
   
 - **@GetMapping(value = "/params/class")  根据班课号获取系统参数**
-  例子：http://47.95.120.250:8080/params/class?orgCode=xxx&page=1&pageSize=10 (指定orgCode班课号查询对应系统参数)
+  例子：http://IP_Address:8080/params/class?orgCode=xxx&page=1&pageSize=10 (指定orgCode班课号查询对应系统参数)
 
 ---
 
 ##### 用户管理(仅管理员可用)
 - **@PostMapping(value = "/super/users") 新增用户**
-  例子：http://47.95.120.250:8080/super/users
+  例子：http://IP_Address:8080/super/users
   **body参数**：
   
   ```java
@@ -126,7 +126,7 @@ Engeering practice
 
 
 - **@PutMapping(value = "/super/users")  更新用户信息**
-  例子：http://47.95.120.250:8080/params/class 
+  例子：http://IP_Address:8080/params/class 
   **body参数**：
   
   ```java
@@ -152,17 +152,17 @@ Engeering practice
 
 
 - **@DeleteMapping(value = "/super/users") 根据id删除用户**
-  例子：http://47.95.120.250:8080/role?userId=xxxx (利用get可以获取到userId，之前也有引出根据userName查询userId的接口)
+  例子：http://IP_Address:8080/role?userId=xxxx (利用get可以获取到userId，之前也有引出根据userName查询userId的接口)
   
   
   
 - **@GetMapping(value = "/super/users")  获取所有用户信息，分页显示**
-  例子：http://47.95.120.250:8080/role&page=1&pageSize=10
+  例子：http://IP_Address:8080/role&page=1&pageSize=10
 
 ---
 ##### 组织结构化信息
 - **@PostMapping(value = "/structure/orgs/schools") 新增学校**
-  例子：http://47.95.120.250:8080/structure/orgs/schools
+  例子：http://IP_Address:8080/structure/orgs/schools
   **body参数**：
   
   ```java
@@ -175,7 +175,7 @@ Engeering practice
 
 
 - **@PutMapping(value = "/structure/orgs/schools")  更新学校信息**
-  例子：http://47.95.120.250:8080/structure/orgs/schools 
+  例子：http://IP_Address:8080/structure/orgs/schools 
   **body参数**：
   
   ```java
@@ -189,17 +189,17 @@ Engeering practice
 
 
 - **@DeleteMapping(value = "/structure/orgs/schools") 删除学校**
-  例子：http://47.95.120.250:8080/structure/orgs/schools?schoolId=xxxx 
+  例子：http://IP_Address:8080/structure/orgs/schools?schoolId=xxxx 
   
   
   
 - **@GetMapping(value = "/structure/orgs/schools")  获取所有学校**
-  例子：http://47.95.120.250:8080/structure/orgs/schools&page=1&pageSize=10
+  例子：http://IP_Address:8080/structure/orgs/schools&page=1&pageSize=10
 
 
 
 - **@PostMapping(value = "/structure/orgs/colleges") 新增学院**
-  例子：http://47.95.120.250:8080/structure/orgs/colleges
+  例子：http://IP_Address:8080/structure/orgs/colleges
   **body参数**：
   
   ```java
@@ -212,7 +212,7 @@ Engeering practice
 
 
 - **@PutMapping(value = "/structure/orgs/colleges")  更新学院信息**
-  例子：http://47.95.120.250:8080/structure/orgs/colleges 
+  例子：http://IP_Address:8080/structure/orgs/colleges 
   **body参数**：
   
   ```java
@@ -227,18 +227,18 @@ Engeering practice
 
 
 - **@DeleteMapping(value = "/structure/orgs/colleges") 删除学院**
-  例子：http://47.95.120.250:8080/structure/orgs/colleges?collegeId=xxxx 
+  例子：http://IP_Address:8080/structure/orgs/colleges?collegeId=xxxx 
   
   
   
 - **@GetMapping(value = "/structure/orgs/colleges")  获取学院**
-  例子：http://47.95.120.250:8080/structure/orgs/colleges?schoolId&page=1&pageSize=10
+  例子：http://IP_Address:8080/structure/orgs/colleges?schoolId&page=1&pageSize=10
   (根据schoolId获取该学校下所有的学院)
 
 
 
 - **@PostMapping(value = "/structure/orgs/majors") 新增专业**
-  例子：http://47.95.120.250:8080/structure/orgs/majors
+  例子：http://IP_Address:8080/structure/orgs/majors
   **body参数**：
   
   ```java
@@ -251,7 +251,7 @@ Engeering practice
 
 
 - **@PutMapping(value = "/structure/orgs/majors")  更新专业信息**
-  例子：http://47.95.120.250:8080/structure/orgs/majors 
+  例子：http://IP_Address:8080/structure/orgs/majors 
   **body参数**：
   
   ```java
@@ -266,25 +266,25 @@ Engeering practice
   
 
 - **@DeleteMapping(value = "/structure/orgs/majors") 删除专业**
-  例子：http://47.95.120.250:8080/structure/orgs/majors?majorId=xxxx 
+  例子：http://IP_Address:8080/structure/orgs/majors?majorId=xxxx 
   
   
   
 - **@GetMapping(value = "/structure/orgs/majors")  获取专业**
-  例子：http://47.95.120.250:8080/structure/orgs/majors?collegeId&page=1&pageSize=10
+  例子：http://IP_Address:8080/structure/orgs/majors?collegeId&page=1&pageSize=10
   (根据collegeId获取该学院下所有的专业)
   
   
   
 - **@GetMapping(value = "/structure/orgs/classes")  获取某专业下的课程**
-  例子：http://47.95.120.250:8080/structure/orgs/classes?majorId&page=1&pageSize=10
+  例子：http://IP_Address:8080/structure/orgs/classes?majorId&page=1&pageSize=10
   (根据majorId获取该专业下所有的课程信息,对应的新建课程，更新课程信息时需要加入课程对应的majorId)
   
 ---
 ##### 班课创建与班课信息更新  (对之前的补充)
 
 - **/cloudClass (post，创建班课)**
-  例子：http://47.95.120.250:8080/cloudClass
+  例子：http://IP_Address:8080/cloudClass
   **body参数**：
   
   ```java
@@ -307,7 +307,7 @@ Engeering practice
   
 
 - **/cloudClass (put，更新班课信息)**
-  例子：http://47.95.120.250:8080/cloudClass?orgCode=xxxx
+  例子：http://IP_Address:8080/cloudClass?orgCode=xxxx
   **body参数**：
   
   ```java
@@ -352,13 +352,13 @@ Engeering practice
 
 - **/dataDictionary (delete，删除数据字典数据)**
   
-  例子：http://47.95.120.250:8080/dataDictionary?dictName=xxx&dataName=xxx
+  例子：http://IP_Address:8080/dataDictionary?dictName=xxx&dataName=xxx
   
   
   
 - **/dataDictionary (put，更新数据字典数据)**
   
-  例子：http://47.95.120.250:8080/dataDictionary
+  例子：http://IP_Address:8080/dataDictionary
   
   **body参数**：
   
@@ -374,7 +374,7 @@ Engeering practice
   
 - **/dataDictionary (post，插入数据字典数据)**
   
-  例子：http://47.95.120.250:8080/dataDictionary
+  例子：http://IP_Address:8080/dataDictionary
   
   **body参数**：
   
@@ -390,7 +390,7 @@ Engeering practice
   
 - **/dataDictionary (GetMapping，获得数据字典数据)**
   
-  例子：http://47.95.120.250:8080/dataDictionary?getAll=0&dictName=xxxx&dataName=xxxx&page=1&pageSize=10
+  例子：http://IP_Address:8080/dataDictionary?getAll=0&dictName=xxxx&dataName=xxxx&page=1&pageSize=10
   
   当**getAll=1**或**dictName为空**时，返回整个数据字典
   
@@ -402,7 +402,7 @@ Engeering practice
 
 - **/activities (PostMapping，创建活动)**
 
-  例子：http://47.95.120.250:8080/activitie
+  例子：http://IP_Address:8080/activitie
   
   **body参数**：
   
@@ -418,19 +418,19 @@ Engeering practice
 
 - **/activities (GetMapping，获得某班课下所有活动，返回信息包含活动id)**
 
-  例子：http://47.95.120.250:8080/activitie?orgCode=xxxxx
+  例子：http://IP_Address:8080/activitie?orgCode=xxxxx
 
 
 
 - **/activities (PutMapping，关闭班课活动)**
 
-  例子：http://47.95.120.250:8080/activitie?activityId=xxxxx
+  例子：http://IP_Address:8080/activitie?activityId=xxxxx
 
 
 
 - **/activities/records (PostMapping，参加班课活动)**
 
-  例子：http://47.95.120.250:8080/activities/records
+  例子：http://IP_Address:8080/activities/records
 
   **body参数**：
 
@@ -443,7 +443,7 @@ private String answer;   //提交的答案
 
 - **/activities/records (GetMapping，获取班课活动的参加情况，包括回答错误的记录)**
 
-  例子：http://47.95.120.250:8080/activities/records?activityId=xxxxx&page=1&pageSize=10
+  例子：http://IP_Address:8080/activities/records?activityId=xxxxx&page=1&pageSize=10
 
 
 
@@ -481,7 +481,7 @@ private String answer;   //提交的答案
 ---
 
 - **/user/info (put，更新班级名片信息)**
-  例子：http://47.95.120.250:8080/user/info
+  例子：http://IP_Address:8080/user/info
   
   ```java
   private String nickname;
@@ -501,10 +501,11 @@ private String answer;   //提交的答案
   */
   ```
   
-- **/user/createdClass (get，获取用户信息，若查询他人信息且他人非好友，则返回有限用户信息)**
-  例子：http://47.95.120.250:8080/user/info?userName=somebody
-  此处参数userName可不填，默认查询自己
   
+  
+- **/user/createdClass (get，获取用户信息，若查询他人信息且他人非好友，则返回有限用户信息)**
+  例子：http://IP_Address:8080/user/info?userName=somebody
+  此处参数userName可不填，默认查询自己
 ---
 
 
@@ -552,22 +553,22 @@ private String answer;   //提交的答案
 ---
 
 - **/signup/user：（get，判断用户是否存在）**
-  例子：http://47.95.120.250:8080/signup/user?userName=superAdmin
+  例子：http://IP_Address:8080/signup/user?userName=superAdmin
 
 - **/cloudClass/members (get，获取班课成员)**
-  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000
+  例子：http://IP_Address:8080/cloudClass/members?orgCode=10000
 
 - **/cloudClass/members (get，获取班课成员,分页)**
-  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000&page=1&pageSize=10
+  例子：http://IP_Address:8080/cloudClass/members?orgCode=10000&page=1&pageSize=10
 
 - **/cloudClass/members (post，加入班课)**
-  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000
+  例子：http://IP_Address:8080/cloudClass/members?orgCode=10000
   
 - **/cloudClass/members (delete，退出班课)**
-  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000
+  例子：http://IP_Address:8080/cloudClass/members?orgCode=10000
   
 - **/cloudClass/members (put，修改成员信息)**
-  例子：http://47.95.120.250:8080/cloudClass/members?orgCode=10000
+  例子：http://IP_Address:8080/cloudClass/members?orgCode=10000
   
   ```java
   private String userClassName;
@@ -579,7 +580,7 @@ private String answer;   //提交的答案
   ```
   
 - **/cloudClass (post，创建班课)**
-  例子：http://47.95.120.250:8080/cloudClass
+  例子：http://IP_Address:8080/cloudClass
   
   ```java
   private String className;
@@ -596,10 +597,10 @@ private String answer;   //提交的答案
   ```
   
 - **/cloudClass (get，查看班课信息)**
-  例子：http://47.95.120.250:8080/cloudClass?orgCode=10000
+  例子：http://IP_Address:8080/cloudClass?orgCode=10000
 
 - **/cloudClass (put，更新班课信息)**
-  例子：http://47.95.120.250:8080/cloudClass?orgCode=10000
+  例子：http://IP_Address:8080/cloudClass?orgCode=10000
   
   ```java
   private String className;
@@ -615,10 +616,10 @@ private String answer;   //提交的答案
   ```
   
 - **/cloudClass (delete，删除班课)**
-  例子：http://47.95.120.250:8080/cloudClass?orgCode=10000
+  例子：http://IP_Address:8080/cloudClass?orgCode=10000
   
 - **/dataDictionary (post，插入字典)**
-  例子：http://47.95.120.250:8080/dataDictionary
+  例子：http://IP_Address:8080/dataDictionary
   
   ```java
   private Long dictCode ;
@@ -629,16 +630,16 @@ private String answer;   //提交的答案
   ```
 
 - **/dataDictionary (get，查看字典)**
-  例子：http://47.95.120.250:8080/dataDictionary?dictCode=1000
+  例子：http://IP_Address:8080/dataDictionary?dictCode=1000
   
 - **/dataDictionary (get，模糊查询字典)**
-  例子：http://47.95.120.250:8080/dataDictionary?dictCode=1000&dataName=xxx
+  例子：http://IP_Address:8080/dataDictionary?dictCode=1000&dataName=xxx
   
 - **/dataDictionary (delete，删除字典数据)**
-  例子：http://47.95.120.250:8080/dataDictionary??dictCode=1000&dataCode=10001
+  例子：http://IP_Address:8080/dataDictionary??dictCode=1000&dataCode=10001
   
 - **/profilePhoto (post，上传图片)**
-  例子：http://47.95.120.250:8080/profilePhoto
+  例子：http://IP_Address:8080/profilePhoto
   
   ```java
   private String profilePhoto:[要上传的文件]
@@ -647,20 +648,20 @@ private String answer;   //提交的答案
   ```
 
 - **/profilePhoto (get，下载图片)**
-  例子：http://47.95.120.250:8080/profilePhoto?profilePhotoName=一个名字
+  例子：http://IP_Address:8080/profilePhoto?profilePhotoName=一个名字
 
 - **/signout (post，注销)**
-  例子：http://47.95.120.250:8080/signout
+  例子：http://IP_Address:8080/signout
   
   ```java
   private String userName
   ```
 
 - **/user/joinedClass (get，查看加入的班级)**
-  例子：http://47.95.120.250:8080/user/joinedClass
+  例子：http://IP_Address:8080/user/joinedClass
   
 - **/user/createdClass (get，查看创建的班级)**
-  例子：http://47.95.120.250:8080/user/createdClass
+  例子：http://IP_Address:8080/user/createdClass
   
 ---
 
@@ -721,11 +722,11 @@ private String answer;   //提交的答案
 
 - **/signup/user：（get）**
 
-  例子：http://47.95.120.250:8080/signup/user?userName=superAdmin
+  例子：http://IP_Address:8080/signup/user?userName=superAdmin
 
 - **/verification/mail：（get)**
 
-  例子：http://47.95.120.250:8080/verification/mail?email=123@gmail.com
+  例子：http://IP_Address:8080/verification/mail?email=123@gmail.com
 
 **其他服务目前直接访问即可**
 
