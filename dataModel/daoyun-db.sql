@@ -393,6 +393,9 @@ create table org
    id               bigint not null auto_increment,
    org_code             bigint not null,
    parent_org_id        bigint,
+   school_id            bigint,
+   college_id           bigint,
+   major_id             bigint,
    is_root              bool,
    org_name             varchar(20) not null,
    org_description      varchar(200),
@@ -546,6 +549,9 @@ create table published_activity
    begin_date           datetime,
    end_date             datetime,
    maxscore             int,
+   max_dist             double,
+   latitude             double,
+   longitude            double,
    extend_json          bigint,
    creation_date        datetime,
    creator              varchar(20),
@@ -1016,7 +1022,7 @@ create index idx_user_id on temp_file
 create table user
 (
    id              bigint not null auto_increment,
-   role_id              bigint not null,
+   role_id              bigint,
    username             varchar(20) not null,
    password             varchar(200) not null,
    nickname             varchar(20),
@@ -1151,5 +1157,121 @@ create index idx_org_id on user_org_info
 (
    org_id
 );
+
+
+
+/*==============================================================*/
+/* Table: org_params                                        */
+/*==============================================================*/
+create table org_params
+(
+   id    bigint not null auto_increment,
+   org_id              bigint not null,
+   param_code          bigint not null,
+   param_name            varchar(20),
+   param_desc            varchar(200),
+
+   creation_date        datetime,
+   creator              varchar(20),
+   last_modification_date datetime,
+   last_modifier        varchar(20),
+   is_deleted           bool,
+   deletion_date        datetime,
+   deleter              varchar(20),
+   version              bigint,
+   primary key (id)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
+
+/*==============================================================*/
+/* Index: idx_org_id                                           */
+/*==============================================================*/
+create index idx_org_id on org_params
+(
+   org_id
+);
+
+
+
+
+/*==============================================================*/
+/* Table: schools                                        */
+/*==============================================================*/
+create table schools
+(
+   id    bigint not null auto_increment,
+   school_name            varchar(20),
+   school_desc            varchar(200),
+
+   creation_date        datetime,
+   creator              varchar(20),
+   last_modification_date datetime,
+   last_modifier        varchar(20),
+   is_deleted           bool,
+   deletion_date        datetime,
+   deleter              varchar(20),
+   version              bigint,
+   primary key (id)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
+
+
+/*==============================================================*/
+/* Table: colleges                                        */
+/*==============================================================*/
+create table colleges
+(
+   id    bigint not null auto_increment,
+   school_id             bigint not null,
+   college_name          varchar(20),
+   college_desc          varchar(200),
+
+   creation_date        datetime,
+   creator              varchar(20),
+   last_modification_date datetime,
+   last_modifier        varchar(20),
+   is_deleted           bool,
+   deletion_date        datetime,
+   deleter              varchar(20),
+   version              bigint,
+   primary key (id)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
+
+/*==============================================================*/
+/* Index: idx_org_id                                           */
+/*==============================================================*/
+create index idx_school_id on colleges
+(
+   school_id
+);
+
+
+/*==============================================================*/
+/* Table: majors                                        */
+/*==============================================================*/
+create table majors
+(
+   id    bigint not null auto_increment,
+   college_id             bigint not null,
+   major_name          varchar(20),
+   major_desc          varchar(200),
+
+   creation_date        datetime,
+   creator              varchar(20),
+   last_modification_date datetime,
+   last_modifier        varchar(20),
+   is_deleted           bool,
+   deletion_date        datetime,
+   deleter              varchar(20),
+   version              bigint,
+   primary key (id)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
+
+/*==============================================================*/
+/* Index: idx_org_id                                           */
+/*==============================================================*/
+create index idx_college_id on majors
+(
+   college_id
+);
+
 
 

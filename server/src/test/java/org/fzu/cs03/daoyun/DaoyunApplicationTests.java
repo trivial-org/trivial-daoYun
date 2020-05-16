@@ -27,18 +27,18 @@ class DaoyunApplicationTests {
     void func(){
 
         PublishedActivity publishedActivity = new PublishedActivity();
-//        publishedActivity.setActivityTypeId(10L);
-//        publishedActivity.setOrgId(10L);
-//        publishedActivity.setIsActive(Boolean.TRUE);
-//        int result = publishedActivityMapper.insert(publishedActivity);
+        publishedActivity.setActivityTypeId(10L);
+        publishedActivity.setOrgId(10L);
+        publishedActivity.setIsActive(Boolean.TRUE);
+        int result = publishedActivityMapper.insert(publishedActivity);
 
-        publishedActivityMapper.deleteById(1L);
+//        publishedActivityMapper.deleteById(1L);
+//
+//        List<PublishedActivity> pas = publishedActivityMapper.selectList(null);
+//        List<AttendActivity> aas = activityMapper.selectList(null);
 
-        List<PublishedActivity> pas = publishedActivityMapper.selectList(null);
-        List<AttendActivity> aas = activityMapper.selectList(null);
-
-        pas.forEach(System.out::println);
-        aas.forEach(System.out::println);
+//        pas.forEach(System.out::println);
+//        aas.forEach(System.out::println);
 //        System.out.println(result);
 
     }

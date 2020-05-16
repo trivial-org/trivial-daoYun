@@ -1,12 +1,14 @@
 package org.fzu.cs03.daoyun.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
+import org.fzu.cs03.daoyun.entity.CloudClass;
 import org.fzu.cs03.daoyun.entity.Orgnization;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
-@Mapper
-public interface OrgnizationMapper {
+@Repository
+public interface OrgnizationMapper extends BaseMapper<Orgnization> {
 
     @Insert("INSERT INTO org (org_code, org_name, extend_json, creation_date, creator, is_deleted) VALUES (#{ordCode}, #{orgName}, #{richTextId},  #{createDate}, #{creator}, #{isDeleted} )")
     void cerateOrgnization(Long ordCode, String orgName,  Long richTextId, String createDate, String creator, boolean isDeleted);
@@ -39,6 +41,10 @@ public interface OrgnizationMapper {
 
     @Select( "SELECT org_code FROM org order by id DESC limit 1" )
     Long getLastOrgCode();
+
+    @Select( "SELECT id FROM org order by id DESC limit 1" )
+    Long getLastOrgId();
+
 //    select * from table order by id DESC limit 1
 
     //获得创建者用户名

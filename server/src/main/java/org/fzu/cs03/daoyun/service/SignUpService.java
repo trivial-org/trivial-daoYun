@@ -50,10 +50,10 @@ public class SignUpService {
         Date date = new Date();
 
         if(user.getEmail() == null) { throw new SignUpException("邮箱为空"); }
-        if (user.getUserName() == null) { throw new SignUpException("用户名为空"); }
+        if (user.getUsername() == null) { throw new SignUpException("用户名为空"); }
         if(user.getPassword() == null) { throw new SignUpException("密码为空"); }
-        if (! this.checkUserName(user.getUserName())) { throw new SignUpException("用户名必须以字母开头，且只能包含数字、字母以及下划线，长度在6-18位之间"); }
-        if (userMapper.userExist(user.getUserName())) throw new SignUpException("用户名重复");
+        if (! this.checkUserName(user.getUsername())) { throw new SignUpException("用户名必须以字母开头，且只能包含数字、字母以及下划线，长度在6-18位之间"); }
+        if (userMapper.userExist(user.getUsername())) throw new SignUpException("用户名重复");
 
         mailVerificationService.verify(date,user.getEmail(),user.getMailVerificationCode(),session);
         verificationCodeService.verify(date,user.getVerificationCode(),session);
@@ -61,7 +61,7 @@ public class SignUpService {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr = format.format(date);
         try{
-            userMapper.createAccount(Role.ORDINARY_USER,user.getUserName(),user.getPassword(),user.getEmail(),dateStr,true,false );
+            userMapper.createAccount(Role.ORDINARY_USER,user.getUsername(),user.getPassword(),user.getEmail(),dateStr,true,false );
         } catch (Exception e) {
 //            e.printStackTrace();
             throw new SignUpException(e.toString());

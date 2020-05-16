@@ -1,17 +1,18 @@
 package org.fzu.cs03.daoyun.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.fzu.cs03.daoyun.entity.*;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
-@Mapper
-public interface UserMapper {
+@Repository
+public interface UserMapper extends BaseMapper<User> {
 
 //    @Select("select * from student order by id asc")
 //    List<Student> getStudentList();
@@ -70,11 +71,11 @@ public interface UserMapper {
     UserUpdate getUserUpdatableInfoByUserId(Long userId);
 
     //获取SimpleUserInfo
-    @Select("SELECT id userId, username userName, nickname, student_id, gender, school, college, education, major, birth_date, address, city, province, nation, profile_photo_url FROM user WHERE id = #{userId}")
+    @Select("SELECT id, username, nickname, student_id, gender, school, college, education, major, birth_date, address, city, province, nation, profile_photo_url FROM user WHERE id = #{userId}")
     SimpleUserInfo getSimpleUserInfoByUserId(Long userId);
 
     //获取AllUserInfo
-    @Select("SELECT id userId, role_id, username userName, nickname, student_id, gender, phone, email, school, college, education, major, birth_date, address, city, province, nation, experience, coin, profile_photo_url FROM user WHERE id = #{userId}")
+    @Select("SELECT id, role_id, username, nickname, student_id, gender, phone, email, school, college, education, major, birth_date, address, city, province, nation, experience, coin, profile_photo_url FROM user WHERE id = #{userId}")
     AllUserInfo getAllUserInfoByUserId(Long userId);
 
 

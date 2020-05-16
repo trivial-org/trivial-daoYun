@@ -1,23 +1,15 @@
 package org.fzu.cs03.daoyun.controller;
 
 import org.fzu.cs03.daoyun.StatusCode;
-import org.fzu.cs03.daoyun.entity.Student;
 import org.fzu.cs03.daoyun.entity.User;
-import org.fzu.cs03.daoyun.mapper.UserMapper;
 import org.fzu.cs03.daoyun.service.ResponseService;
 import org.fzu.cs03.daoyun.service.SignUpService;
-import org.fzu.cs03.daoyun.service.entity.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -25,8 +17,7 @@ public class SignUpController {
 
     @Autowired
     SignUpService signUpService;
-    @Autowired
-    UserService userService;
+
     @Autowired
     ResponseService responseService;
 

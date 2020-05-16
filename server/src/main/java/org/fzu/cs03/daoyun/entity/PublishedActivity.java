@@ -27,14 +27,18 @@ public class PublishedActivity {
     private String beginDate;
     private String endDate;
     private Integer maxscore;
+    private Double maxDist;
     private String creator;
     private String activityDescription;
+    private Double latitude;
+    private Double longitude;
 
     @TableField(exist = false)
     private Long orgCode;
 
     @TableField(exist = false)
     private String answer;
+
 
     @TableField(fill = FieldFill.INSERT)
     private Date creationDate;
@@ -45,4 +49,7 @@ public class PublishedActivity {
     @TableField(fill = FieldFill.INSERT)
     @TableLogic
     private Boolean isDeleted;
+
+
+
 }

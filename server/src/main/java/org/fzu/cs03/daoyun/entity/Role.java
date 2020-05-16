@@ -1,80 +1,51 @@
 package org.fzu.cs03.daoyun.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-@Component
+import java.util.Date;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+@TableName(value = "role")
 public class Role {
 
     static public final Long SUPER_ADMIN = 1L;
     static public final Long VIP_USER = 2L;
     static public final Long ORDINARY_USER = 3L;
 
-    private Long roleId;
+    private Long id;
     private Long roleTemplateId;
-    private boolean isTemplate;
+    private Boolean isTemplate;
     private Long roleCode;
     private String roleName;
-    private String creationDate;
+    private String roleDescription;
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    private String creator;
 
-    public void setRoleTemplateId(Long roleTemplateId) {
-        this.roleTemplateId = roleTemplateId;
-    }
+    @TableField(fill = FieldFill.UPDATE)
+    private String lastModifier;
 
-    public void setTemplate(boolean template) {
-        isTemplate = template;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    private Date creationDate;
 
-    public void setRoleCode(Long roleCode) {
-        this.roleCode = roleCode;
-    }
+    @TableField(fill = FieldFill.UPDATE)
+    private Date lastModificationDate;
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    @TableLogic
+    private Boolean isDeleted;
 
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
 
-    public static Long getSuperAdmin() {
-        return SUPER_ADMIN;
-    }
-
-    public static Long getVipUser() {
-        return VIP_USER;
-    }
-
-    public static Long getOrdinaryUser() {
-        return ORDINARY_USER;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public Long getRoleTemplateId() {
-        return roleTemplateId;
-    }
-
-    public boolean isTemplate() {
-        return isTemplate;
-    }
-
-    public Long getRoleCode() {
-        return roleCode;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
 }

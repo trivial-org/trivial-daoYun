@@ -1,12 +1,20 @@
 package org.fzu.cs03.daoyun.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @description: 该实体描述了一个用户的简单描述，仅包含用户的非敏感信息
  * @author: Mu.xx
  * @date: 2020/4/15 14:44
  */
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SimpleUserInfo {
-    private Long userId;
+    private Long id;
     private String userName;
     private String nickname;
     private String gender;
@@ -17,124 +25,5 @@ public class SimpleUserInfo {
     private String profilePhotoUrl;
     private String college;
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public String getCollege() {
-        return college;
-    }
-
-    public void setCollege(String college) {
-        this.college = college;
-    }
-
-
-    public String getProfilePhotoUrl() {
-        return profilePhotoUrl;
-    }
-
-    public void setProfilePhotoUrl(String profilePhotoUrl) {
-        this.profilePhotoUrl = profilePhotoUrl;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setNickname(String nickName) {
-        this.nickname = nickname;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public void setSchool(String school) {
-        this.school = school;
-    }
-
-    public void setEducation(String education) {
-        this.education = education;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public void setNation(String nation) {
-        this.nation = nation;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public String getEducation() {
-        return education;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public String getNation() {
-        return nation;
-    }
 }

@@ -10,24 +10,30 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * @description:
+ * @author: Mu.xx
+ * @date: 2020/5/16 16:30
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "org")
-public class Orgnization {
+
+@TableName(value = "majors")
+public class Major {
+
     private Long id;
+    private Long collegeId;
+    private String majorName;
+    private String majorDesc;
 
-    private Long orgCode;
-    private String orgName;
-
+    @TableField(fill = FieldFill.INSERT)
     private String creator;
 
-    private Long schoolId;
-    private Long collegeId;
-    private Long majorId;
+    @TableField(fill = FieldFill.UPDATE)
+    private String lastModifier;
 
-    @TableField(exist = false)
-    private Long richTextId;
 
     @TableField(fill = FieldFill.INSERT)
     private Date creationDate;

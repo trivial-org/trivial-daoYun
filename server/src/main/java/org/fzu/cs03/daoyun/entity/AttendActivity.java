@@ -32,6 +32,12 @@ public class AttendActivity {
     @TableField(exist = false)
     private String answer;
 
+    @TableField(exist = false)
+    private Double latitude;
+
+    @TableField(exist = false)
+    private Double longitude;
+
     @TableField(fill = FieldFill.INSERT)
     private Date creationDate;
 

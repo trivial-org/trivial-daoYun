@@ -2,7 +2,6 @@ package org.fzu.cs03.daoyun.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.fzu.cs03.daoyun.entity.ClassMember;
-import org.fzu.cs03.daoyun.entity.RequestUser;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -58,10 +57,10 @@ public interface OrgMemberMapper {
 //    @Select("SELECT r.extend_json FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.user_id ")
 //    List<Long> getMembersRichTextIdByOrgId(long orgId);
 
-    @Select("SELECT u.id userId, u.username userName, r.user_org_exp userClassExp, r.extend_json richTextId FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.id")
+    @Select("SELECT u.id userId, u.username, r.user_org_exp userClassExp, r.extend_json richTextId FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.id")
     List<ClassMember> getMembersByOrgId(long orgId);
 
-    @Select("SELECT u.id userId, u.username userName, r.user_org_exp userClassExp, r.extend_json richTextId FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.id LIMIT #{limit} OFFSET #{offset} ")
+    @Select("SELECT u.id userId, u.username, r.user_org_exp userClassExp, r.extend_json richTextId FROM user AS u INNER JOIN user_org_info AS r ON r.org_id = #{orgId} and r.user_id = u.id LIMIT #{limit} OFFSET #{offset} ")
     List<ClassMember> getMembersPageByOrgId(long orgId, long limit, long offset);
 
 

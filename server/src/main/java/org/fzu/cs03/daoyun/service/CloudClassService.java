@@ -70,6 +70,15 @@ public class CloudClassService {
         String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
         classMemberService.addUserToClass(userId,orgId);
 
+
+        //懒得改了……直接这样加在屁股后面……(为了结构性，增加三个参数school_id,college_id,major_id)
+        Long lastId = orgnizationMapper.getLastOrgId();
+        Orgnization orgnization = orgnizationMapper.selectById(lastId);
+        orgnization.setSchoolId(cloudClass.getSchoolId());
+        orgnization.setCollegeId(cloudClass.getCollegeId());
+        orgnization.setMajorId(cloudClass.getMajorId());
+        orgnizationMapper.updateById(orgnization);
+
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"创建成功",orgCode);
     }
 
@@ -107,6 +116,15 @@ public class CloudClassService {
 //                readJsonObject.put(entry.getKey(),entry.getValue());
 //        }
 //        richTextMapper.updateText(orgInfoId,JSON.toJSONString(readJsonObject));
+
+
+        //懒得改了……直接这样加在屁股后面……(为了结构性，增加三个参数school_id,college_id,major_id)
+        Orgnization orgnization = orgnizationMapper.selectById(orgId);
+        orgnization.setSchoolId(updateInfo.getSchoolId());
+        orgnization.setCollegeId(updateInfo.getCollegeId());
+        orgnization.setMajorId(updateInfo.getMajorId());
+        orgnizationMapper.updateById(orgnization);
+
 
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"修改成功");
     }

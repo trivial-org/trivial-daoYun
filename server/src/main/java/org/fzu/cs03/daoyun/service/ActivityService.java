@@ -12,6 +12,7 @@ import org.fzu.cs03.daoyun.entity.PublishedActivity;
 import org.fzu.cs03.daoyun.exception.ActivityException;
 import org.fzu.cs03.daoyun.mapper.*;
 import org.fzu.cs03.daoyun.utils.DateFormater;
+import org.fzu.cs03.daoyun.utils.DistanceMetric;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,10 @@ public class ActivityService {
 
         if (publishedActivity.getActivityTypeId() == null)
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,"未指定活动类型");
+
+        if (publishedActivity.getMaxDist() != null)
+            if (publishedActivity.getLatitude() == null || publishedActivity.getLongitude() == null)
+                return responseService.responseFactory(StatusCode.RESPONSE_ERR,"经纬度不可为空");
 
         // 设置publishedActivity初始值，
         // 其中ActivityTypeId,
@@ -157,6 +162,19 @@ public class ActivityService {
             answer = (String) jsonObject.get("answer");
         }
 
+        if (publishedActivity.getMaxDist()!=null){
+            Double maxDist = publishedActivity.getMaxDist();
+            Double lat = publishedActivity.getLatitude();
+            Double logt = publishedActivity.getLongitude();
+            Double userLat = attendActivity.getLatitude();
+            Double userLogt = attendActivity.getLongitude();
+
+
+            Double dist = DistanceMetric.getDistance(lat,logt,userLat,userLogt);
+            if (dist > maxDist){
+                return responseService.responseFactory(StatusCode.RESPONSE_ERR,"距离活动源距离超出限制");
+            }
+        }
 
         String submit = attendActivity.getAnswer(); //提交的答案
         JSONObject jsonObject2 = new JSONObject();

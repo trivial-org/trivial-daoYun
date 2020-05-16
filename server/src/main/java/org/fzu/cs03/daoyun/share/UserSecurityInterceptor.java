@@ -1,6 +1,7 @@
 package org.fzu.cs03.daoyun.share;
 
 import org.fzu.cs03.daoyun.utils.SessionMapUtils;
+import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,10 @@ public class UserSecurityInterceptor implements HandlerInterceptor {
         }
 //        System.out.println("已验证的登录");
         logger.info(userName + " 受验证访问: "+ request.getRequestURI());
+
+        SystemParams.userName = userName;
+//        SystemParams.userName = userName;
+
 //        String info = userName + "：已验证的登录";
 //        logger.info(info);
 

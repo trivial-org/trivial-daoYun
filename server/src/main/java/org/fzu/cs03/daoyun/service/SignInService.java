@@ -39,7 +39,7 @@ public class SignInService {
         return Character.isDigit(userName.charAt(0)) ;
     }
     public String signIn(User user, HttpServletRequest request) throws Exception{
-        String userName = user.getUserName();
+        String userName = user.getUsername();
         String password = user.getPassword();
         String oldUserName ;
         Object obj = request.getSession().getAttribute("userName");

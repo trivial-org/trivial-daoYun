@@ -28,7 +28,7 @@ public class SignOutController {
     public String createAccount(@RequestBody User user , HttpServletRequest request){
         try{
 //            String info = "用户: " + request.getSession().getId() + "， 欲访问: "+request.getRequestURI();
-            return signOutService.signOut(user.getUserName() ,request);
+            return signOutService.signOut(user.getUsername() ,request);
         } catch (Exception e) {
 //            e.printStackTrace();
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());

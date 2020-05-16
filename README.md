@@ -11,6 +11,325 @@ Engeering practice
 
 
 
+### 功能更新 2020/5/16
+
+---
+
+- 增加系统参数
+
+- 新增组织树形索引
+
+- 新增超级管理员控制用户
+
+- 新增角色管理
+
+#### post/get/put/delete示例
+
+---
+##### 角色管理
+- **@PostMapping(value = "/role")  新增角色 **
+  例子：http://47.95.120.250:8080/role
+  **body参数**：
+  
+  ```java
+    private Long roleCode; //不可重复
+    private String roleName;
+    private String roleDescription;
+  ```
+  
+  
+  
+- **@PutMapping(value = "/role")  更新角色信息**
+  例子：http://47.95.120.250:8080/role 
+  **body参数**:
+  
+  ```java
+  	private Long id;  		//指定更新目标的id
+  	//具体更新信息选填
+    private Long roleCode;  
+    private String roleName;
+    private String roleDescription;
+  ```
+  
+  
+  
+- **@DeleteMapping(value = "/role")  删除角色信息**
+  例子：http://47.95.120.250:8080/role?roleId=xxxx (利用get可以获取到role id)
+  
+  
+  
+- **@GetMapping(value = "/role")  获取角色信息**
+  例子：http://47.95.120.250:8080/role?page=1&pageSize=10 (利用get可以获取到role id)
+
+---
+##### 系统参数
+- **@PostMapping(value = "/params/class") 新增系统参数**
+  例子：http://47.95.120.250:8080/params/class
+  **body参数**：
+  
+  ```java
+    private Long orgCode;   //同一班课下共享一套参数
+    private Long paramCode; //同一班课下参数代码不能重复
+    private String paramName;
+    private String paramDesc;
+  ```
+
+  
+  
+- **@PutMapping(value = "/params/class")  更新系统参数**
+  例子：http://47.95.120.250:8080/params/class 
+  **body参数**
+  
+  ```java
+    private Long id; 		//指定更新目标的id
+  	//具体更新信息选填
+    private Long paramCode; //同一班课下参数代码不能重复
+    private String paramName;
+    private String paramDesc;
+  ```
+
+  
+  
+- **@DeleteMapping(value = "/params/class")  删除系统参数**
+  例子：http://47.95.120.250:8080/params/class?paramId=xxxx (利用get可以获取到paramId)
+  
+  
+  
+- **@GetMapping(value = "/params/class")  根据班课号获取系统参数**
+  例子：http://47.95.120.250:8080/params/class?orgCode=xxx&page=1&pageSize=10 (指定orgCode班课号查询对应系统参数)
+
+---
+
+##### 用户管理(仅管理员可用)
+- **@PostMapping(value = "/super/users") 新增用户**
+  例子：http://47.95.120.250:8080/super/users
+  **body参数**：
+  
+  ```java
+    private Long roleId; 		//角色id，用get获取role信息得到
+    private String username; 	//用户名 必填
+    private String password; 	//密码 必填
+    //剩下选填 
+    private String nickname;
+    private String studentId;
+    private String phone;
+    private String email;
+    private String school,education,major;
+    private String birthDate;
+    private String address,city,province,nation;
+    private Integer experience,coin;
+    private String profilePhotoUrl;
+    private String college;
+  ```
+
+
+
+
+- **@PutMapping(value = "/super/users")  更新用户信息**
+  例子：http://47.95.120.250:8080/params/class 
+  **body参数**：
+  
+  ```java
+    private Long id				//指定更新用户的id
+  	//具体更新信息选填
+    private Long roleId; 		
+    private String username; 	
+    private String password; 	
+    private String nickname;
+    private String studentId;
+    private String phone;
+    private String email;
+    private String school,education,major;
+    private String birthDate;
+    private String address,city,province,nation;
+    private Integer experience,coin;
+    private String profilePhotoUrl;
+    private String college;
+  ```
+
+
+
+
+
+- **@DeleteMapping(value = "/super/users") 根据id删除用户**
+  例子：http://47.95.120.250:8080/role?userId=xxxx (利用get可以获取到userId，之前也有引出根据userName查询userId的接口)
+  
+  
+  
+- **@GetMapping(value = "/super/users")  获取所有用户信息，分页显示**
+  例子：http://47.95.120.250:8080/role&page=1&pageSize=10
+
+---
+##### 组织结构化信息
+- **@PostMapping(value = "/structure/orgs/schools") 新增学校**
+  例子：http://47.95.120.250:8080/structure/orgs/schools
+  **body参数**：
+  
+  ```java
+    private String schoolName;
+    private String schoolDesc;
+  ```
+
+
+
+
+
+- **@PutMapping(value = "/structure/orgs/schools")  更新学校信息**
+  例子：http://47.95.120.250:8080/structure/orgs/schools 
+  **body参数**：
+  
+  ```java
+    private Long id;			//指向更新对象id
+    private String schoolName;
+    private String schoolDesc;
+  ```
+
+
+
+
+
+- **@DeleteMapping(value = "/structure/orgs/schools") 删除学校**
+  例子：http://47.95.120.250:8080/structure/orgs/schools?schoolId=xxxx 
+  
+  
+  
+- **@GetMapping(value = "/structure/orgs/schools")  获取所有学校**
+  例子：http://47.95.120.250:8080/structure/orgs/schools&page=1&pageSize=10
+
+
+
+- **@PostMapping(value = "/structure/orgs/colleges") 新增学院**
+  例子：http://47.95.120.250:8080/structure/orgs/colleges
+  **body参数**：
+  
+  ```java
+    private Long schoolId;  	//表明该学院属于哪一个学校
+    private String collegeName;
+    private String collegeDesc;
+  ```
+
+
+
+
+- **@PutMapping(value = "/structure/orgs/colleges")  更新学院信息**
+  例子：http://47.95.120.250:8080/structure/orgs/colleges 
+  **body参数**：
+  
+  ```java
+    private Long id;			//指向更新对象id
+    private Long schoolId;		//表明该学院属于哪一个学校
+    private String collegeName;
+    private String collegeDesc;
+  ```
+
+
+
+
+
+- **@DeleteMapping(value = "/structure/orgs/colleges") 删除学院**
+  例子：http://47.95.120.250:8080/structure/orgs/colleges?collegeId=xxxx 
+  
+  
+  
+- **@GetMapping(value = "/structure/orgs/colleges")  获取学院**
+  例子：http://47.95.120.250:8080/structure/orgs/colleges?schoolId&page=1&pageSize=10
+  (根据schoolId获取该学校下所有的学院)
+
+
+
+- **@PostMapping(value = "/structure/orgs/majors") 新增专业**
+  例子：http://47.95.120.250:8080/structure/orgs/majors
+  **body参数**：
+  
+  ```java
+    private Long collegeId;  	//表明该专业属于哪一个学院
+    private String majorName;
+    private String majorDesc;
+  ```
+
+
+
+
+- **@PutMapping(value = "/structure/orgs/majors")  更新专业信息**
+  例子：http://47.95.120.250:8080/structure/orgs/majors 
+  **body参数**：
+  
+  ```java
+    private Long id;			//指向更新对象id
+    private Long collegeId;  	//表明该专业属于哪一个学院
+    private String majorName;
+    private String majorDesc;
+  ```
+
+
+
+  
+
+- **@DeleteMapping(value = "/structure/orgs/majors") 删除专业**
+  例子：http://47.95.120.250:8080/structure/orgs/majors?majorId=xxxx 
+  
+  
+  
+- **@GetMapping(value = "/structure/orgs/majors")  获取专业**
+  例子：http://47.95.120.250:8080/structure/orgs/majors?collegeId&page=1&pageSize=10
+  (根据collegeId获取该学院下所有的专业)
+  
+  
+  
+- **@GetMapping(value = "/structure/orgs/classes")  获取某专业下的课程**
+  例子：http://47.95.120.250:8080/structure/orgs/classes?majorId&page=1&pageSize=10
+  (根据majorId获取该专业下所有的课程信息,对应的新建课程，更新课程信息时需要加入课程对应的majorId)
+  
+---
+##### 班课创建与班课信息更新  (对之前的补充)
+
+- **/cloudClass (post，创建班课)**
+  例子：http://47.95.120.250:8080/cloudClass
+  **body参数**：
+  
+  ```java
+  private String className;
+  private String teacherName;
+  private String grade;
+  private String teachingMateria;
+  private String school;
+  private String college;
+  private String lessonStartDate;
+  private String lessonEndDate;
+  private String introduction;
+  
+  //以下三个为新增，其实填了majorId就可以，绑定一个课程到对应专业id下
+  private Long schoolId;
+  private Long collegeId;
+  private Long majorId;
+  ```
+
+  
+
+- **/cloudClass (put，更新班课信息)**
+  例子：http://47.95.120.250:8080/cloudClass?orgCode=xxxx
+  **body参数**：
+  
+  ```java
+  private String className;
+  private String teacherName;
+  private String grade;
+  private String teachingMateria;
+  private String school;
+  private String college;
+  private String lessonStartDate;
+  private String lessonEndDate;
+  private String introduction;
+  
+  //以下三个为新增，其实填了majorId就可以，绑定一个课程到对应专业id下
+  private Long schoolId;
+  private Long collegeId;
+  private Long majorId;
+  ```
+
+---
+
+
 
 ### 功能更新 2020/5/15
 ---

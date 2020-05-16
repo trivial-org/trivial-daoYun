@@ -1,21 +1,16 @@
 package org.fzu.cs03.daoyun.controller;
 
 
-import org.fzu.cs03.daoyun.entity.Role;
-import org.fzu.cs03.daoyun.entity.User;
-import org.fzu.cs03.daoyun.service.entity.RoleService;
-import org.fzu.cs03.daoyun.service.entity.UserService;
+import org.fzu.cs03.daoyun.service.admin.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.LiteDeviceResolver;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 //import sun.jvm.hotspot.debugger.Page;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 
 //@Controller
@@ -28,19 +23,18 @@ public class TestController {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private UserService userService;
-
-    @RequestMapping("/getUserList")
-    public List<User> getUserList(){
-        return userService.getUserList();
-    }
 
 
-    @RequestMapping("/getRoleList")
-    public List<Role> getRoleList(Model model){
-        return roleService.getRoleList();
-    }
+//    @RequestMapping("/getUserList")
+//    public List<User> getUserList(){
+//        return userService.getUserList();
+//    }
+
+
+//    @RequestMapping("/getRoleList")
+//    public List<Role> getRoleList(Model model){
+//        return roleService.getRoleList();
+//    }
 
     @RequestMapping("device")
     public String index(HttpServletRequest request){

@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.fzu.cs03.daoyun.service.SignInService;
+import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.support.RequestContext;
 
 import java.util.Date;
 
@@ -24,6 +26,9 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
 //        logger.info("start insert fill.....");
         // setFieldValByName(String fieldName, Object fieldVal, MetaObject metaObject
+//        RequestContext.(Constants.GlobalParam.USER_NUM, Constants.SystemUser.USER_NUM);
+        //creator作为全局信息传递进来...
+        this.setFieldValByName("creator", SystemParams.userName,metaObject);
         this.setFieldValByName("creationDate",new Date(),metaObject);
         this.setFieldValByName("lastModificationDate",new Date(),metaObject);
         this.setFieldValByName("isDeleted",Boolean.FALSE,metaObject);
@@ -33,5 +38,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
 //        logger.info("start update fill.....");
         this.setFieldValByName("lastModificationDate",new Date(),metaObject);
+        this.setFieldValByName("lastModifier", SystemParams.userName,metaObject);
+
     }
 }
