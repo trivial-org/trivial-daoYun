@@ -435,8 +435,8 @@ Engeering practice
   **body参数**：
 
   ```java
-private Long activityId; //活动id
-private String answer;   //提交的答案
+  private Long activityId; //活动id
+  private String answer;   //提交的答案
   ```
 
 
@@ -555,17 +555,27 @@ private String answer;   //提交的答案
 - **/signup/user：（get，判断用户是否存在）**
   例子：http://IP_Address:8080/signup/user?userName=superAdmin
 
+  
+  
 - **/cloudClass/members (get，获取班课成员)**
   例子：http://IP_Address:8080/cloudClass/members?orgCode=10000
 
+  
+  
 - **/cloudClass/members (get，获取班课成员,分页)**
   例子：http://IP_Address:8080/cloudClass/members?orgCode=10000&page=1&pageSize=10
 
+  
+  
 - **/cloudClass/members (post，加入班课)**
   例子：http://IP_Address:8080/cloudClass/members?orgCode=10000
   
+  
+  
 - **/cloudClass/members (delete，退出班课)**
   例子：http://IP_Address:8080/cloudClass/members?orgCode=10000
+  
+  
   
 - **/cloudClass/members (put，修改成员信息)**
   例子：http://IP_Address:8080/cloudClass/members?orgCode=10000
@@ -596,9 +606,13 @@ private String answer;   //提交的答案
   //返回班课号
   ```
   
+  
+  
 - **/cloudClass (get，查看班课信息)**
   例子：http://IP_Address:8080/cloudClass?orgCode=10000
 
+  
+  
 - **/cloudClass (put，更新班课信息)**
   例子：http://IP_Address:8080/cloudClass?orgCode=10000
   
@@ -615,8 +629,12 @@ private String answer;   //提交的答案
   //可以任选其中n个，不一定要填满
   ```
   
+  
+  
 - **/cloudClass (delete，删除班课)**
   例子：http://IP_Address:8080/cloudClass?orgCode=10000
+  
+  
   
 - **/dataDictionary (post，插入字典)**
   例子：http://IP_Address:8080/dataDictionary
@@ -629,14 +647,22 @@ private String answer;   //提交的答案
   //可以任选其中n个，不一定要填满
   ```
 
+  
+  
 - **/dataDictionary (get，查看字典)**
   例子：http://IP_Address:8080/dataDictionary?dictCode=1000
+  
+  
   
 - **/dataDictionary (get，模糊查询字典)**
   例子：http://IP_Address:8080/dataDictionary?dictCode=1000&dataName=xxx
   
+  
+  
 - **/dataDictionary (delete，删除字典数据)**
   例子：http://IP_Address:8080/dataDictionary??dictCode=1000&dataCode=10001
+  
+  
   
 - **/profilePhoto (post，上传图片)**
   例子：http://IP_Address:8080/profilePhoto
@@ -647,9 +673,13 @@ private String answer;   //提交的答案
   //返回图片名，根据这个去服务器下载对应资源
   ```
 
+  
+  
 - **/profilePhoto (get，下载图片)**
   例子：http://IP_Address:8080/profilePhoto?profilePhotoName=一个名字
 
+  
+  
 - **/signout (post，注销)**
   例子：http://IP_Address:8080/signout
   
@@ -657,12 +687,15 @@ private String answer;   //提交的答案
   private String userName
   ```
 
+  
+  
 - **/user/joinedClass (get，查看加入的班级)**
   例子：http://IP_Address:8080/user/joinedClass
   
+  
+  
 - **/user/createdClass (get，查看创建的班级)**
   例子：http://IP_Address:8080/user/createdClass
-  
 ---
 
 
@@ -710,6 +743,9 @@ private String answer;   //提交的答案
   "mailVerificationCode":"xxx",
   "verificationCode":"xxx"
   ```
+  
+  
+  
 - **/signin: （post）**
 
   提交信息于body中
@@ -720,13 +756,17 @@ private String answer;   //提交的答案
   "verificationCode":"xxx"
   ```
 
-- **/signup/user：（get）**
+  
 
+- **/signup/user：（get）**
   例子：http://IP_Address:8080/signup/user?userName=superAdmin
 
-- **/verification/mail：（get)**
+  
 
+- **/verification/mail：（get)**
   例子：http://IP_Address:8080/verification/mail?email=123@gmail.com
+
+
 
 **其他服务目前直接访问即可**
 
