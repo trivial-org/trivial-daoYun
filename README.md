@@ -759,14 +759,14 @@ Engeering practice
   
 
 - **/signup/user：（get）**
+
   例子：http://IP_Address:8080/signup/user?userName=superAdmin
 
   
 
 - **/verification/mail：（get)**
+
   例子：http://IP_Address:8080/verification/mail?email=123@gmail.com
-
-
 
 **其他服务目前直接访问即可**
 
