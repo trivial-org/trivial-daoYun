@@ -52,12 +52,31 @@ public class RoleService {
     public String deleteRole(Long roleId, HttpServletRequest request){
         //auth
 
-        roleMapper.deleteById(roleId);
+        int n = roleMapper.deleteById(roleId);
+        if (n == 0)
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"没有对应项");
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除成功");
+    }
+
+    public String getRoleById(Long id, HttpServletRequest request) throws Exception{
+        //auth
+        if (id == null)
+            throw new RoleException("角色ID为空");
+
+        Role result = roleMapper.selectById(id);
+
+        if (result == null )
+            throw new RoleException("不存在该角色");
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",result);
     }
 
     public String getRoles(Long page,Long pageSize, HttpServletRequest request) throws Exception{
         //auth
+        if (page == null || pageSize == null){
+            page = 1L;
+            pageSize = 10L;
+        }
 
         List<Role> results;
         Page<Role> pageManager = new Page<>(page,pageSize);
@@ -74,10 +93,13 @@ public class RoleService {
         QueryWrapper<Role> wrapper = new QueryWrapper<>();
         wrapper.eq("role_code",role.getRoleCode());
         List<Role> res = roleMapper.selectList(wrapper);
-        if (res.size() > 1)
-            throw new RoleException("角色代码已存在");
-        if (res.get(0).getId() != role.getId())
-            throw new RoleException("角色代码已存在");
+        if (res != null){
+            if (res.size() > 1)
+                throw new RoleException("角色代码已存在");
+            if (res.size() == 1 && !res.get(0).getId().equals(role.getId()) )
+                throw new RoleException("角色代码已存在");
+        }
+
 
         roleMapper.updateById(role);
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"更新成功");

@@ -1,5 +1,6 @@
 package org.fzu.cs03.daoyun;
 
+import com.alibaba.fastjson.JSONObject;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +15,9 @@ public class DaoyunApplication {
 
 
     public static void main(String[] args) {
+//        JSONObject.DEFFAULT_DATE_FORMAT="yyyy-MM-dd HH:mm:ss";//设置全局日期格式
         SpringApplication.run(DaoyunApplication.class, args);
+
         System.out.println("tst");
 //        MailService m = new MailService();
 //        m.MailService();

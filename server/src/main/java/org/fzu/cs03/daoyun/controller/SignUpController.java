@@ -39,7 +39,7 @@ public class SignUpController {
     @PostMapping(value = "/signup")
     public String createAccount(@RequestBody User user, HttpServletRequest request){
         try{
-            System.out.println("用户: " + request.getSession().getId() + "， 欲访问: "+request.getRequestURI());
+//            System.out.println("用户: " + request.getSession().getId() + "， 欲访问: "+request.getRequestURI());
             return signUpService.signUp(user,request.getSession());
         } catch (Exception e) {
 //            e.printStackTrace();

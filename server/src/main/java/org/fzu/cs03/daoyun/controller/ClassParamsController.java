@@ -57,8 +57,8 @@ public class ClassParamsController {
     @GetMapping(value = "/params/class")
     public String getParams(
             @RequestParam(value = "orgCode" ,required = true) Long orgCode,
-            @RequestParam(value = "page" ,required = true) Long page,
-            @RequestParam(value = "pageSize" ,required = true) Long pageSize,
+            @RequestParam(value = "page" ,required = false) Long page,
+            @RequestParam(value = "pageSize" ,required = false) Long pageSize,
             HttpServletRequest request){
         try{
             return classParamsService.getParams(orgCode,page,pageSize, request);

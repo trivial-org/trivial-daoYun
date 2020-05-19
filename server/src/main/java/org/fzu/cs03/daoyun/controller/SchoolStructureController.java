@@ -57,8 +57,8 @@ public class SchoolStructureController {
 
     @GetMapping(value = "/structure/orgs/schools")
     public String getSchools(
-            @RequestParam(value = "page" ,required = true) Long page,
-            @RequestParam(value = "pageSize" ,required = true) Long pageSize,
+            @RequestParam(value = "page" ,required = false) Long page,
+            @RequestParam(value = "pageSize" ,required = false) Long pageSize,
             HttpServletRequest request){
         try{
             return orgStructureService.getSchools(page,pageSize, request);
@@ -108,8 +108,8 @@ public class SchoolStructureController {
     @GetMapping(value = "/structure/orgs/colleges")
     public String getColleges(
             @RequestParam(value = "schoolId" ,required = true) Long schoolId,
-            @RequestParam(value = "page" ,required = true) Long page,
-            @RequestParam(value = "pageSize" ,required = true) Long pageSize,
+            @RequestParam(value = "page" ,required = false) Long page,
+            @RequestParam(value = "pageSize" ,required = false) Long pageSize,
             HttpServletRequest request){
         try{
             return orgStructureService.getColleges(schoolId,page,pageSize, request);
@@ -158,8 +158,8 @@ public class SchoolStructureController {
     @GetMapping(value = "/structure/orgs/majors")
     public String getMajors(
             @RequestParam(value = "collegeId" ,required = true) Long collegeId,
-            @RequestParam(value = "page" ,required = true) Long page,
-            @RequestParam(value = "pageSize" ,required = true) Long pageSize,
+            @RequestParam(value = "page" ,required = false) Long page,
+            @RequestParam(value = "pageSize" ,required = false) Long pageSize,
             HttpServletRequest request){
         try{
             return orgStructureService.getMajors(collegeId,page,pageSize, request);
@@ -184,8 +184,8 @@ public class SchoolStructureController {
     @GetMapping(value = "/structure/orgs/classes")
     public String getClasses(
             @RequestParam(value = "majorId" ,required = true) Long majorId,
-            @RequestParam(value = "page" ,required = true) Long page,
-            @RequestParam(value = "pageSize" ,required = true) Long pageSize,
+            @RequestParam(value = "page" ,required = false) Long page,
+            @RequestParam(value = "pageSize" ,required = false) Long pageSize,
             HttpServletRequest request){
         try{
             return orgStructureService.getClasses(majorId,page,pageSize, request);

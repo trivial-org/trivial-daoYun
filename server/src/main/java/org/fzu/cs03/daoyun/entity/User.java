@@ -1,12 +1,17 @@
 package org.fzu.cs03.daoyun.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+//import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+//import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -35,7 +40,10 @@ public class User {
     private String phone;
     private String email;
     private String school,education,major;
+
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private String birthDate;
+
     private String address,city,province,nation;
     private Integer experience,coin;
     private String profilePhotoUrl;
@@ -47,6 +55,8 @@ public class User {
     //可以输入，但是不能从数据库中读取得到，因此从数据库读出时应该置空
     private String password;
 
+    @TableField(exist = false)
+    private String roleName;
 
     @TableField(exist = false)
     private String verificationCode;
@@ -62,9 +72,14 @@ public class User {
     @TableField(fill = FieldFill.UPDATE)
     private String lastModifier;
 
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") //jackson 控制入参
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") //jackson 控制出参
+
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss") // alibaba fastjson
     @TableField(fill = FieldFill.INSERT)
     private Date creationDate;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss") // alibaba fastjson
     @TableField(fill = FieldFill.UPDATE)
     private Date lastModificationDate;
 

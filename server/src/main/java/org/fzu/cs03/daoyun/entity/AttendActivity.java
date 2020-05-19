@@ -1,5 +1,6 @@
 package org.fzu.cs03.daoyun.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,14 +34,16 @@ public class AttendActivity {
     private String answer;
 
     @TableField(exist = false)
-    private Double latitude;
+    private String latitude;
 
     @TableField(exist = false)
-    private Double longitude;
+    private String longitude;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.INSERT)
     private Date creationDate;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.UPDATE)
     private Date lastModificationDate;
 

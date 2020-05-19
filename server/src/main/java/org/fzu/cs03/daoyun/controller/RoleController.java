@@ -57,11 +57,16 @@ public class RoleController  {
 
     @GetMapping(value = "/role")
     public String getRoles(
-            @RequestParam(value = "page" ,required = true) Long page,
-            @RequestParam(value = "pageSize" ,required = true) Long pageSize,
+            @RequestParam(value = "roleId" ,required = false) Long roleId,
+            @RequestParam(value = "page" ,required = false) Long page,
+            @RequestParam(value = "pageSize" ,required = false) Long pageSize,
             HttpServletRequest request){
         try{
-            return roleService.getRoles(page,pageSize, request);
+            if (roleId == null)
+                return roleService.getRoles(page,pageSize, request);
+            else
+                return roleService.getRoleById(roleId,request);
+
         } catch (Exception e) {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }

@@ -1,5 +1,6 @@
 package org.fzu.cs03.daoyun.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -29,9 +30,11 @@ public class Orgnization {
     @TableField(exist = false)
     private Long richTextId;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.INSERT)
     private Date creationDate;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.UPDATE)
     private Date lastModificationDate;
 

@@ -37,7 +37,7 @@ public class SignUpService {
     boolean checkUserName(String userName){
 //        ^[a-zA-Z][a-zA-Z0-9_]\\w{5,17}$
 //        ^[a-zA-Z]\\w{5,17}$
-        String pattern = "^[a-zA-Z][a-zA-Z0-9_]{5,17}$";
+        String pattern = "^[a-zA-Z][a-zA-Z0-9_]{3,17}$";
         return Pattern.matches(pattern,userName);
     }
 

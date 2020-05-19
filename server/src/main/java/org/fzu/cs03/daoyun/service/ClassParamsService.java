@@ -85,12 +85,20 @@ public class ClassParamsService {
 
     public String deleteParam(Long paramId, HttpServletRequest request){
         //auth
-        classParamsMapper.deleteById(paramId);
+        int n = classParamsMapper.deleteById(paramId);
+        if (n == 0)
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"没有对应项");
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除成功");
     }
 
     public String getParams(Long orgCode,Long page,Long pageSize, HttpServletRequest request) throws Exception{
         //auth
+
+        if (page == null || pageSize == null){
+            page = 1L;
+            pageSize = 10L;
+        }
+
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null )
             throw new ParamsException("错误的班课号");
@@ -116,10 +124,13 @@ public class ClassParamsService {
                 .eq("param_code",paramCode);
 
         List<ClassParams> res = classParamsMapper.selectList(wrapper);
-        if (res.size() > 1)
-            throw new RoleException("当前班课下该参数代码已存在");
-        if (res.get(0).getId() != classParams.getId())
-            throw new RoleException("当前班课下该参数代码已存在");
+        if (res != null){
+            if (res.size() > 1)
+                throw new RoleException("当前班课下该参数代码已存在");
+            if (res.size() == 1 && !res.get(0).getId().equals(classParams.getId()))
+                throw new RoleException("当前班课下该参数代码已存在");
+        }
+
 
 
         classParamsMapper.updateById(classParams);

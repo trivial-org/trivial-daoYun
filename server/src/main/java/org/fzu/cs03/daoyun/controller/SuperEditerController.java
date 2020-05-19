@@ -6,6 +6,7 @@ import org.fzu.cs03.daoyun.entity.User;
 import org.fzu.cs03.daoyun.service.ResponseService;
 import org.fzu.cs03.daoyun.service.admin.RoleService;
 import org.fzu.cs03.daoyun.service.admin.UserService;
+import org.fzu.cs03.daoyun.utils.StringVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class SuperEditerController {
 
     @Autowired
     private UserService userService ;
+
+
 
     private final Logger logger = LoggerFactory.getLogger(SuperEditerController.class);
 
@@ -55,11 +58,20 @@ public class SuperEditerController {
 
     @GetMapping(value = "/super/users")
     public String getUsers(
-            @RequestParam(value = "page" ,required = true) Long page,
-            @RequestParam(value = "pageSize" ,required = true) Long pageSize,
+            @RequestParam(value = "userId" ,required = false) Long userId,
+            @RequestParam(value = "username" ,required = false) String username,
+            @RequestParam(value = "page" ,required = false) Long page,
+            @RequestParam(value = "pageSize" ,required = false) Long pageSize,
             HttpServletRequest request){
         try{
-            return userService.getUsers(page,pageSize, request);
+
+            if (userId != null)
+                return userService.getUserDetailById(userId,request);
+            else if (username != null)
+                return userService.getUserDetailByName(username,request);
+            else
+                return userService.getUsers(page,pageSize, request);
+
         } catch (Exception e) {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }
@@ -75,6 +87,9 @@ public class SuperEditerController {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }
     }
+
+
+
 
 
 

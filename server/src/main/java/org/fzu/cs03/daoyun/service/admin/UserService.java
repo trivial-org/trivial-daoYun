@@ -10,6 +10,7 @@ import org.fzu.cs03.daoyun.exception.UserException;
 import org.fzu.cs03.daoyun.mapper.RoleMapper;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
 import org.fzu.cs03.daoyun.service.ResponseService;
+import org.fzu.cs03.daoyun.utils.StringVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,14 @@ import java.util.List;
 // 该服务用于对用户的完全控制，仅限超级管理员使用
 public class UserService {
 
-
+    @Autowired
+    private RoleMapper roleMapper;
     @Autowired
     private UserMapper userMapper;
     @Autowired
     private ResponseService responseService;
-
+    @Autowired
+    private StringVerifier stringVerifier ;
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public String addUser(User user, HttpServletRequest request) throws Exception{
@@ -46,6 +49,9 @@ public class UserService {
 
         if (user.getPassword() == null)
             throw new UserException("密码不能为空");
+
+        if (stringVerifier.verifyUserName(user.getUsername()) == Boolean.FALSE)
+            throw new UserException("用户名必须满足正则：^[a-zA-Z][a-zA-Z0-9_]{2,17}，看不懂你用什么app");
 
         user.setIsActive(Boolean.TRUE);
 
@@ -62,18 +68,40 @@ public class UserService {
 
     public String deleteUser(Long userId, HttpServletRequest request){
         //auth
-        userMapper.deleteById(userId);
+        int n = userMapper.deleteById(userId);
+        if (n == 0)
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"没有对应项");
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除成功");
     }
 
     public String getUsers(Long page,Long pageSize, HttpServletRequest request) throws Exception{
         //auth
 
+        if (page == null || pageSize == null){
+            page = 1L;
+            pageSize = 10L;
+        }
+
         List<User> results;
         Page<User> pageManager = new Page<>(page,pageSize);
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.select(User.class, info -> !info.getColumn().equals("password"));
         results = userMapper.selectPage(pageManager,wrapper).getRecords();
+
+        //代价很大的查询角色名......待优化.....
+
+        for (int i=0 ; i<results.size();++i){
+            Long roleId = results.get(i).getRoleId();
+            if (roleId != null ){
+                QueryWrapper<Role> wrapper2 = new QueryWrapper<>();
+                wrapper2.select("role_name");
+                wrapper2.eq("id",roleId);
+                Role role = roleMapper.selectOne(wrapper2);
+                if (role != null)
+                    results.get(i).setRoleName(role.getRoleName());
+            }
+        }
+
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
     }
 
@@ -82,17 +110,78 @@ public class UserService {
         if (user == null || user.getId() == null){
             throw new UserException("未指定的用户id");
         }
-        //可以直接更新密码，但不能读取.
 
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("username",user.getUsername());
-        List<User> res = userMapper.selectList(wrapper);
-        if (res.size() > 1)
-            throw new RoleException("用户名已存在");
-        if (res.get(0).getId() != user.getId())
-            throw new RoleException("用户名已存在");
+        //可以直接更新密码，但不能读取.
+        if (user.getUsername() != null){
+
+            if (stringVerifier.verifyUserName(user.getUsername()) == Boolean.FALSE)
+                throw new UserException("用户名必须满足正则：^[a-zA-Z][a-zA-Z0-9_]{2,17}，看不懂你用什么app");
+
+            QueryWrapper<User> wrapper = new QueryWrapper<>();
+            wrapper.eq("username",user.getUsername());
+            List<User> res = userMapper.selectList(wrapper);
+
+            if (res != null){
+                if (res.size() > 1)
+                    throw new UserException("用户名已存在1");
+                if (res.size() == 1 && ! res.get(0).getId().equals(user.getId()))
+                {
+                    System.out.println(res.get(0).getId());
+                    System.out.println(user.getId());
+                    throw new UserException("用户名已存在2");
+                }
+            }
+
+        }
 
         userMapper.updateById(user);
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"更新成功");
+    }
+
+
+    public String getUserDetailById(Long id, HttpServletRequest request) throws Exception{
+        //auth
+        if (id == null){
+            throw new UserException("未指定的用户id");
+        }
+
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.select(User.class, info -> !info.getColumn().equals("password"))
+                .eq("id",id);
+        User result = userMapper.selectOne(wrapper);
+
+        Long roleId = result.getRoleId();
+        if (roleId != null){
+            QueryWrapper<Role> wrapper2 = new QueryWrapper<>();
+            wrapper2.select("role_name").eq("id",roleId);
+            Role role = roleMapper.selectOne(wrapper2);
+            if (role != null)
+                result.setRoleName(role.getRoleName());
+        }
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",result);
+    }
+
+    public String getUserDetailByName(String username, HttpServletRequest request) throws Exception{
+        //auth
+        if (username == null){
+            throw new UserException("未指定的用户名");
+        }
+
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.select(User.class, info -> !info.getColumn().equals("password"))
+                .eq("username",username);
+        User result = userMapper.selectOne(wrapper);
+
+        Long roleId = result.getRoleId();
+        if (roleId != null){
+            QueryWrapper<Role> wrapper2 = new QueryWrapper<>();
+            wrapper2.select("role_name").eq("id",roleId);
+            Role role = roleMapper.selectOne(wrapper2);
+            if (role != null)
+                result.setRoleName(role.getRoleName());
+        }
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",result);
     }
 }

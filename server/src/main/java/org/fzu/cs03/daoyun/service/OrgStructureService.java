@@ -53,12 +53,19 @@ public class OrgStructureService {
 
     public String deleteSchool(Long schoolId, HttpServletRequest request){
         //auth
-        schoolMapper.deleteById(schoolId);
+        int n = schoolMapper.deleteById(schoolId);
+        if (n == 0)
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"没有对应项");
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除成功");
     }
 
     public String getSchools(Long page,Long pageSize, HttpServletRequest request) throws Exception{
         //auth
+
+        if (page == null || pageSize == null){
+            page = 1L;
+            pageSize = 10L;
+        }
 
         List<School> results;
         Page<School> pageManager = new Page<>(page,pageSize);
@@ -89,12 +96,22 @@ public class OrgStructureService {
 
     public String deleteCollege(Long collegeId, HttpServletRequest request){
         //auth
-        collegeMapper.deleteById(collegeId);
+        int n = collegeMapper.deleteById(collegeId);
+        if (n == 0)
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"没有对应项");
+
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除成功");
     }
 
     public String getColleges(Long schoolId,Long page,Long pageSize, HttpServletRequest request) throws Exception{
         //auth
+
+        if (page == null || pageSize == null){
+            page = 1L;
+            pageSize = 10L;
+        }
+
+
         if (schoolId == null)
             throw new OrgStructureException("未指定的学校id");
 
@@ -129,12 +146,20 @@ public class OrgStructureService {
 
     public String deleteMajor(Long majorId, HttpServletRequest request){
         //auth
-        majorMapper.deleteById(majorId);
+        int n = majorMapper.deleteById(majorId);
+        if (n == 0)
+            return responseService.responseFactory(StatusCode.RESPONSE_OK,"没有对应项");
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除成功");
     }
 
     public String getMajors(Long collegeId,Long page,Long pageSize, HttpServletRequest request) throws Exception{
         //auth
+
+        if (page == null || pageSize == null){
+            page = 1L;
+            pageSize = 10L;
+        }
+
         if (collegeId == null)
             throw new OrgStructureException("未指定学院id");
 
@@ -159,6 +184,12 @@ public class OrgStructureService {
 
     public String getClasses(Long majorId,Long page,Long pageSize, HttpServletRequest request) throws Exception{
         //auth
+
+        if (page == null || pageSize == null){
+            page = 1L;
+            pageSize = 10L;
+        }
+
         if (majorId == null)
             throw new OrgStructureException("未指定专业id");
 

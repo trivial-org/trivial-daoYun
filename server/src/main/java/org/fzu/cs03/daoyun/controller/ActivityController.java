@@ -83,8 +83,8 @@ public class ActivityController {
     @GetMapping(value = "/activities/records")
     public String getActivityAttendingState(
             @RequestParam(value = "activityId" ,required = true) Long activityId,
-            @RequestParam(value = "page" ,required = true) Integer page,
-            @RequestParam(value = "pageSize" ,required = true) Integer pageSize,
+            @RequestParam(value = "page" ,required = false) Integer page,
+            @RequestParam(value = "pageSize" ,required = false) Integer pageSize,
             HttpServletRequest request){
         try{
             return activityService.getActivityAttendingState(activityId,page,pageSize, request);

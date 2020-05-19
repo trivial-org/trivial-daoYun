@@ -163,11 +163,11 @@ public class ActivityService {
         }
 
         if (publishedActivity.getMaxDist()!=null){
-            Double maxDist = publishedActivity.getMaxDist();
-            Double lat = publishedActivity.getLatitude();
-            Double logt = publishedActivity.getLongitude();
-            Double userLat = attendActivity.getLatitude();
-            Double userLogt = attendActivity.getLongitude();
+            Double maxDist = Double.valueOf(publishedActivity.getMaxDist()) ;
+            Double lat = Double.valueOf(publishedActivity.getLatitude());
+            Double logt = Double.valueOf(publishedActivity.getLongitude());
+            Double userLat = Double.valueOf(attendActivity.getLatitude());
+            Double userLogt = Double.valueOf(attendActivity.getLongitude());
 
 
             Double dist = DistanceMetric.getDistance(lat,logt,userLat,userLogt);
@@ -231,6 +231,12 @@ public class ActivityService {
                                                           HttpServletRequest request) throws Exception{
 
         //权限验证
+
+        if (page == null || pageSize == null){
+            page = 1;
+            pageSize = 10;
+        }
+
         String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
         Long userId = userMapper.getUserIdByUserName(userName);
 

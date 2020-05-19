@@ -1,6 +1,7 @@
 package org.fzu.cs03.daoyun.entity;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,11 +28,11 @@ public class PublishedActivity {
     private String beginDate;
     private String endDate;
     private Integer maxscore;
-    private Double maxDist;
+    private String maxDist;
     private String creator;
     private String activityDescription;
-    private Double latitude;
-    private Double longitude;
+    private String latitude;
+    private String longitude;
 
     @TableField(exist = false)
     private Long orgCode;
@@ -39,10 +40,11 @@ public class PublishedActivity {
     @TableField(exist = false)
     private String answer;
 
-
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.INSERT)
     private Date creationDate;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.UPDATE)
     private Date lastModificationDate;
 

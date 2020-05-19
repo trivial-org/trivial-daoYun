@@ -5,9 +5,111 @@ Engeering practice
 关系表是不是联合主键+单独索引都建起来比较好？
 
 - controller层提供交互接口
+
 - service层提供服务（service之间操作mapper层，同文件分为底层服务和逻辑控制服务，底层服务提供事务级数据库操作，逻辑控制做合法性检查，底层服务可能service之间存在共享，是否要将这两层完全剥离？再抽象一个事务级Dao层？）
+
 - mapper层提供与数据库交互
+
 - mapper层逐步取消exister，直接使用getter，如果为空返回null。
+
+  
+
+
+### 功能更新 2020/5/19
+
+---
+
+- 发布签到新增经纬度参数、最大签到距离参数
+
+- 参与签到新增经纬度参数
+
+- 新增根据角色ID返回角色详情
+
+- 新增查询用户全部信息的管理员接口
+
+- 返回用户信息新增角色名
+
+- 补充管理员新增、修改用户名合法性检查
+
+- date数据、id数据使用字符串返回
+
+- 修复了更新角色越界的bug
+
+- 修复用户更新越界的bug
+
+#### post/get/put/delete示例
+---
+##### 签到补充
+- **/activities (PostMapping，创建活动)**
+
+  例子：http://IP_Address:8080/activitie
+  
+  **body参数**：
+  
+  ```java
+  private Long activityTypeId;		//活动类型，签到为1
+  private String answer;			//活动答案：可以是签到顺序，如123456789
+  private Integer maxscore;			//活动分数
+  private String activityDescription;//活动描述
+  private Long orgCode; 			//活动对应的班课号
+  private String latitude;
+  private String longitude;
+  private String maxDist;
+  ```
+
+
+
+- **/activities (GetMapping，获得某班课下所有活动，返回信息包含活动id)**
+
+  例子：http://IP_Address:8080/activitie?orgCode=xxxxx
+
+
+
+- **/activities (PutMapping，关闭班课活动)**
+
+  例子：http://IP_Address:8080/activitie?activityId=xxxxx
+
+
+
+- **/activities/records (PostMapping，参加班课活动)**
+
+  例子：http://IP_Address:8080/activities/records
+
+  **body参数**：
+
+  ```java
+  private Long activityId; //活动id
+  private String answer;   //提交的答案
+  private String latitude;
+  private String longitude;
+  ```
+
+
+
+- **/activities/records (GetMapping，获取班课活动的参加情况，包括回答错误的记录)**
+
+  例子：http://IP_Address:8080/activities/records?activityId=xxxxx&page=1&pageSize=10
+
+
+
+---
+##### 角色ID查角色
+- **@GetMapping(value = "/role") 通过ID获取角色信息**
+
+  例子：http://IP_Address:8080/role?roleId=xxx
+---
+##### 用户ID/名字查用户详情(管理员)
+- **@GetMapping(value = "/super/users") 通过ID/名字获取用户信息**
+
+  例子：http://IP_Address:8080/super/users?userId=xxx
+  
+  或者是 
+  
+  例子：http://IP_Address:8080/super/users?username=xxx
+  
+  
+---
+
 
 
 
@@ -147,7 +249,7 @@ Engeering practice
 
 - **@PutMapping(value = "/super/users") 更新用户信息**
 
-  例子：http://IP_Address:8080/params/class 
+  例子：http://IP_Address:8080/super/users
 
   **body参数**：
   
@@ -175,7 +277,7 @@ Engeering practice
 
 - **@DeleteMapping(value = "/super/users") 根据id删除用户**
 
-  例子：http://IP_Address:8080/role?userId=xxxx 
+  例子：http://IP_Address:8080/super/users?userId=xxxx 
 
   (利用get可以获取到userId，之前也有引出根据userName查询userId的接口)
   
@@ -183,7 +285,7 @@ Engeering practice
   
 - **@GetMapping(value = "/super/users") 获取所有用户信息，分页显示**
 
-  例子：http://IP_Address:8080/role&page=1&pageSize=10
+  例子：http://IP_Address:8080/super/users?page=1&pageSize=10
 
 ---
 ##### 组织结构化信息
@@ -227,7 +329,7 @@ Engeering practice
   
 - **@GetMapping(value = "/structure/orgs/schools") 获取所有学校**
 
-  例子：http://IP_Address:8080/structure/orgs/schools&page=1&pageSize=10
+  例子：http://IP_Address:8080/structure/orgs/schools?page=1&pageSize=10
 
 
 
