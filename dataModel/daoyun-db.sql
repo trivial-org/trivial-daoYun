@@ -1091,7 +1091,7 @@ create index idx_phone on user
 /*==============================================================*/
 /* Index: idx_username                                          */
 /*==============================================================*/
-create unique index idx_username on user
+create index idx_username on user
 (
    username
 );

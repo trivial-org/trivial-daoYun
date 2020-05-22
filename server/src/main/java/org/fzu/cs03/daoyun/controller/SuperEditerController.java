@@ -77,6 +77,17 @@ public class SuperEditerController {
         }
     }
 
+    @GetMapping(value = "/super/users/total")
+    public String getUsersCount(
+            HttpServletRequest request){
+        try{
+            return userService.getUsersCount(request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+
     @PutMapping(value = "/super/users")
     public String updateUser(
             @RequestBody User user,

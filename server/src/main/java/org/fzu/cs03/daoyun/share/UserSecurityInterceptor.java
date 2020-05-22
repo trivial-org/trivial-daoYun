@@ -1,6 +1,8 @@
 package org.fzu.cs03.daoyun.share;
 
-import org.fzu.cs03.daoyun.utils.SessionMapUtils;
+import org.fzu.cs03.daoyun.exception.TokenException;
+import org.fzu.cs03.daoyun.mapper.UserMapper;
+import org.fzu.cs03.daoyun.utils.TokenMapUtils;
 import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,46 +19,76 @@ import java.io.PrintWriter;
 public class UserSecurityInterceptor implements HandlerInterceptor {
 
     @Autowired
-    SessionMapUtils sessionMapUtils;
+    TokenMapUtils tokenMapUtils;
+
+    @Autowired
+    UserMapper userMapper;
 
     private final Logger logger = LoggerFactory.getLogger(UserSecurityInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Object obj = request.getSession().getAttribute("userName");
-        String userName ;
 
-        if (obj == null) userName = null;
-        else userName = obj.toString();
+        String token ;
+        boolean pass = true;
+        String failInfo = "访问头未包含令牌" ;
+
+        token = request.getHeader("myAuthorization");
+
+        //兼容sessionId
+//        if (token == null)
+//            token = request.getSession().getId();
 
 //        request.getRequestURI(); 获得请求的页面
 
-        if (obj == null || ! sessionMapUtils.isActiveSession(userName,request)) {
+        if (token != null){
+            try {
+                tokenMapUtils.verifyToken(token,request);
+            }
+            catch (Exception e){
+                pass = false;
+                failInfo = e.getMessage();
+            }
+        }
+
+
+        if (token == null || pass == false ) {
 //            response.sendRedirect(request.getContextPath() + "/signin");
             response.reset();
+
+            //攔截器返回false，後面的跨域Controller就被攔截不執行了，因此在此處加入跨域頭
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+            response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            response.addHeader("Access-Control-Max-Age", "3600");
+
+
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json;charset=UTF-8");
             PrintWriter pw = response.getWriter();
-            pw.write("非法操作，请先登录或提权. 非法代码: "+
-                    request.getSession().getId() + "");
+            pw.write("非法操作，请先登录或提权. 错误信息: "+ failInfo );
             pw.flush();
             pw.close();
 
-            logger.info(request.getSession().getId() + " 非法访问: "+ request.getRequestURI());
-//            System.out.println("非法登录");
+//            logger.info("非法访问: "+ request.getRequestURI());
             return false; //若为true,response.getWriter();会被重新调用，会报错.
         }
-//        System.out.println("已验证的登录");
-        logger.info(userName + " 受验证访问: "+ request.getRequestURI());
+        Long userId = tokenMapUtils.getUserIdByToken(token);
+        String username = userMapper.getUsernameById(userId);
 
-        SystemParams.userName = userName;
+        logger.info(username + " 受验证访问: "+ request.getRequestURI());
+
+        SystemParams.username = username;
+        SystemParams.userId = userId;
+        SystemParams.token = token;
+
 //        SystemParams.userName = userName;
 
 //        String info = userName + "：已验证的登录";
 //        logger.info(info);
 
 //      request.getSession().setMaxInactiveInterval(3) ; // 删除该会话
-//        request.getad
+
         return true;
     }
 

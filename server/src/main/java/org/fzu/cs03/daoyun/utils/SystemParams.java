@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class SystemParams {
 
     public static Long userId;
-    public static String userName;
+    public static String username;
+    public static String token;
 
 }

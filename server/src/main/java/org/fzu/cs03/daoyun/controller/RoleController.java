@@ -72,6 +72,16 @@ public class RoleController  {
         }
     }
 
+    @GetMapping(value = "/role/total")
+    public String getRolesCount(
+            HttpServletRequest request){
+        try{
+            return roleService.getRolesCount(request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
     @PutMapping(value = "/role")
     public String updateRole(
             @RequestBody Role role,

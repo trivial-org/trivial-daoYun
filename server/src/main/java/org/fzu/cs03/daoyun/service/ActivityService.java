@@ -13,6 +13,7 @@ import org.fzu.cs03.daoyun.exception.ActivityException;
 import org.fzu.cs03.daoyun.mapper.*;
 import org.fzu.cs03.daoyun.utils.DateFormater;
 import org.fzu.cs03.daoyun.utils.DistanceMetric;
+import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,9 @@ public class ActivityService {
 
         //需要做权限验证;比如签到活动同一时刻只能有一个激活
 
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
 
         Long orgCode = publishedActivity.getOrgCode();
         if (orgCode == null){
@@ -86,7 +88,7 @@ public class ActivityService {
         publishedActivity.setIsActive(Boolean.TRUE);
         publishedActivity.setBeginDate(dateFormater.getDate());
         publishedActivity.setOrgId(orgId);
-        publishedActivity.setCreator(userName);
+        publishedActivity.setCreator(username);
 
         publishedActivityMapper.insert(publishedActivity);
 
@@ -99,8 +101,10 @@ public class ActivityService {
 
         //需要做权限验证
 
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
         if (orgCode == null)
             throw new ActivityException("错误的班课号");
 
@@ -139,8 +143,9 @@ public class ActivityService {
     public String attendActivity(AttendActivity attendActivity,  HttpServletRequest request) throws Exception{
 
         //权限验证
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
 
         Long activityId = attendActivity.getActivityId();
         if (activityId == null)
@@ -237,8 +242,9 @@ public class ActivityService {
             pageSize = 10;
         }
 
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
 
         if (activityId == null)
             throw new ActivityException("请提供活动id");

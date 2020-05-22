@@ -111,6 +111,19 @@ public class ClassParamsService {
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
     }
 
+    public String getParamsCount(Long orgCode, HttpServletRequest request) throws Exception{
+        //auth
+
+        Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
+        if (orgId == null )
+            throw new ParamsException("错误的班课号");
+
+        QueryWrapper<ClassParams> wrapper = new QueryWrapper<>();
+        wrapper.eq("org_id",orgId);
+        Integer count = classParamsMapper.selectCount(wrapper);
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",count);
+    }
+
     public String updateParam(ClassParams classParams, HttpServletRequest request) throws Exception{
         //auth
         if (classParams == null || classParams.getId() == null){

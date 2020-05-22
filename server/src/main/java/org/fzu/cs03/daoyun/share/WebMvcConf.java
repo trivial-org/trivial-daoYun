@@ -48,7 +48,6 @@ public class WebMvcConf implements WebMvcConfigurer {
                 .excludePathPatterns("/device")
                 .excludePathPatterns("/dataDictionary");
 
-
 //        log.debug("跨域拦截器注册成功！");
     }
 

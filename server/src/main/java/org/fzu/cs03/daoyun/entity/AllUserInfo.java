@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class AllUserInfo {
     private Long id;
     private Long roleId;
-    private String userName;
+    private String username;
     private String nickname;
     private String gender;
     private String studentId;

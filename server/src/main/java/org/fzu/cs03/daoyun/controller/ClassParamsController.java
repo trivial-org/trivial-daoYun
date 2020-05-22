@@ -67,6 +67,18 @@ public class ClassParamsController {
         }
     }
 
+    @GetMapping(value = "/params/class/total")
+    public String getParamsCount(
+            @RequestParam(value = "orgCode" ,required = true) Long orgCode,
+            HttpServletRequest request){
+        try{
+            return classParamsService.getParamsCount(orgCode, request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+
     @PutMapping(value = "/params/class")
     public String updateParam(
             @RequestBody ClassParams classParams,

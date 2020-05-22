@@ -13,6 +13,7 @@ import org.fzu.cs03.daoyun.mapper.OrgMemberMapper;
 import org.fzu.cs03.daoyun.mapper.OrgnizationMapper;
 import org.fzu.cs03.daoyun.mapper.RichTextMapper;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
+import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class CloudClassService {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr = format.format(date);
-        String creator = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String creator = SystemParams.username;
         String orgName = creator + " 创建的组织";
 
         Long userId = userMapper.getUserIdByUserName(creator);
@@ -67,7 +68,9 @@ public class CloudClassService {
         orgnizationMapper.cerateOrgnization(orgCode,orgName,richTextId,dateStr,creator,false);
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         //创建者与组织的关系
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+
         classMemberService.addUserToClass(userId,orgId);
 
 
@@ -96,8 +99,10 @@ public class CloudClassService {
 
 
     public String updateClassInfoByOrgCode(Long orgCode, CloudClass updateInfo,  HttpServletRequest request) throws Exception{
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
@@ -131,8 +136,10 @@ public class CloudClassService {
 
 
     public String deleteCloudClassAndMembers(Long orgCode,  HttpServletRequest request) throws Exception{
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if ( ! orgnizationMapper.OrgExistByOrgId(orgId))
             throw new CloudClassException("班课不存在，删除失败");

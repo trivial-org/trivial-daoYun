@@ -3,7 +3,9 @@ package org.fzu.cs03.daoyun.service.admin;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.fzu.cs03.daoyun.StatusCode;
+import org.fzu.cs03.daoyun.entity.ClassParams;
 import org.fzu.cs03.daoyun.entity.Role;
+import org.fzu.cs03.daoyun.exception.ParamsException;
 import org.fzu.cs03.daoyun.exception.RoleException;
 import org.fzu.cs03.daoyun.mapper.RoleMapper;
 import org.fzu.cs03.daoyun.service.ResponseService;
@@ -83,6 +85,14 @@ public class RoleService {
         results = roleMapper.selectPage(pageManager,null).getRecords();
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
     }
+
+    public String getRolesCount(HttpServletRequest request) throws Exception{
+        //auth
+        Integer count = roleMapper.selectCount(null);
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",count);
+    }
+
+
 
     public String updateRole(Role role, HttpServletRequest request) throws Exception{
         //auth

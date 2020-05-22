@@ -25,7 +25,7 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("SELECT * FROM user WHERE id= #{id} ")
     List<User> getUser(Long id);
 
-    @Select("SELECT count(id) FROM user WHERE (username = #{userName} or phone = #{userName}) and is_deleted = 0 limit 1")
+    @Select("SELECT count(id) FROM user WHERE (username = #{userName} or phone = #{userName}) and (is_deleted = 0 or id = 1) limit 1")
     boolean userExist(String userName);
 
     @Select("SELECT password FROM user WHERE username = #{userName} or phone = #{userName}")
@@ -45,6 +45,9 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Select("SELECT id FROM user WHERE username = #{userName} limit 1")
     Long getUserIdByUserName(String userName);
+
+    @Select("SELECT username FROM user WHERE id = #{id} limit 1")
+    String getUsernameById(Long id);
 
     @Select("SELECT o.org_code, o.org_name, o.extend_json richTextId, o.creation_date, o.creator FROM org AS o INNER JOIN user_org_info AS r ON r.user_id = #{userId} and r.org_id = o.id")
     List<Orgnization> getUserJoinedOrgnization(Long userId);

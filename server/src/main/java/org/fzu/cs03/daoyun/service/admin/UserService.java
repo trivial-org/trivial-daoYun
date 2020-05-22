@@ -85,6 +85,7 @@ public class UserService {
         List<User> results;
         Page<User> pageManager = new Page<>(page,pageSize);
         QueryWrapper<User> wrapper = new QueryWrapper<>();
+
         wrapper.select(User.class, info -> !info.getColumn().equals("password"));
         results = userMapper.selectPage(pageManager,wrapper).getRecords();
 
@@ -184,4 +185,12 @@ public class UserService {
 
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",result);
     }
+
+
+    public String getUsersCount(HttpServletRequest request) throws Exception{
+        //auth
+        Integer count = userMapper.selectCount(null);
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",count);
+    }
+
 }

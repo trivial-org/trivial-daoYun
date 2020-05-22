@@ -12,7 +12,46 @@ Engeering practice
 
 - mapper层逐步取消exister，直接使用getter，如果为空返回null。
 
+
+### 功能更新 2020/5/22
+---
+- 新增几个返回总记录数的接口
+- 修改了大小写不统一的返回参数
+- 拦截器加入跨域头
+- 新增token(登录后返回userid和token)
+- 新增用户修改密码
+- 将user表的username字段的唯一索引改成普通索引(方便删除后重新注册)
+
+#### post/get/put/delete示例
+---
+##### 新增几个返回总记录数的接口
+- **@GetMapping(value = "/super/users/total") 获取用户总数**
+
+  例子：http://IP_Address:8080/super/users/total
+
+- **@GetMapping(value = "/role/total") 获取角色总数**
+
+  例子：http://IP_Address:8080/role/total
   
+- **@GetMapping(value = "/params/class/total") 获取某班课参数总数**
+
+  例子：http://IP_Address:8080/params/class/total
+  
+---
+##### 新增修改用户密码
+- **@PutMapping(value = "/user/password") 修改用户密码**
+
+  例子：http://IP_Address:8080/user/password
+  
+  **body参数**：
+  
+  ```java
+    private Long id; //用户id
+    private String newpassword; //新的密码
+    private String oldPassword; //旧的密码
+  ```
+---
+
 
 
 ### 功能更新 2020/5/19

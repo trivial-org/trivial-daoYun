@@ -3,9 +3,11 @@ package org.fzu.cs03.daoyun.controller;
 import org.fzu.cs03.daoyun.GlobalConstant;
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.CloudClass;
+import org.fzu.cs03.daoyun.entity.UserPassword;
 import org.fzu.cs03.daoyun.entity.UserUpdate;
 import org.fzu.cs03.daoyun.service.ResponseService;
 import org.fzu.cs03.daoyun.service.UserInfoService;
+import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +71,9 @@ public class UserInfoController {
             @RequestParam(value = "userName" ,required = false) String userName,
             HttpServletRequest request){
         try{
-            String currUserName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-            if (userName == null || userName.equals(currUserName))
+//            String currUserName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+            String currUsername = SystemParams.username;
+            if (userName == null || userName.equals(currUsername))
                 return userInfoService.getAllUserInfo(request);
             else
                 return userInfoService.getSimpleUserInfo(userName, request);
@@ -78,6 +81,19 @@ public class UserInfoController {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }
     }
+
+
+    @PutMapping(value = "/user/password")
+    public String updateUserPassword(
+            @RequestBody UserPassword userPassword,
+            HttpServletRequest request){
+        try{
+            return userInfoService.updateUserPassword(userPassword,request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
 
 
 }

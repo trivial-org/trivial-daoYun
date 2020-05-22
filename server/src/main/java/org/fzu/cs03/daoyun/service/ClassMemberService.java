@@ -10,6 +10,7 @@ import org.fzu.cs03.daoyun.exception.OrgMemberException;
 import org.fzu.cs03.daoyun.mapper.OrgMemberMapper;
 import org.fzu.cs03.daoyun.mapper.OrgnizationMapper;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
+import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class ClassMemberService {
         String classSchool = allUserInfo.getSchool();
         String classMajor = allUserInfo.getMajor();
         String classCollege = allUserInfo.getCollege();
-        String userName = allUserInfo.getUserName();
+        String userName = allUserInfo.getUsername();
         String nickName = allUserInfo.getNickname();
         String classNumber = allUserInfo.getStudentId();
         if (nickName == null)
@@ -80,8 +81,10 @@ public class ClassMemberService {
     }
 
     public String userJoinClass(Long orgCode,  HttpServletRequest request) throws Exception{
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
@@ -92,8 +95,9 @@ public class ClassMemberService {
     }
 
     public String userQuitClass(Long orgCode,  HttpServletRequest request) throws Exception{
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
@@ -111,8 +115,10 @@ public class ClassMemberService {
 
 
     public String updateClassMemberInfo(long orgCode, ClassMemberUpdate classMemberUpdate, HttpServletRequest request) throws Exception{
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
@@ -128,8 +134,10 @@ public class ClassMemberService {
 
     // 获取成员信息
     public String getMembersByOrgCode(Long orgCode, HttpServletRequest request) throws Exception{
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");
@@ -148,8 +156,10 @@ public class ClassMemberService {
 
     public String getMembersByOrgCode(Long orgCode, Long page, Long pageSize, HttpServletRequest request) throws Exception{
 
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         if (orgId == null)
             throw new OrgMemberException("班课不存在");

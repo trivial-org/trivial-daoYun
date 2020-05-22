@@ -11,6 +11,7 @@ import org.fzu.cs03.daoyun.mapper.OrgMemberMapper;
 import org.fzu.cs03.daoyun.mapper.OrgnizationMapper;
 import org.fzu.cs03.daoyun.mapper.RichTextMapper;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
+import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,19 +45,24 @@ public class UserInfoService {
     private final Logger logger = LoggerFactory.getLogger(UserInfoService.class);
 
     public String getUserJoinedClass(HttpServletRequest request) throws Exception {
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
+
 //        List<Orgnization> res = userMapper.getUserJoinedOrgnization(userId);
         // 仅返回用户加入的群组（排除用户创建的群组)
-        List<Orgnization> res = userMapper.getUserJoinedOrgnizationExcludeCreated(userId, userName);
+        List<Orgnization> res = userMapper.getUserJoinedOrgnizationExcludeCreated(userId, username);
         JSONArray jsonArray = richTextService.objectListPlusRichText(res,"cloudClass");
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"",jsonArray);
     }
 
     public String getUserCreatedClass(HttpServletRequest request) throws Exception {
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
-        List<Orgnization> res = userMapper.getUserCreatedOrgnization(userId,userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
+        List<Orgnization> res = userMapper.getUserCreatedOrgnization(userId,username);
         System.out.println(res.size());
         JSONArray jsonArray = richTextService.objectListPlusRichText(res,"cloudClass");
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"",jsonArray);
@@ -70,8 +76,11 @@ public class UserInfoService {
             throw new UserInfoException("提交的用户信息为空");
         }
 
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
+
         if (userId == null){
             throw new UserInfoException("未查询到用户");
         }
@@ -108,6 +117,45 @@ public class UserInfoService {
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"更新用户信息成功");
     }
 
+
+
+    public String updateUserPassword(UserPassword userPassword,  HttpServletRequest request) throws Exception{
+        if (userPassword == null){
+            throw new UserInfoException("错误的参数提交(更新密码)");
+        }
+
+        if (userPassword.getId() == null){
+            throw new UserInfoException("错误的用户id");
+        }
+
+        if (userPassword.getOldPassword() == null){
+            throw new UserInfoException("旧的密码不能为空");
+        }
+
+        if (userPassword.getNewPassword() == null){
+            throw new UserInfoException("新的密码不能为空");
+        }
+
+
+//        if (userPassword.getOldPassword() is not legal)
+//            throw new UserInfoException("新密码不符合要求");
+
+        User currUserInfo = userMapper.selectById(userPassword.getId());
+        if (!currUserInfo.getPassword().equals(userPassword.getOldPassword()))
+            throw new UserInfoException("密码错误,验证失败");
+
+
+        User tempUser = new User();
+        tempUser.setId(userPassword.getId());
+        tempUser.setPassword(userPassword.getNewPassword());
+
+        userMapper.updateById(tempUser);
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"修改用户密码成功");
+    }
+
+
+
     public String getSimpleUserInfo(String userName, HttpServletRequest request) throws Exception{
         if (!userMapper.userExist(userName))
             throw new UserInfoException("无此用户");
@@ -117,8 +165,10 @@ public class UserInfoService {
     }
 
     public String getAllUserInfo(HttpServletRequest request) throws Exception{
-        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
-        Long userId = userMapper.getUserIdByUserName(userName);
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
         AllUserInfo allUserInfo = userMapper.getAllUserInfoByUserId(userId);
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",allUserInfo);
     }
