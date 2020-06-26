@@ -193,4 +193,28 @@ public class UserService {
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",count);
     }
 
+
+    //
+    public User getUserEntityByName(String username) throws Exception{
+        //auth
+        if (username == null){
+            throw new UserException("未指定的用户名");
+        }
+
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username",username);
+        User result = userMapper.selectOne(wrapper);
+
+        Long roleId = result.getRoleId();
+        if (roleId != null){
+            QueryWrapper<Role> wrapper2 = new QueryWrapper<>();
+            wrapper2.select("role_name").eq("id",roleId);
+            Role role = roleMapper.selectOne(wrapper2);
+            if (role != null)
+                result.setRoleName(role.getRoleName());
+        }
+
+        return result;
+    }
+
 }

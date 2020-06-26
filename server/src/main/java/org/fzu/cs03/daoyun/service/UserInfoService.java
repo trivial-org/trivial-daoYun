@@ -3,6 +3,7 @@ package org.fzu.cs03.daoyun.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.fzu.cs03.daoyun.GlobalConstant;
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.*;
@@ -11,6 +12,7 @@ import org.fzu.cs03.daoyun.mapper.OrgMemberMapper;
 import org.fzu.cs03.daoyun.mapper.OrgnizationMapper;
 import org.fzu.cs03.daoyun.mapper.RichTextMapper;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
+import org.fzu.cs03.daoyun.shiroPackage.util.SHA256Util;
 import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -140,15 +142,28 @@ public class UserInfoService {
 //        if (userPassword.getOldPassword() is not legal)
 //            throw new UserInfoException("新密码不符合要求");
 
+
         User currUserInfo = userMapper.selectById(userPassword.getId());
+        String oldPasswordSalt = currUserInfo.getSalt(); //获取数据库里用户存的盐值
+        //用数据库里的盐值对用户当前提交的旧密码进行加密
+        String oldEncryptedPassword = SHA256Util.sha256(userPassword.getOldPassword(), oldPasswordSalt);
+        //把用户提交的旧密码设置为用数据库盐值加密后的密文密码
+        userPassword.setOldPassword(oldEncryptedPassword);
+
+
         if (!currUserInfo.getPassword().equals(userPassword.getOldPassword()))
             throw new UserInfoException("密码错误,验证失败");
 
 
         User tempUser = new User();
         tempUser.setId(userPassword.getId());
-        tempUser.setPassword(userPassword.getNewPassword());
+//        tempUser.setPassword(userPassword.getNewPassword());
 
+        // 随机生成新盐值
+        String newSalt = RandomStringUtils.randomAlphanumeric(20);
+        tempUser.setSalt(newSalt);
+        // 进行加密
+        tempUser.setPassword(SHA256Util.sha256(userPassword.getNewPassword(), tempUser.getSalt()));
         userMapper.updateById(tempUser);
 
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"修改用户密码成功");

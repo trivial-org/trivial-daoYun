@@ -1,5 +1,6 @@
 package org.fzu.cs03.daoyun.service;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.Role;
 import org.fzu.cs03.daoyun.entity.User;
@@ -7,6 +8,7 @@ import org.fzu.cs03.daoyun.exception.MailVerificationException;
 import org.fzu.cs03.daoyun.exception.SignUpException;
 import org.fzu.cs03.daoyun.exception.VerificationCodeException;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
+import org.fzu.cs03.daoyun.shiroPackage.util.SHA256Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +63,15 @@ public class SignUpService {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr = format.format(date);
         try{
-            userMapper.createAccount(Role.ORDINARY_USER,user.getUsername(),user.getPassword(),user.getEmail(),dateStr,true,false );
+            //设置为正常状态
+            user.setState("NORMAL");
+            // 随机生成盐值
+            String salt = RandomStringUtils.randomAlphanumeric(20);
+            user.setSalt(salt);
+            // 进行加密
+            String password =  user.getPassword();
+            user.setPassword(SHA256Util.sha256(password, user.getSalt()));
+            userMapper.createAccount(Role.ORDINARY_USER,user.getUsername(),user.getPassword(),user.getSalt(),user.getState(),user.getEmail(),dateStr,true,false );
         } catch (Exception e) {
 //            e.printStackTrace();
             throw new SignUpException(e.toString());

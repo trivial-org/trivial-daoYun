@@ -16,8 +16,8 @@ public interface UserMapper extends BaseMapper<User> {
 
 //    @Select("select * from student order by id asc")
 //    List<Student> getStudentList();
-    @Insert("INSERT INTO user (role_id, username, password, email, creation_date, is_active, is_deleted) VALUES (#{roleId},#{userName}, #{password}, #{email}, #{createDate}, #{isActive}, #{isDeleted} )")
-    void createAccount(Long roleId,String userName, String password, String email, String createDate, boolean isActive, boolean isDeleted);
+    @Insert("INSERT INTO user (role_id, username, password, salt, state,email, creation_date, is_active, is_deleted) VALUES (#{roleId},#{userName}, #{password},#{salt},#{state} ,#{email}, #{createDate}, #{isActive}, #{isDeleted} )")
+    void createAccount(Long roleId,String userName, String password, String salt, String state,String email, String createDate, boolean isActive, boolean isDeleted);
 
     @Select("SELECT * FROM user ORDER BY id")
     List<User> getUserList();
@@ -49,6 +49,8 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("SELECT username FROM user WHERE id = #{id} limit 1")
     String getUsernameById(Long id);
 
+
+
     @Select("SELECT o.org_code, o.org_name, o.extend_json richTextId, o.creation_date, o.creator FROM org AS o INNER JOIN user_org_info AS r ON r.user_id = #{userId} and r.org_id = o.id")
     List<Orgnization> getUserJoinedOrgnization(Long userId);
 
@@ -76,6 +78,10 @@ public interface UserMapper extends BaseMapper<User> {
     //获取SimpleUserInfo
     @Select("SELECT id, username, nickname, student_id, gender, school, college, education, major, birth_date, address, city, province, nation, profile_photo_url FROM user WHERE id = #{userId}")
     SimpleUserInfo getSimpleUserInfoByUserId(Long userId);
+
+    //获取UserAuthenticationInfo，用于shiro用户认证
+    @Select("SELECT id, role_id ,username, password, salt , state FROM user WHERE username = #{username}")
+    UserAuthenticationInfo getUserAuthenticationInfoByUserName(String username);
 
     //获取AllUserInfo
     @Select("SELECT id, role_id, username, nickname, student_id, gender, phone, email, school, college, education, major, birth_date, address, city, province, nation, experience, coin, profile_photo_url FROM user WHERE id = #{userId}")

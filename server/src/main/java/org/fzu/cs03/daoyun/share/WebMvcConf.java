@@ -46,7 +46,10 @@ public class WebMvcConf implements WebMvcConfigurer {
                 .excludePathPatterns("/verification/code")
                 .excludePathPatterns("/signup/users")
                 .excludePathPatterns("/device")
-                .excludePathPatterns("/dataDictionary");
+                .excludePathPatterns("/dataDictionary")
+                .excludePathPatterns("/userLogin/login")
+                .excludePathPatterns("/role/getAdminInfo")
+                .excludePathPatterns("/role/getUserInfo");
 
 //        log.debug("跨域拦截器注册成功！");
     }

@@ -55,6 +55,11 @@ public class User {
     //可以输入，但是不能从数据库中读取得到，因此从数据库读出时应该置空
     private String password;
 
+    private String salt; //盐值
+
+    private String state;//状态:NORMAL正常  PROHIBIT禁用
+
+
     @TableField(exist = false)
     private String roleName;
 

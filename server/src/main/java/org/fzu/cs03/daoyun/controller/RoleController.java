@@ -1,6 +1,8 @@
 package org.fzu.cs03.daoyun.controller;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.AttendActivity;
 import org.fzu.cs03.daoyun.entity.ClassParams;
@@ -73,6 +75,8 @@ public class RoleController  {
     }
 
     @GetMapping(value = "/role/total")
+    //@RequiresRoles("USER")
+    //@RequiresPermissions("system:user:list")
     public String getRolesCount(
             HttpServletRequest request){
         try{

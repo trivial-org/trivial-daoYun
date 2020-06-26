@@ -2,6 +2,7 @@ package org.fzu.cs03.daoyun.service;
 
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.exception.SignOutException;
+import org.fzu.cs03.daoyun.shiroPackage.util.ShiroUtils;
 import org.fzu.cs03.daoyun.utils.SystemParams;
 import org.fzu.cs03.daoyun.utils.TokenMapUtils;
 import org.slf4j.Logger;
@@ -29,6 +30,8 @@ public class SignOutService {
         if ( ! submitUser.equals(username) ) throw new SignOutException("异常注销，提交用户信息错误");
 //        session.removeAttribute("userName"); 改用token，这里丢弃了
         tokenMapUtils.removeToken(SystemParams.token,request);
+
+        ShiroUtils.logout();//shiro登出注销
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"注销成功");
     }
 }

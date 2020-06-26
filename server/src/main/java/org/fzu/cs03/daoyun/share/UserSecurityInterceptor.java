@@ -43,6 +43,7 @@ public class UserSecurityInterceptor implements HandlerInterceptor {
 
         if (token != null){
             try {
+                System.out.println(111);
                 tokenMapUtils.verifyToken(token,request);
             }
             catch (Exception e){
@@ -53,6 +54,7 @@ public class UserSecurityInterceptor implements HandlerInterceptor {
 
 
         if (token == null || pass == false ) {
+            System.out.println(222);
 //            response.sendRedirect(request.getContextPath() + "/signin");
             response.reset();
 
