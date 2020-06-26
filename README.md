@@ -1,19 +1,122 @@
+
+
+
+
+
+
 # trivial-daoYun
+
 Engeering practice
 2048-
 
 关系表是不是联合主键+单独索引都建起来比较好？
 
 - controller层提供交互接口
-
 - service层提供服务（service之间操作mapper层，同文件分为底层服务和逻辑控制服务，底层服务提供事务级数据库操作，逻辑控制做合法性检查，底层服务可能service之间存在共享，是否要将这两层完全剥离？再抽象一个事务级Dao层？）
-
 - mapper层提供与数据库交互
-
 - mapper层逐步取消exister，直接使用getter，如果为空返回null。
 
 
+
+### 功能更新 2020/6/26
+
+---
+
+- 暂改成8081端口访问，数据库有修改，多开了一个数据库daoyunhzq，原项目仍能以8080端口访问原数据库daoyun
+- 新增密码加密
+- 新增接口权限控制
+- 新增菜单管理功能
+
+#### post/get/put/delete示例
+
+---
+
+##### 新增菜单管理接口
+
+- **@GetMapping(value = "/menuTreeAll")//获取所有树形菜单**
+
+  例子：http://IP_Address:8081/menuTreeAll
+
+- **@GetMapping(value = "/roleMenuTree/{roleId}")//根据角色id获取对于的菜单树**
+
+  例子：http://IP_Address:8081/roleMenuTree/1 //获取角色id为1的菜单树
+
+- **@GetMapping(value = "/userMenuTree/{userId}")//根据用户id获取对应的菜单树**
+
+  例子：http://IP_Address:8081/userMenuTree/1
+
+- **@PostMapping (value = "/menuAdd")**
+
+  例子：http://IP_Address:8081/menuAdd
+
+  **body参数**：（可选择条件，不一定都要，但菜单id要指定）
+
+  ```
+  /** 菜单ID */
+  private Long id;
+  
+  /** 菜单名称 */
+  private String menuName;
+  
+  /** 父菜单名称 */
+  private String parentName;
+  
+  /** 父菜单ID */
+  private Long parentId;
+  
+  /** 显示顺序 */
+  private String orderNum;
+  
+  /** 路由地址 */
+  private String path;
+  
+  /** 组件路径 */
+  private String component;
+  
+  /** 是否为外链（0是 1否）就是超链接 */
+  private String isFrame;
+  
+  /** 类型（M目录 C菜单 F按钮） */
+  private String menuType;
+  
+  /** 显示状态（0显示 1隐藏） */
+  private String visible;
+  
+  /** 菜单状态（0显示 1隐藏） */
+  private String status;
+  
+  /** 权限字符串 */
+  private String perms;
+  
+  /** 菜单图标 */
+  private String icon;
+  
+  /** 创建者 */
+  private String createBy;
+  
+  /** 更新者 */
+  private String updateBy;
+  
+  /** 备注 */
+  private String remark;
+  ```
+
+---
+
+**@PutMapping(value = "/menuEdit")//更新菜单信息，主要是菜单id要对**
+
+例子：http://IP_Address:8081/menuEdit
+
+**body参数同新增菜单**
+
+**@DeleteMapping("/menuDelete/{menuId}")//删除菜单信息，主要是菜单id要对**
+
+例子：http://IP_Address:8081/menuDelete/1
+
+
+
 ### 功能更新 2020/5/22
+
 ---
 - 新增几个返回总记录数的接口
 - 修改了大小写不统一的返回参数

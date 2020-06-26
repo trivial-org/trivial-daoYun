@@ -20,7 +20,7 @@ public class MenuController {
     MenuService menuService;
     @Autowired
     ResponseService responseService;
-
+    //获取所有树形菜单
     @GetMapping(value = "/menuTreeAll")
     //@RequiresRoles("USER")
     //@RequiresPermissions("system:user:list")
@@ -79,7 +79,7 @@ public class MenuController {
         }
 
     }
-
+    //更新菜单信息，主要是菜单id要对
     @PutMapping(value = "/menuEdit")
     public String menuEdit(@RequestBody Menu menu , HttpServletRequest request)
     {
