@@ -18,6 +18,55 @@ Engeering practice
 
 
 
+### 功能更新 2020/7/1
+
+---
+
+- 修复shiro造成的跨域问题
+
+- 新增角色菜单分配功能相关接口
+
+  
+
+#### post/get/put/delete示例
+
+---
+
+##### 新增菜单管理接口
+
+- **@GetMapping(value = "/roleMenuAll/{roleId}")**
+
+  **//获取对应角色的菜单信息，不是菜单树结构，只是列表结构**
+
+  例子：http://IP_Address:8081/roleMenuAll/1   
+
+  可以获取角色ID为1的所拥有的菜单信息
+
+- **@PostMapping (value = "/roleMenuAdd")//增加角色菜单信息**
+
+  请求体示例，目前先是由角色id和菜单id共同新增，这两个是必须的，如果前端只有角色名和菜单名，可改由传角色名和菜单名到后端进行更新
+
+```java
+//角色id
+private Long roleId;
+//菜单id
+private Long menuId;
+//角色名
+private String roleName;
+//菜单名
+private String menuName;
+```
+
+**@DeleteMapping(value = "/roleMenuDelete")//删除角色菜单信息**
+
+例子：http://IP_Address:8081/roleMenuDelete
+
+请求体同上，需指定roleId和menuId
+
+
+
+
+
 ### 功能更新 2020/6/26
 
 ---

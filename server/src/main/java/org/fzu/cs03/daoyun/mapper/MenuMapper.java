@@ -41,4 +41,10 @@ public interface MenuMapper extends BaseMapper<Menu> {
     @Delete("delete from menu where id = #{menuId}")
     int deleteMenuById(Long menuId);
 
+    @Insert("insert into r_role__menu( role_id, menu_id )values(#{roleId},#{menuId})")
+    int insertRoleMenu(RoleMenu roleMenu);
+
+    @Delete("delete from r_role__menu where menu_id = #{menuId} and role_id = #{roleId}")
+    int deleteRoleMenu(RoleMenu roleMenu);
+
 }
