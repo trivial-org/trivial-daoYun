@@ -25,7 +25,9 @@ public class MyShiroException {
     @ExceptionHandler(value = AuthorizationException.class)
     public Map<String,Object> defaultErrorHandler(){
         Map<String,Object> map = new HashMap<>();
-        map.put("403","权限不足");
+        //map.put("403","权限不足");
+        map.put("state", 403);
+        map.put("msg", "权限不足");
         return map;
     }
 }

@@ -53,7 +53,7 @@ class DaoyunApplicationTests {
 //        System.out.println(user.getId());
 //        System.out.println(user.getPassword());
 
-//        List<Menu> menus = menuMapper.selectMenuByRoleId(1L);
+ //      List<Menu> menus = menuService.buildTreeMenuAll();
 
 //        System.out.println(.getUsername());
 //        System.out.println(user.getState());
@@ -62,7 +62,16 @@ class DaoyunApplicationTests {
 //            (menuMapper.selectMenuByRoleId(1L)).forEach(System.out::println);
 //            String rolename =roleMapper.getRolenameByRoleId(1L);
 //            System.out.println(rolename);
- //       (menuService.buildTreeMenuAll()).forEach(System.out::println);
+
+        QueryWrapper<PublishedActivity> wrapper = new QueryWrapper<>();
+//        wrapper.eq("is_active",1)
+//                .eq("org_id",orgId);
+        wrapper.eq("org_id",10) //还需要返回未进行的活动，
+                .orderByAsc("creation_date");
+        List<PublishedActivity> results;
+        results = publishedActivityMapper.selectList(wrapper);
+        results.forEach(System.out::println);
+
 
         //测试注册
 //        Date date = new Date();

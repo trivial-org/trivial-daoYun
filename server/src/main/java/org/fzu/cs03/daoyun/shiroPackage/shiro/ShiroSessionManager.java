@@ -38,10 +38,14 @@ public class ShiroSessionManager extends DefaultWebSessionManager {
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
             return token;
         } else {
-            // 这里禁用掉Cookie获取方式
+            // 这里禁用掉Cookie获取方式 ,return
+            //原shiro把cookie获取sessionid的方式禁用了直接返回null，会导致没登录前没访问一个url，没带token就会生成一个session
+            //然后注册的时候发验证码就一个session，发邮箱又一个session，注册的时候提交验证码是根据session里面存的提交的，就找不到了
+            //所以这里把原来禁用的cookie开出来了
+
             // 按默认规则从Cookie取Token
-            // return super.getSessionId(request, response);
-            return null;
+             return super.getSessionId(request, response);
+            //return null;
         }
     }
 }

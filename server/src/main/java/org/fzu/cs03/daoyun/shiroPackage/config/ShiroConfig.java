@@ -1,5 +1,6 @@
 package org.fzu.cs03.daoyun.shiroPackage.config;
 
+import org.fzu.cs03.daoyun.shiroPackage.shiro.CORSAuthenticationFilter;
 import org.fzu.cs03.daoyun.shiroPackage.shiro.ShiroRealm;
 import org.fzu.cs03.daoyun.shiroPackage.shiro.ShiroSessionIdGenerator;
 import org.fzu.cs03.daoyun.shiroPackage.shiro.ShiroSessionManager;
@@ -53,6 +54,12 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
+
+
+
+    public CORSAuthenticationFilter corsAuthenticationFilter(){
+        return new CORSAuthenticationFilter();
+    }
     /**
      * Shiro基础配置，配置shiro过滤器
      * @Author Sans
@@ -74,11 +81,18 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/signin", "anon");
         filterChainDefinitionMap.put("/signup", "anon");
         filterChainDefinitionMap.put("/signup/users", "anon");
+        filterChainDefinitionMap.put("/verification/**", "anon");
         filterChainDefinitionMap.put("/**", "authc");
         // 配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据
         //shiroFilterFactoryBean.setLoginUrl("/userLogin/unauth");
-        shiroFilterFactoryBean.setLoginUrl("/signin");
+        //shiroFilterFactoryBean.setLoginUrl("/signin");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
+        shiroFilterFactoryBean.getFilters().put("authc", corsAuthenticationFilter());
+       // Map<String, Filter> filterMap = new LinkedHashMap<>();
+        //filterMap.put("authc", corsAuthenticationFilter());
+        //shiroFilter.setFilters(filterMap);
+
         return shiroFilterFactoryBean;
     }
 

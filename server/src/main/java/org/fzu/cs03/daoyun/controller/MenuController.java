@@ -27,7 +27,7 @@ public class MenuController {
     public String getMenuTreeAll(
             HttpServletRequest request){
         try{
-            return menuService.buildTreeMenuAll(request);
+            return menuService.buildTreeMenuAll();
         } catch (Exception e) {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }

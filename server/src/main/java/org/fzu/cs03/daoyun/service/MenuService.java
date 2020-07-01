@@ -49,7 +49,7 @@ public class MenuService {
         return menuList;
     }
     //建立所有的菜单项的菜单树
-    public String buildTreeMenuAll(HttpServletRequest request){
+    public String buildTreeMenuAll(){
         List<Menu> menuList = menuMapper.selectMenuList();
         List<Menu> treeMenuAll = null;
         try {

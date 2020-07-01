@@ -80,6 +80,9 @@ public class MailVerificationService {
         String bindEmail = (String) session.getAttribute(MailVerificationService.verificationEmail);
 
         if (mailVerificationCode == null || mailVerificationCodeCreateDate == null || bindEmail == null){
+            System.out.println(mailVerificationCode);
+            System.out.println(mailVerificationCodeCreateDate);
+            System.out.println(bindEmail);
             throw new MailVerificationException("请先获取邮件验证码");
         }
         else{

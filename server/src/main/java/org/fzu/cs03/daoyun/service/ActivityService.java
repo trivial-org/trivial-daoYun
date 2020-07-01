@@ -115,10 +115,10 @@ public class ActivityService {
             throw new ActivityException("用户不在班课中或无权限");
 
         QueryWrapper<PublishedActivity> wrapper = new QueryWrapper<>();
-        wrapper.eq("is_active",1)
-                .eq("org_id",orgId);
-
-
+//        wrapper.eq("is_active",1)
+//                .eq("org_id",orgId);
+        wrapper.eq("org_id",orgId) //还需要返回未进行的活动，所以注释了原来只需要进行活动查询条件
+                .orderByDesc("creation_date");//按创建活动时间倒序排，后创建的排前面
         List<PublishedActivity> results;
         results = publishedActivityMapper.selectList(wrapper);
 
