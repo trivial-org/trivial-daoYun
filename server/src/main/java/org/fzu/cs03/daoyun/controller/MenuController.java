@@ -4,6 +4,7 @@ package org.fzu.cs03.daoyun.controller;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.Menu;
+import org.fzu.cs03.daoyun.entity.RoleMenu;
 import org.fzu.cs03.daoyun.service.MenuService;
 import org.fzu.cs03.daoyun.service.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +100,7 @@ public class MenuController {
     }
 
 
-    @DeleteMapping("/menuDelete/{menuId}")
+    @DeleteMapping(value = "/menuDelete/{menuId}")
     public String menuRemove(@PathVariable("menuId") Long menuId, HttpServletRequest request)
     {
         if (menuService.hasChildByMenuId(menuId))
@@ -112,6 +113,55 @@ public class MenuController {
         }
         try{
             return menuService.deleteMenuById(menuId);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+
+    }
+
+
+    //获取所有菜单信息 ，不是树结构
+    @GetMapping(value = "/menuAll")
+    public String getMenuAll(
+            HttpServletRequest request){
+        try{
+            return menuService.selectMenuList();
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+    //获取对应角色的菜单信息，不是菜单树结构，只是列表结构
+    @GetMapping(value = "/roleMenuAll/{roleId}")
+    public String getRoleMenuAll(@PathVariable("roleId") Long roleId,
+            HttpServletRequest request){
+        try{
+            return menuService.selectRoleMenuList(roleId);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+    //是否要插入 isdelete字段
+    @PostMapping (value = "/roleMenuAdd")
+    public String roleMenuAdd(@RequestBody RoleMenu roleMenu, HttpServletRequest request)
+    {
+
+        try{
+            return menuService.insertRoleMenu(roleMenu,request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+
+    }
+
+    //删除角色菜单表信息
+    @DeleteMapping(value = "/roleMenuDelete")
+    public String roleMenuRemove(@RequestBody RoleMenu roleMenu, HttpServletRequest request)
+    {
+
+        try{
+            return menuService.deleteRoleMenu(roleMenu);
         } catch (Exception e) {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }

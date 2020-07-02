@@ -23,23 +23,24 @@ Engeering practice
 ---
 
 - 新增发布活动的时候直接可以设置截止时间(yyyy-MM-dd HH:mm:ss)
+
 - 新增修改活动信息
+
 - 新增文件上传接口(活动ID必须为2，签到的活动ID为1)
+
 - 新增下载文件接口
+
 - 新增修改上传文件功能
-- 更新参与活动实体(包括签到和任务)
-
-#### post/get/put/delete示例
-
----
 
 ##### 更新文件上传、下载接口
+
 - **@PostMapping("/taskfile")**
   例子：http://IP_Address:8081/taskfile 带上要上传的文件
--   **@GetMapping("/taskfile")** 
+- **@GetMapping("/taskfile")** 
   例子：http://IP_Address:8081/taskfile&taskFileUrl=xxx (参与的活动记录中可以找到文件url)
-  
+
 ##### 更新参与活动实体
+
 ```java
     private Long activityId;   //签到id=1, 任务id=2
     private String submitFileName;//任务填
@@ -54,10 +55,13 @@ Engeering practice
     @TableField(exist = false)
     private String longitude;  //签到时必填
 ```
+
 ##### 更新活动接口
+
 - **@PutMapping(value = "/activities/modify")**
   例子：http://IP_Address:8081/activities/modify 更新活动信息、参数
   更新发布活动实体：
+
 ```java
   private Long activityTypeId;		//活动类型，签到为1
   private String answer;			//活动答案：可以是签到顺序，如123456789
@@ -69,17 +73,70 @@ Engeering practice
   private String longitude;
   private String maxDist;
 ```
+
 **注：创建活动的时候也可以直接设置结束时间了 endDate (yyyy-MM-dd HH:mm:ss) **
 
 - **@PutMapping(value = "/activities/records/modify") **
   例子：http://IP_Address:8081/activities/records/modify 
   更新参与活动信息，如教师修改分数、任务可以修改上传文件等.
-  
+
 - **@PostMapping(value = "/activities/records") **
   例子：http://IP_Address:8081/activities/records  
   参与活动，更新后的实体参数见上(**<u>参与活动实体</u>**)
 
 ##### 其余活动相关功能见往期更新
+
+
+
+
+
+更新参与活动实体(包括签到和任务)
+=======
+
+### 功能更新 2020/7/1
+
+---
+
+- 修复shiro造成的跨域问题
+
+- 新增角色菜单分配功能相关接口
+
+
+
+#### post/get/put/delete示例
+
+---
+
+##### 新增菜单管理接口
+
+- **@GetMapping(value = "/roleMenuAll/{roleId}")**
+
+  **//获取对应角色的菜单信息，不是菜单树结构，只是列表结构**
+
+  例子：http://IP_Address:8081/roleMenuAll/1   
+
+  可以获取角色ID为1的所拥有的菜单信息
+
+- **@PostMapping (value = "/roleMenuAdd")//增加角色菜单信息**
+
+  请求体示例，目前先是由角色id和菜单id共同新增，这两个是必须的，如果前端只有角色名和菜单名，可改由传角色名和菜单名到后端进行更新
+
+```java
+//角色id
+private Long roleId;
+//菜单id
+private Long menuId;
+//角色名
+private String roleName;
+//菜单名
+private String menuName;
+```
+
+**@DeleteMapping(value = "/roleMenuDelete")//删除角色菜单信息**
+
+例子：http://IP_Address:8081/roleMenuDelete
+
+请求体同上，需指定roleId和menuId
 
 
 

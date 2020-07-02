@@ -3,9 +3,7 @@ package org.fzu.cs03.daoyun.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.fzu.cs03.daoyun.StatusCode;
-import org.fzu.cs03.daoyun.entity.Menu;
-import org.fzu.cs03.daoyun.entity.PublishedActivity;
-import org.fzu.cs03.daoyun.entity.User;
+import org.fzu.cs03.daoyun.entity.*;
 import org.fzu.cs03.daoyun.mapper.MenuMapper;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
 import org.fzu.cs03.daoyun.utils.DateFormater;
@@ -41,12 +39,12 @@ public class MenuService {
      * @return 菜单列表
      */
 
-    public List<Menu> selectMenuList()
+    public String selectMenuList()
     {
         List<Menu> menuList = null;
 //            menu.getParams().put("userId", userId);
             menuList = menuMapper.selectMenuList();
-        return menuList;
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",menuList);
     }
     //建立所有的菜单项的菜单树
     public String buildTreeMenuAll(){
@@ -188,5 +186,40 @@ public class MenuService {
         menuMapper.deleteMenuById(menuId);
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除菜单成功");
     }
+
+
+
+    //获取角色所拥有的菜单信息，不是树结构
+    public String selectRoleMenuList(Long roleId)
+    {
+        List<Menu> menuList = menuMapper.selectMenuByRoleId(roleId);
+//            menu.getParams().put("userId", userId);
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询角色菜单信息成功",menuList);
+    }
+
+
+    //新增角色菜单菜单，为角色分配菜单
+    public String insertRoleMenu(RoleMenu roleMenu, HttpServletRequest request){
+        try {
+            menuMapper.insertRoleMenu(roleMenu);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"新增角色菜单成功");
+
+    }
+
+    public String deleteRoleMenu(RoleMenu roleMenu)
+    {
+
+        try {
+            menuMapper.deleteRoleMenu(roleMenu);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除角色菜单成功");
+    }
+
 
 }
