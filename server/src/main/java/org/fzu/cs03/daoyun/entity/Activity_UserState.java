@@ -20,7 +20,12 @@ public class Activity_UserState {
     private Long activityId;
     private Long activityTypeId;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private Date creationDate;
+    private String activityName;
+    private String beginDate;
+    private String endDate;
+    private Long isActive;
+
+//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Long creationDate;
 
 }
