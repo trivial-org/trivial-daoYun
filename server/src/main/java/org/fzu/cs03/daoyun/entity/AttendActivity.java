@@ -23,9 +23,12 @@ public class AttendActivity {
     @TableId( type = IdType.ASSIGN_ID )
     private Long id;
     private Long activityId;
+    private Long activityTypeId;
     private Long userId;
     private Long groupId;
     private String submitParam;
+    private String submitFileName;
+    private String submitFileUrl;
     private Integer editTimes;
     private Integer score;
     private Boolean valid;

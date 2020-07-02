@@ -22,26 +22,51 @@
     <repositories>
 
 <!--        <repository>-->
-<!--            <id>alimaven</id>-->
-<!--            <name>Maven Aliyun Mirror</name>-->
-<!--            <url>https://maven.aliyun.com/repository/central/</url>-->
+<!--            <id>central</id>-->
+<!--            <name>aliyun maven</name>-->
+<!--            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+<!--            <layout>default</layout>-->
+<!--            &lt;!&ndash; 是否开启发布版构件下载 &ndash;&gt;-->
 <!--            <releases>-->
 <!--                <enabled>true</enabled>-->
 <!--            </releases>-->
+<!--            &lt;!&ndash; 是否开启快照版构件下载 &ndash;&gt;-->
 <!--            <snapshots>-->
 <!--                <enabled>false</enabled>-->
 <!--            </snapshots>-->
 <!--        </repository>-->
 
-        <repository>
-            <id>spring</id>
-            <url>https://dl.bintray.com/spring/jars/</url>
-        </repository>
+<!--        <repository>-->
+<!--            <id>public</id>-->
+<!--            <name>aliyun nexus</name>-->
+<!--            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--            </releases>-->
+<!--        </repository>-->
+
 
         <repository>
-            <id>maven_central</id>
-            <url>https://repo1.maven.org/maven2//</url>
+            <id>central</id>
+            <name>Maven Aliyun Mirror</name>
+            <url>https://maven.aliyun.com/repository/central/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
+
+<!--        <repository>-->
+<!--            <id>spring</id>-->
+<!--            <url>https://dl.bintray.com/spring/jars/</url>-->
+<!--        </repository>-->
+
+<!--        <repository>-->
+<!--            <id>maven_central</id>-->
+<!--            <url>https://repo1.maven.org/maven2//</url>-->
+<!--        </repository>-->
 
     </repositories>
 

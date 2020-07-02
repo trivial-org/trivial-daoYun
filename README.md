@@ -18,6 +18,73 @@ Engeering practice
 
 
 
+### 功能更新 2020/7/2
+
+---
+
+- 新增发布活动的时候直接可以设置截止时间(yyyy-MM-dd HH:mm:ss)
+- 新增修改活动信息
+- 新增文件上传接口(活动ID必须为2，签到的活动ID为1)
+- 新增下载文件接口
+- 新增修改上传文件功能
+- 更新参与活动实体(包括签到和任务)
+
+#### post/get/put/delete示例
+
+---
+
+##### 更新文件上传、下载接口
+- **@PostMapping("/taskfile")**
+  例子：http://IP_Address:8081/taskfile 带上要上传的文件
+-   **@GetMapping("/taskfile")** 
+  例子：http://IP_Address:8081/taskfile&taskFileUrl=xxx (参与的活动记录中可以找到文件url)
+  
+##### 更新参与活动实体
+```java
+    private Long activityId;   //签到id=1, 任务id=2
+    private String submitFileName;//任务填
+    private String submitFileUrl; //任务时填
+
+    @TableField(exist = false)
+    private String answer;     //签到时必填
+
+    @TableField(exist = false)
+    private String latitude;   //签到时必填
+
+    @TableField(exist = false)
+    private String longitude;  //签到时必填
+```
+##### 更新活动接口
+- **@PutMapping(value = "/activities/modify")**
+  例子：http://IP_Address:8081/activities/modify 更新活动信息、参数
+  更新发布活动实体：
+```java
+  private Long activityTypeId;		//活动类型，签到为1
+  private String answer;			//活动答案：可以是签到顺序，如123456789
+  private Integer maxscore;			//活动分数
+  private String activityDescription;//活动描述
+  private Long orgCode; 			//活动对应的班课号
+  private String endDate;           //结束时间(yyyy-MM-dd HH:mm:ss)
+  private String latitude;				
+  private String longitude;
+  private String maxDist;
+```
+**注：创建活动的时候也可以直接设置结束时间了 endDate (yyyy-MM-dd HH:mm:ss) **
+
+- **@PutMapping(value = "/activities/records/modify") **
+  例子：http://IP_Address:8081/activities/records/modify 
+  更新参与活动信息，如教师修改分数、任务可以修改上传文件等.
+  
+- **@PostMapping(value = "/activities/records") **
+  例子：http://IP_Address:8081/activities/records  
+  参与活动，更新后的实体参数见上(**<u>参与活动实体</u>**)
+
+##### 其余活动相关功能见往期更新
+
+
+
+
+
 ### 功能更新 2020/6/26
 
 ---
@@ -51,7 +118,7 @@ Engeering practice
 
   **body参数**：（可选择条件，不一定都要，但菜单id要指定）
 
-  ```
+  ```java
   /** 菜单ID */
   private Long id;
   

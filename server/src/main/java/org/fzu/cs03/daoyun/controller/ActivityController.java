@@ -45,13 +45,13 @@ public class ActivityController {
         }
     }
 
-    @GetMapping(value = "/activities")
-    public String getActivities(
-            @RequestParam(value = "orgCode" ,required = true) Long orgCode,
-            HttpServletRequest request) {
 
+    @PutMapping(value = "/activities/modify")
+    public String modifyActivity(
+            @RequestBody PublishedActivity publishedActivity,
+            HttpServletRequest request){
         try{
-            return activityService.getActivitiesByOrgCode(orgCode, request);
+            return activityService.modifyActivity(publishedActivity, request);
         } catch (Exception e) {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }
@@ -69,6 +69,19 @@ public class ActivityController {
     }
 
 
+    @PutMapping(value = "/activities/records/modify")
+    public String updateAttendedActivity(
+            @RequestBody AttendActivity attendActivity,
+            HttpServletRequest request){
+        try{
+            return activityService.updateAttendedActivity(attendActivity, request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+
+
     @PostMapping(value = "/activities/records")
     public String participateInActivity(
             @RequestBody AttendActivity attendActivity,
@@ -81,6 +94,25 @@ public class ActivityController {
     }
 
 
+    @GetMapping(value = "/activities/class")
+    public String getActivities(
+            @RequestParam(value = "orgCode" ,required = true) Long orgCode,
+            HttpServletRequest request) {
+
+        try{
+            return activityService.getActivitiesByOrgCode(orgCode, request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+//    @GetMapping(value = "/activities/class/self")
+//
+//    @GetMapping(value = "/activities/class/records")
+
+
+
+    // 根据 activity id
     @GetMapping(value = "/activities/records")
     public String getActivityAttendingState(
             @RequestParam(value = "activityId" ,required = true) Long activityId,

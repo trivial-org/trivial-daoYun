@@ -21,6 +21,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Null;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 
@@ -90,6 +93,17 @@ public class ActivityService {
         publishedActivity.setOrgId(orgId);
         publishedActivity.setCreator(username);
 
+        // 检查结束时间是否错误
+        if (publishedActivity.getEndDate() != null){
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //这里的时间格式根据自己需求更改（注意：格式区分大小写、格式区分大小写、格式区分大小写）
+            try{
+                Date date = (Date)formatter.parse(publishedActivity.getEndDate());
+            }catch(Exception e){
+                return responseService.responseFactory(StatusCode.RESPONSE_ERR,"时间格式错误，必须是 yyyy-MM-dd HH:mm:ss");
+            }
+        }
+
+
         publishedActivityMapper.insert(publishedActivity);
 
         //返回新创建的activityID
@@ -125,6 +139,38 @@ public class ActivityService {
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
     }
 
+
+    public String modifyActivity(PublishedActivity publishedActivity, HttpServletRequest request){
+
+        //需要做权限验证;比如签到活动同一时刻只能有一个激活
+
+
+        // 设置publishedActivity初始值，
+        // 其中ActivityTypeId,
+        // activity_description(活动描述),
+        // activity_param (活动参数) 一般需要带answer字段
+        // 一般需要提供 publishedActivity.getSubmitParams();
+        JSONObject submitParams = new JSONObject();
+        if (publishedActivity.getAnswer() != null ){
+            submitParams.put("answer",publishedActivity.getAnswer());
+            String jsonString = submitParams.toJSONString();
+            publishedActivity.setActivityParam(jsonString);
+        }
+
+        // 检查结束时间是否错误
+        if (publishedActivity.getEndDate() != null){
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //这里的时间格式根据自己需求更改（注意：格式区分大小写、格式区分大小写、格式区分大小写）
+            try{
+                Date date = (Date)formatter.parse(publishedActivity.getEndDate());
+            }catch(Exception e){
+                return responseService.responseFactory(StatusCode.RESPONSE_ERR,"时间格式错误，必须是 yyyy-MM-dd HH:mm:ss");
+            }
+        }
+
+        publishedActivityMapper.updateById(publishedActivity);
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"更新活动信息成功");
+    }
+
     public String closeActivityById(Long activityId, HttpServletRequest request){
 
         //需要做权限验证
@@ -153,11 +199,38 @@ public class ActivityService {
 
         PublishedActivity publishedActivity = publishedActivityMapper.selectById(activityId);
 
+        attendActivity.setActivityTypeId(publishedActivity.getActivityTypeId());
+
         if (publishedActivity == null)
             throw new ActivityException("不存在的活动id");
 
         if (publishedActivity.getIsActive() == Boolean.FALSE)
             throw new ActivityException("已经结束的活动");
+
+        String endDateStr = publishedActivity.getEndDate();
+
+
+        if (endDateStr != null){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try{
+                Date endDate = (Date)simpleDateFormat.parse(endDateStr);
+                Date nowDate = new Date();
+                if (nowDate.compareTo(endDate) > 0){
+                    PublishedActivity publishedActivity2 = new PublishedActivity();
+                    publishedActivity2.setIsActive(Boolean.FALSE);
+                    publishedActivity2.setId(activityId);
+                    publishedActivityMapper.updateById(publishedActivity2);
+                    logger.info("now date"+nowDate.toString());
+                    logger.info("end date"+endDate.toString());
+                    throw new ActivityException("已经结束的活动");
+                }
+
+            }catch(Exception e){
+                return responseService.responseFactory(StatusCode.RESPONSE_ERR,"数据存储的结束时间格式错误，必须是 yyyy-MM-dd HH:mm:ss");
+            }
+
+
+        }
 
 
         String activityParams = publishedActivity.getActivityParam();
@@ -167,38 +240,60 @@ public class ActivityService {
             answer = (String) jsonObject.get("answer");
         }
 
-        if (publishedActivity.getMaxDist()!=null){
-            Double maxDist = Double.valueOf(publishedActivity.getMaxDist()) ;
-            Double lat = Double.valueOf(publishedActivity.getLatitude());
-            Double logt = Double.valueOf(publishedActivity.getLongitude());
-            Double userLat = Double.valueOf(attendActivity.getLatitude());
-            Double userLogt = Double.valueOf(attendActivity.getLongitude());
-
-
-            Double dist = DistanceMetric.getDistance(lat,logt,userLat,userLogt);
-            if (dist > maxDist){
-                return responseService.responseFactory(StatusCode.RESPONSE_ERR,"距离活动源距离超出限制");
-            }
-        }
-
         String submit = attendActivity.getAnswer(); //提交的答案
         JSONObject jsonObject2 = new JSONObject();
         jsonObject2.put("answer",submit);
         attendActivity.setSubmitParam(jsonObject2.toJSONString()); //为提交参数加入提交的answer
 
-        Boolean consistent ;
-        //比较答案和提交是否一致
-        if ( (submit == null && answer == null) || submit.equals(answer) )
-        {
+        Boolean consistent = Boolean.TRUE;
+
+        // 任务提交 id=2
+        if (attendActivity.getActivityTypeId() == 2){
+            if (attendActivity.getSubmitFileUrl() != null && attendActivity.getSubmitFileName()!=null)
             attendActivity.setScore(publishedActivity.getMaxscore());
-            attendActivity.setValid(Boolean.TRUE);
-            consistent = Boolean.TRUE;
+
         }
-        else{
-            attendActivity.setScore(0);
-            attendActivity.setValid(Boolean.FALSE);
-            consistent = Boolean.FALSE;
+        // 签到活动提交 id=1
+        // 限制签到距离
+        //比较答案和提交是否一致
+        if (attendActivity.getActivityTypeId() == 1){
+            if (attendActivity.getLatitude() ==null || attendActivity.getLongitude() == null){
+                return responseService.responseFactory(StatusCode.RESPONSE_ERR,"经纬度不能为空");
+            }
+
+            if (publishedActivity.getMaxDist()!=null){
+                Double maxDist = Double.valueOf(publishedActivity.getMaxDist()) ;
+                Double lat = Double.valueOf(publishedActivity.getLatitude());
+                Double logt = Double.valueOf(publishedActivity.getLongitude());
+                Double userLat = Double.valueOf(attendActivity.getLatitude());
+                Double userLogt = Double.valueOf(attendActivity.getLongitude());
+
+
+                Double dist = DistanceMetric.getDistance(lat,logt,userLat,userLogt);
+                logger.info(username + " 签到距离: " + dist.toString());
+                System.out.println(username + " 签到距离: " + dist.toString());
+
+                if (dist > maxDist){
+                    return responseService.responseFactory(StatusCode.RESPONSE_ERR,"距离活动源距离超出限制");
+                }
+            }
+
+            if ( (submit == null && answer == null) || submit.equals(answer) )
+            {
+                attendActivity.setScore(publishedActivity.getMaxscore());
+                attendActivity.setValid(Boolean.TRUE);
+                consistent = Boolean.TRUE;
+            }
+            else{
+                attendActivity.setScore(0);
+                attendActivity.setValid(Boolean.FALSE);
+                consistent = Boolean.FALSE;
+            }
+
+
+
         }
+
 
         attendActivity.setId(null); // 防止id被恶意写入，清空一下
         attendActivity.setGroupId(null);
@@ -215,11 +310,11 @@ public class ActivityService {
             attendActivity.setEditTimes(1);
             activityMapper.insert(attendActivity);
         }
-        else if (result.getValid() == Boolean.TRUE){
+        else if (result.getValid() == Boolean.TRUE || attendActivity.getActivityTypeId() != 1){
             //已经成功参与，拒绝再次参与
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,"已经参加过该活动");
         }
-        else{
+        else if (attendActivity.getActivityTypeId() == 1){
 
             attendActivity.setId(result.getId());
             attendActivity.setEditTimes(result.getEditTimes() + 1);
@@ -231,6 +326,89 @@ public class ActivityService {
         else
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,"答案错误");
     }
+
+
+
+    //=-============
+
+
+
+
+    public String updateAttendedActivity(AttendActivity attendActivity,  HttpServletRequest request) throws Exception{
+
+        String username = SystemParams.username;
+        Long userId = SystemParams.userId;
+
+        Long activityId = attendActivity.getActivityId();
+        if (activityId == null)
+            throw new ActivityException("请提供活动id");
+
+        PublishedActivity publishedActivity = publishedActivityMapper.selectById(activityId);
+
+        if (publishedActivity == null)
+            throw new ActivityException("不存在的活动id");
+
+        if (publishedActivity.getIsActive() == Boolean.FALSE)
+            throw new ActivityException("已经结束的活动");
+
+        String endDateStr = publishedActivity.getEndDate();
+
+
+        if (endDateStr != null){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try{
+                Date endDate = (Date)simpleDateFormat.parse(endDateStr);
+                Date nowDate = new Date();
+                logger.info("See here!! Time!!");
+                logger.info(nowDate.toString());
+                logger.info(endDate.toString());
+                logger.info( String.valueOf(nowDate.compareTo(endDate)));
+                if (nowDate.compareTo(endDate) > 0){
+                    PublishedActivity publishedActivity2 = new PublishedActivity();
+                    publishedActivity2.setIsActive(Boolean.FALSE);
+                    publishedActivity2.setId(activityId);
+                    publishedActivityMapper.updateById(publishedActivity2);
+
+                    throw new ActivityException("已经结束的活动");
+                }
+
+            }catch(Exception e){
+                return responseService.responseFactory(StatusCode.RESPONSE_ERR,"数据存储的结束时间格式错误，必须是 yyyy-MM-dd HH:mm:ss");
+            }
+        }
+
+
+        QueryWrapper<AttendActivity> wrapper = new QueryWrapper<>();
+        wrapper.eq("activity_id",activityId)
+                .eq("user_id",userId);
+        AttendActivity result =  activityMapper.selectOne(wrapper);
+
+        AttendActivity attendActivity1 = new AttendActivity();
+
+        if (result.getActivityTypeId() != 2 &&
+                (attendActivity.getSubmitFileName() != null || attendActivity.getSubmitFileUrl()!=null)){
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,"非任务类型活动不支持修改上传文件");
+        }
+        else if (result.getActivityTypeId() == 2){
+            attendActivity1.setSubmitFileUrl(attendActivity.getSubmitFileUrl());
+            attendActivity1.setSubmitFileName(attendActivity.getSubmitFileName());
+        }
+
+//        if (attendActivity.getSubmitFileName() == null || attendActivity.getSubmitFileUrl() == null){
+//            return responseService.responseFactory(StatusCode.RESPONSE_ERR,"任务文件不能为空");
+//        }
+
+
+        attendActivity1.setId(attendActivity.getId());
+        attendActivity1.setScore(attendActivity.getScore());
+
+
+        activityMapper.updateById(attendActivity1);
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"修改成功");
+
+    }
+
 
     public String getActivityAttendingState(Long activityId, Integer page,Integer pageSize,
                                                           HttpServletRequest request) throws Exception{

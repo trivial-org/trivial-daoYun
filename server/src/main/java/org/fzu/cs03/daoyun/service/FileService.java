@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import java.util.Date;
  * @author: Mu.xx
  * @date: 2020/4/10 12:04
  */
+@CrossOrigin
 @Service
 public class FileService {
 
@@ -48,6 +50,26 @@ public class FileService {
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"图像上传成功",fileName);
     }
 
+
+    public String updateTaskFile(MultipartFile file) throws Exception{
+        if (file.isEmpty())
+            return "空的文件";
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        String dateStr = format.format(date);
+        fileName = dateStr + "_" + fileName;
+//        System.out.println(fileName);
+//        System.out.println(suffixName);
+        File dest = new File(GlobalConstant.taskFilePath + fileName);
+        if (!dest.getParentFile().exists())
+            dest.getParentFile().mkdir();
+
+        file.transferTo(dest);
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"文件上传成功",fileName);
+    }
 
 //    @GetMapping(value = "/file/{fileName}")
 //    public ResponseEntity<FileSystemResource> getFile(@PathVariable("fileName") String fileName) throws FileNotFoundException {
