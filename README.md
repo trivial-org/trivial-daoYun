@@ -1118,7 +1118,7 @@ private String menuName;
   
 - **/signout (post，注销)**
 
-  例子：http://IP_Address:8080/signout
+  例子：http://IP_Address:8080/signout  注意提交参数 userName=账户名
   
   ```java
   private String userName

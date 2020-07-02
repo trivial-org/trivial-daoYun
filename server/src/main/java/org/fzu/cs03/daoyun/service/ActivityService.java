@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 //import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.fzu.cs03.daoyun.GlobalConstant;
 import org.fzu.cs03.daoyun.StatusCode;
+import org.fzu.cs03.daoyun.entity.Activity_UserState;
 import org.fzu.cs03.daoyun.entity.AttendActivity;
 import org.fzu.cs03.daoyun.entity.PublishedActivity;
 import org.fzu.cs03.daoyun.exception.ActivityException;
@@ -438,6 +439,22 @@ public class ActivityService {
         wrapper.eq("activity_id",activityId);
         results = activityMapper.selectPage(pageManager,wrapper).getRecords();
 
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
+    }
+
+
+
+    public String getUserActivitiesState(Long orgCode,Long page,Long pageSize){
+        if (page == null){
+            page = 1L;
+        }
+        if (pageSize == null){
+            pageSize = 1000L;
+        }
+        Long userId = SystemParams.userId;
+        Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
+        Long offset = (page-1)*pageSize;
+        List<Activity_UserState> results = activityMapper.getUserActivitiesState(userId,orgId,pageSize,offset);
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
     }
 

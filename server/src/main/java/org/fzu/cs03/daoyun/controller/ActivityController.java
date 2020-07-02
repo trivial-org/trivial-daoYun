@@ -106,7 +106,19 @@ public class ActivityController {
         }
     }
 
-//    @GetMapping(value = "/activities/class/self")
+    @GetMapping(value = "/activities/class/self")
+    public String getUserActivitiesState(
+            @RequestParam(value = "orgCode" ,required = true) Long orgCode,
+            @RequestParam(value = "page" ,required = false) Long page,
+            @RequestParam(value = "pageSize" ,required = false) Long pageSize,
+            HttpServletRequest request){
+        try{
+            return activityService.getUserActivitiesState(orgCode,page,pageSize);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
 //
 //    @GetMapping(value = "/activities/class/records")
 
@@ -125,5 +137,7 @@ public class ActivityController {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
         }
     }
+
+
 
 }
