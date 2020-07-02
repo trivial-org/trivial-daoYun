@@ -28,4 +28,8 @@ public class UserPassword {
     @TableField(exist = false)
     private String oldPassword;
 
+    private String email;
+
+    @TableField(exist = false)
+    private String mailVerificationCode;
 }

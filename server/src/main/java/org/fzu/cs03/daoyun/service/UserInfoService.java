@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,8 @@ public class UserInfoService {
     private ResponseService responseService;
     @Autowired
     private RichTextService richTextService;
+    @Autowired
+    private MailVerificationService mailVerificationService;
 
     private final Logger logger = LoggerFactory.getLogger(UserInfoService.class);
 
@@ -137,8 +140,15 @@ public class UserInfoService {
         if (userPassword.getNewPassword() == null){
             throw new UserInfoException("新的密码不能为空");
         }
+        if (userPassword.getEmail() == null){
+            throw new UserInfoException("邮箱不能为空");
+        }
+        if (userPassword.getMailVerificationCode() == null){
+            throw new UserInfoException("请先获取邮箱验证码");
+        }
 
-
+        Date date = new Date();
+        mailVerificationService.verify(date,userPassword.getEmail(),userPassword.getMailVerificationCode(),request.getSession());
 //        if (userPassword.getOldPassword() is not legal)
 //            throw new UserInfoException("新密码不符合要求");
 

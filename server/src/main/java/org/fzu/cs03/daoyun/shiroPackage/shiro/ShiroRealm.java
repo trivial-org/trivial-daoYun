@@ -181,7 +181,10 @@ public class ShiroRealm extends AuthorizingRealm {
 //                getName()
 //        );
         //验证成功开始踢人(清除缓存和Session)
-        ShiroUtils.deleteCache(username,true);
+        // 原demo有清理缓存踢人操作，这里注释了，因为sessionmanager  里面如果没带token设置cookie方式获取
+        //sessionid的话，会把原来的session删了，二次登录的时候就直接删了。
+
+        //ShiroUtils.deleteCache(username,true);
         return authenticationInfo;
     }
 }
