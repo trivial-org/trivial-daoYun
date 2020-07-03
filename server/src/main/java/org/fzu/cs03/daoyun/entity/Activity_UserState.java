@@ -1,6 +1,7 @@
 package org.fzu.cs03.daoyun.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,13 @@ public class Activity_UserState {
     private Long isActive;
 
 //    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private Long creationDate;
+    private Date creationDate;
 
+    private String answer;
+
+    @TableField(exist = false)
+    private Long answerLength;
+
+    @TableField(exist = false)
+    private Long dateCompare;
 }

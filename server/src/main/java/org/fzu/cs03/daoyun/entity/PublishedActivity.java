@@ -26,6 +26,7 @@ public class PublishedActivity {
     private Boolean isActive;
     private String activityParam;
     private String beginDate;
+    private String activityName;
     private String endDate;
     private Integer maxscore;
     private String maxDist;

@@ -257,7 +257,7 @@ public class ActivityService {
         // 签到活动提交 id=1
         // 限制签到距离
         //比较答案和提交是否一致
-        if (attendActivity.getActivityTypeId() == 1){
+        if (attendActivity.getActivityTypeId() == 1 ){
             if (attendActivity.getLatitude() ==null || attendActivity.getLongitude() == null){
                 return responseService.responseFactory(StatusCode.RESPONSE_ERR,"经纬度不能为空");
             }
@@ -290,9 +290,6 @@ public class ActivityService {
                 attendActivity.setValid(Boolean.FALSE);
                 consistent = Boolean.FALSE;
             }
-
-
-
         }
 
 
@@ -331,7 +328,6 @@ public class ActivityService {
 
 
     //=-============
-
 
 
 
@@ -455,6 +451,51 @@ public class ActivityService {
         Long orgId = orgnizationMapper.getOrgIdByOrgCode(orgCode);
         Long offset = (page-1)*pageSize;
         List<Activity_UserState> results = activityMapper.getUserActivitiesState(userId,orgId,pageSize,offset);
+
+        // 后处理
+        for (Activity_UserState result : results) {
+
+            String activityParams = result.getAnswer();
+            String answer = null;
+            if (activityParams != null) {
+                JSONObject jsonObject = JSON.parseObject(activityParams);
+                answer = (String) jsonObject.get("answer");
+            }
+
+            if (answer == null)
+                result.setAnswerLength(0L);
+            else
+                result.setAnswerLength((long) answer.length());
+
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date dateBegin = null;
+            Date dateEnd = null;
+            if (result.getEndDate() != null) {
+                try {
+                    dateEnd = formatter.parse(result.getEndDate());
+                } catch (Exception ignored) {
+
+                }
+            }
+
+            if (result.getBeginDate() != null) {
+                try {
+                    dateBegin = formatter.parse(result.getBeginDate());
+                } catch (Exception ignored) {
+
+                }
+            }
+
+            if (dateEnd == null || dateBegin == null)
+                result.setDateCompare(0L);
+            else {
+                int com = dateEnd.compareTo(dateBegin);
+                result.setDateCompare((long) com);
+            }
+
+            result.setAnswer(null);
+
+        }
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
     }
 

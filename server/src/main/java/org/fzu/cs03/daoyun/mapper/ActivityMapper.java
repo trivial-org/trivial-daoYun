@@ -20,9 +20,9 @@ import java.util.List;
 public interface ActivityMapper extends BaseMapper<AttendActivity> {
 
     @Select("select pa2.id activityId, pa2.activity_type_id activityTypeId, pa2.activity_name activityName, " +
-            "pa2.begin_date beginDate, pa2.end_date endDate, pa2.is_active isActive, " +
+            "pa2.begin_date beginDate, pa2.end_date endDate, pa2.is_active isActive, pa2.activity_param answer, " +
             "pia.user_id userId, pia.creation_date creationDate " +
-            "from (SELECT pa.id , pa.activity_name , pa.activity_type_id , pa.begin_date, pa.end_date, pa.is_active " +
+            "from (SELECT pa.id , pa.activity_param, pa.activity_name , pa.activity_type_id , pa.begin_date, pa.end_date, pa.is_active " +
             "from published_activity as pa  where pa.org_id = #{orgId} ) as pa2 LEFT JOIN \n" +
             "participate_in_activity as pia on pia.activity_id = pa2.id  and pia.user_id = #{userId} \n" +
             "order by creationDate DESC LIMIT #{size} OFFSET #{offset}")

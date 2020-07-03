@@ -17,6 +17,39 @@ Engeering practice
 - mapper层逐步取消exister，直接使用getter，如果为空返回null。
 
 
+### 功能更新 2020/7/3
+
+---
+
+- 更新学生查询自己班课内部的活动参与情况
+- 发布活动的时候新增activityName参数
+
+#### post/get/put/delete示例
+- **@GetMapping(value = "/activities/class/self")**
+  例子：http://IP_Address:8081/activities/class/self?orgCode=10000&page=1&pageSize=100
+  返回实体：
+```java
+    private Long userId;
+    private Long activityId;
+    private Long activityTypeId;
+
+    private String activityName;
+    private String beginDate;
+    private String endDate; 
+    private Long isActive; //返回活动是否激活，但可能不是实时的
+
+    private Long creationDate;
+
+
+    private Long answerLength; // 返回答案的长度
+
+    private Long dateCompare;  
+    //辅助判断是否超时，一个整数型，如果endDate没有被设置，返回0
+```
+
+
+
+
 
 ### 功能更新 2020/7/2
 
