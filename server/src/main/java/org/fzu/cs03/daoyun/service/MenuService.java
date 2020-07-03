@@ -296,5 +296,21 @@ public class MenuService {
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"通过角色查询权限按钮列表成功",authenList);
 
     }
+    //根据用户id建立该角色拥有的菜单目录项的菜单树，不含按钮权限
+    public String  builMenuPageTreeByRoleId(Long roleId , HttpServletRequest request){
+        List<Menu> menuList = menuMapper.selectMenuPageByRoleId(roleId);
+        List<Menu> treeMenu = null;
+        try {
+            treeMenu = this.buildTreeMenu(menuList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询角色菜单目录树成功",treeMenu);
+
+    }
+
+
+
 
 }

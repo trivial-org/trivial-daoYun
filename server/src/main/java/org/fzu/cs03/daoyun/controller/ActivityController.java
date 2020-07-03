@@ -138,6 +138,29 @@ public class ActivityController {
         }
     }
 
+    //根据活动id获取该活动对应班课下所有成员参与该活动的状态  ，就是是否参与
+    @GetMapping(value = "/activities/orgParState")
+    public String getActivitiesOrgParState(
+            @RequestParam(value = "activityId" ,required = true) Long activityId,
+            HttpServletRequest request) {
 
+        try{
+            return activityService.getActivitiesOrgParStateByActivityId(activityId);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+    //根据班课码获取该班课下所有成员及对应成绩分数
+    @GetMapping(value = "/activities/orgMemberScore")
+    public String getOrgMemberScore(
+            @RequestParam(value = "orgCode" ,required = true) Long orgCode,
+            HttpServletRequest request) {
+
+        try{
+            return activityService.getOrgMemberScoreByOrgCode(orgCode);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
 
 }

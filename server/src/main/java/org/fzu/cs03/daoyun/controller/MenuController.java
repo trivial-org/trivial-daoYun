@@ -86,10 +86,6 @@ public class MenuController {
     {
 //        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 //        List<SysMenu> menus = menuService.selectMenuList(loginUser.getUser().getUserId());
-        if (!menuService.checkMenuNameUnique(menu))
-        {
-            return responseService.responseFactory(StatusCode.RESPONSE_ERR,"新增菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
-        }
         //menu.setCreateBy(SecurityUtils.getUsername());
         try{
             return menuService.updateMenu(menu,request);
@@ -226,6 +222,16 @@ public class MenuController {
         }
     }
 
+
+    @GetMapping(value = "menuPageTreeAllByRole/{roleId}")
+    public String roleMenuPageTree(@PathVariable("roleId") Long roleId ,HttpServletRequest request)
+    {
+        try{
+            return menuService.builMenuPageTreeByRoleId(roleId,request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
 
 
 }
