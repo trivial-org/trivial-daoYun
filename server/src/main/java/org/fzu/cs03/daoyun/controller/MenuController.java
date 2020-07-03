@@ -146,7 +146,14 @@ public class MenuController {
     @PostMapping (value = "/roleMenuAdd")
     public String roleMenuAdd(@RequestBody RoleMenu roleMenu, HttpServletRequest request)
     {
-
+        if (roleMenu.getRoleId()==null && roleMenu.getRoleName()==null)
+        {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,"请输入角色信息");
+        }
+        if (roleMenu.getMenuId()==null && roleMenu.getMenuName()==null)
+        {
+        return responseService.responseFactory(StatusCode.RESPONSE_ERR,"请输入菜单信息");
+        }
         try{
             return menuService.insertRoleMenu(roleMenu,request);
         } catch (Exception e) {
@@ -159,7 +166,14 @@ public class MenuController {
     @DeleteMapping(value = "/roleMenuDelete")
     public String roleMenuRemove(@RequestBody RoleMenu roleMenu, HttpServletRequest request)
     {
-
+        if (roleMenu.getRoleId()==null && roleMenu.getRoleName()==null)
+        {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,"请输入角色信息");
+        }
+        if (roleMenu.getMenuId()==null && roleMenu.getMenuName()==null)
+        {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,"请输入菜单信息");
+        }
         try{
             return menuService.deleteRoleMenu(roleMenu);
         } catch (Exception e) {
@@ -168,6 +182,49 @@ public class MenuController {
 
     }
 
+    //获取所有菜单，不包括按钮（权限）信息 ，是菜单树
+    @GetMapping(value = "/menuPageTreeAll")
+    public String getMenuPageAll(
+            HttpServletRequest request){
+        try{
+            return menuService.selectMenuPageList();
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+    //获取按钮（权限）信息，是列表结构，不是树
+    @GetMapping(value = "/authenAll")
+    public String getAuthenAll(
+            HttpServletRequest request){
+        try{
+            return menuService.selectAuthenList();
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+    //根据用户id获取对应的菜单树
+    @GetMapping(value = "menuPageTreeAllByUser/{userId}")
+    public String userMenuPageTree(@PathVariable("userId") Long userId ,HttpServletRequest request)
+    {
+        try{
+            return menuService.builMenuPageTreeByUserId(userId,request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+    //根据角色id获取对应的按钮权限列表
+    @GetMapping(value = "authenByRole/{roleId}")
+    public String getAuthenByRole(@PathVariable("roleId") Long roleId ,HttpServletRequest request)
+    {
+        try{
+            return menuService.selectAuthenListByRoleId(roleId,request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
 
 
 
