@@ -151,6 +151,7 @@ public class ActivityService {
         // activity_description(活动描述),
         // activity_param (活动参数) 一般需要带answer字段
         // 一般需要提供 publishedActivity.getSubmitParams();
+
         JSONObject submitParams = new JSONObject();
         if (publishedActivity.getAnswer() != null ){
             submitParams.put("answer",publishedActivity.getAnswer());
@@ -336,6 +337,10 @@ public class ActivityService {
         String username = SystemParams.username;
         Long userId = SystemParams.userId;
 
+        Long p_activityId = attendActivity.getId();
+        if (p_activityId == null)
+            throw new ActivityException("请提供参与活动的id");
+
         Long activityId = attendActivity.getActivityId();
         if (activityId == null)
             throw new ActivityException("请提供活动id");
@@ -351,6 +356,7 @@ public class ActivityService {
         String endDateStr = publishedActivity.getEndDate();
 
 
+        boolean timeout = false;
         if (endDateStr != null){
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try{
@@ -361,12 +367,12 @@ public class ActivityService {
                 logger.info(endDate.toString());
                 logger.info( String.valueOf(nowDate.compareTo(endDate)));
                 if (nowDate.compareTo(endDate) > 0){
-                    PublishedActivity publishedActivity2 = new PublishedActivity();
-                    publishedActivity2.setIsActive(Boolean.FALSE);
-                    publishedActivity2.setId(activityId);
-                    publishedActivityMapper.updateById(publishedActivity2);
-
-                    throw new ActivityException("已经结束的活动");
+//                    PublishedActivity publishedActivity2 = new PublishedActivity();
+//                    publishedActivity2.setIsActive(Boolean.FALSE);
+//                    publishedActivity2.setId(activityId);
+//                    publishedActivityMapper.updateById(publishedActivity2);
+//                    throw new ActivityException("已经结束的活动");
+                    timeout = true;
                 }
 
             }catch(Exception e){
@@ -374,10 +380,8 @@ public class ActivityService {
             }
         }
 
-
         QueryWrapper<AttendActivity> wrapper = new QueryWrapper<>();
-        wrapper.eq("activity_id",activityId)
-                .eq("user_id",userId);
+        wrapper.eq("id",p_activityId);
         AttendActivity result =  activityMapper.selectOne(wrapper);
 
         AttendActivity attendActivity1 = new AttendActivity();
@@ -386,7 +390,7 @@ public class ActivityService {
                 (attendActivity.getSubmitFileName() != null || attendActivity.getSubmitFileUrl()!=null)){
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,"非任务类型活动不支持修改上传文件");
         }
-        else if (result.getActivityTypeId() == 2){
+        else if (result.getActivityTypeId() == 2 && !timeout){
             attendActivity1.setSubmitFileUrl(attendActivity.getSubmitFileUrl());
             attendActivity1.setSubmitFileName(attendActivity.getSubmitFileName());
         }
@@ -395,9 +399,13 @@ public class ActivityService {
 //            return responseService.responseFactory(StatusCode.RESPONSE_ERR,"任务文件不能为空");
 //        }
 
+//        logger.info(String.valueOf(attendActivity.getActivityId()));
+//        logger.info(String.valueOf(attendActivity.getScore()));
 
-        attendActivity1.setId(attendActivity.getId());
-        attendActivity1.setScore(attendActivity.getScore());
+        attendActivity1.setId(p_activityId);
+
+        if (attendActivity.getScore() != null)
+            attendActivity1.setScore(attendActivity.getScore());
 
 
         activityMapper.updateById(attendActivity1);
