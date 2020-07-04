@@ -5,12 +5,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.*;
 import org.fzu.cs03.daoyun.mapper.MenuMapper;
+import org.fzu.cs03.daoyun.mapper.RoleMapper;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
 import org.fzu.cs03.daoyun.utils.DateFormater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,8 @@ public class MenuService {
     @Autowired
     private MenuMapper menuMapper;
 
-
+    @Autowired
+    private RoleMapper roleMapper;
 
 //    public String createActivity(PublishedActivity publishedActivity, HttpServletRequest request){
 //
@@ -200,6 +203,16 @@ public class MenuService {
 
     //新增角色菜单菜单，为角色分配菜单
     public String insertRoleMenu(RoleMenu roleMenu, HttpServletRequest request){
+
+        if(roleMenu.getRoleId()==null){
+            Long roleId = roleMapper.getRoleIdByRoleName(roleMenu.getRoleName());
+            roleMenu.setRoleId(roleId);
+        }
+        if (roleMenu.getMenuId()==null){
+            Long menuId = menuMapper.selectMenuIdByMenuName(roleMenu.getMenuName());
+            roleMenu.setMenuId(menuId);
+        }
+
         try {
             menuMapper.insertRoleMenu(roleMenu);
         } catch (Exception e) {
@@ -211,6 +224,14 @@ public class MenuService {
 
     public String deleteRoleMenu(RoleMenu roleMenu)
     {
+        if(roleMenu.getRoleId()==null){
+            Long roleId = roleMapper.getRoleIdByRoleName(roleMenu.getRoleName());
+            roleMenu.setRoleId(roleId);
+        }
+        if (roleMenu.getMenuId()==null){
+            Long menuId = menuMapper.selectMenuIdByMenuName(roleMenu.getMenuName());
+            roleMenu.setMenuId(menuId);
+        }
 
         try {
             menuMapper.deleteRoleMenu(roleMenu);
@@ -220,6 +241,76 @@ public class MenuService {
 
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"删除角色菜单成功");
     }
+
+    //获取菜单目录树
+    public String selectMenuPageList()
+    {
+        List<Menu> menuList = menuMapper.selectMenuPageList();
+
+        List<Menu> result = this.buildTree(menuList);
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询菜单目录树成功",result);
+    }
+
+
+    public List<Menu> buildTree(List<Menu> menuList){
+        List<Menu> tree = null;
+        try {
+            tree = this.buildTreeMenu(menuList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tree;
+
+    }
+
+    public String selectAuthenList()
+    {
+        List<Menu> menuList = menuMapper.selectAuthenList();
+
+        //List<Menu> result = this.buildTree(menuList);
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询菜单目录树成功",menuList);
+    }
+
+
+    //根据用户id建立该角色拥有的菜单目录项的菜单树，不含按钮权限
+    public String  builMenuPageTreeByUserId(Long userId , HttpServletRequest request){
+        User user =userMapper.selectById(userId);
+        Long roleId = user.getRoleId();
+        List<Menu> menuList = menuMapper.selectMenuPageByRoleId(roleId);
+        List<Menu> treeMenu = null;
+        try {
+            treeMenu = this.buildTreeMenu(menuList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询用户菜单目录树成功",treeMenu);
+
+    }
+
+
+    //根据角色id建立该角色拥有的菜单项的菜单树
+    public String selectAuthenListByRoleId(Long roleId , HttpServletRequest request){
+        List<Menu> authenList = menuMapper.selectAuthenListByRoleId(roleId);
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"通过角色查询权限按钮列表成功",authenList);
+
+    }
+    //根据用户id建立该角色拥有的菜单目录项的菜单树，不含按钮权限
+    public String  builMenuPageTreeByRoleId(Long roleId , HttpServletRequest request){
+        List<Menu> menuList = menuMapper.selectMenuPageByRoleId(roleId);
+        List<Menu> treeMenu = null;
+        try {
+            treeMenu = this.buildTreeMenu(menuList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询角色菜单目录树成功",treeMenu);
+
+    }
+
+
 
 
 }

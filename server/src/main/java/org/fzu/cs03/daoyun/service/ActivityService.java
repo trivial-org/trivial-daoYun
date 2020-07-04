@@ -7,9 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 //import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.fzu.cs03.daoyun.GlobalConstant;
 import org.fzu.cs03.daoyun.StatusCode;
-import org.fzu.cs03.daoyun.entity.Activity_UserState;
-import org.fzu.cs03.daoyun.entity.AttendActivity;
-import org.fzu.cs03.daoyun.entity.PublishedActivity;
+import org.fzu.cs03.daoyun.entity.*;
 import org.fzu.cs03.daoyun.exception.ActivityException;
 import org.fzu.cs03.daoyun.mapper.*;
 import org.fzu.cs03.daoyun.utils.DateFormater;
@@ -504,6 +502,18 @@ public class ActivityService {
             result.setAnswer(null);
 
         }
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
+    }
+
+
+    public String getActivitiesOrgParStateByActivityId(Long activityId){
+
+       List<ActivityParticipateState> results = activityMapper.getActivitiesOrgParStateByActivityId(activityId);
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
+    }
+    public String getOrgMemberScoreByOrgCode(Long orgCode){
+
+        List<OrgMemberScore> results = activityMapper.getOrgMemberScoreByOrgCode(orgCode);
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
     }
 

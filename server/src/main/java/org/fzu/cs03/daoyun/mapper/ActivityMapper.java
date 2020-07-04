@@ -2,10 +2,7 @@ package org.fzu.cs03.daoyun.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
-import org.fzu.cs03.daoyun.entity.Activity_UserState;
-import org.fzu.cs03.daoyun.entity.AttendActivity;
-import org.fzu.cs03.daoyun.entity.Orgnization;
-import org.fzu.cs03.daoyun.entity.PublishedActivity;
+import org.fzu.cs03.daoyun.entity.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,4 +26,19 @@ public interface ActivityMapper extends BaseMapper<AttendActivity> {
     List<Activity_UserState> getUserActivitiesState(Long userId, Long orgId, Long size, Long offset);
 
     List<Activity_UserState> getClassActivitiesState(Long activityId, Long orgId);
+
+
+    @Select(" select r.user_id userId , u.role_id roleId ,  u.username username, u.student_id studentId, o.id orgId , o.org_code orgCode  ,'yes' as isPar from user as u , org as o,user_org_info as r " +
+            "where u.id = r.user_id and o.id = r.org_id and o.id in (select org_id from published_activity where id = #{activityId} ) and u.id in (select u.id from participate_in_activity as p,user as u where p.activity_id=#{activityId} and u.id = p.user_id)" +
+            " union" +
+            "  select r.user_id userId , u.role_id roleId ,  u.username username, u.student_id studentId, o.id orgId , o.org_code orgCode ,'no' as isPar from user as u , org as o,user_org_info as r where u.id = r.user_id and o.id = r.org_id and o.id in (select org_id from published_activity " +
+            "where id = #{activityId}) and u.id not in (select u.id from participate_in_activity as p,user as u where p.activity_id=#{activityId} and u.id = p.user_id)")
+    List<ActivityParticipateState>getActivitiesOrgParStateByActivityId(Long activityId);
+
+    @Select("SELECT user_id userId,username username ,student_id studentId ,sum(score) sumScore FROM participate_in_activity as pi ,user as u\n" +
+            " WHERE u.id = pi.user_id AND  pi.activity_id IN (SELECT id  FROM  published_activity as pa \n" +
+            " WHERE pa.org_id =(SELECT id FROM org WHERE org_code = #{orgCode})  ) GROUP BY user_id")
+    List<OrgMemberScore> getOrgMemberScoreByOrgCode(Long orgCode);
+
+
 }

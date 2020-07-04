@@ -11,10 +11,10 @@ import java.util.List;
 public interface MenuMapper extends BaseMapper<Menu> {
 
 
-    @Select("SELECT m.*  FROM menu m LEFT JOIN r_role__menu rm ON m.id = rm.menu_id WHERE rm.role_id = #{roleId}")
+    @Select("SELECT m.*  FROM menu m LEFT JOIN r_role__menu rm ON m.id = rm.menu_id WHERE rm.role_id = #{roleId} ORDER BY order_num")
     List<Menu> selectMenuByRoleId(Long roleId);
 
-    @Select("SELECT m.*  FROM menu m ")
+    @Select("SELECT m.*  FROM menu m ORDER BY order_num")
     List<Menu> selectMenuList();
 
     @Select("select id, menu_name, parent_id, order_num, path, component, is_frame, menu_type, visible, status, ifnull(perms,'') as perms, icon, create_time " +
@@ -47,4 +47,20 @@ public interface MenuMapper extends BaseMapper<Menu> {
     @Delete("delete from r_role__menu where menu_id = #{menuId} and role_id = #{roleId}")
     int deleteRoleMenu(RoleMenu roleMenu);
 
+    @Select("SELECT m.*  FROM menu m WHERE menu_type = 'M' OR menu_type = 'C'ORDER BY order_num")
+    List<Menu> selectMenuPageList();
+
+    @Select("SELECT m.*  FROM menu m WHERE menu_type = 'F'ORDER BY order_num")
+    List<Menu> selectAuthenList();
+
+    @Select("SELECT m.*  FROM menu m LEFT JOIN r_role__menu rm ON m.id = rm.menu_id " +
+            "WHERE rm.role_id = #{roleId} AND (menu_type = 'M' OR menu_type = 'C') ORDER BY order_num")
+    List<Menu> selectMenuPageByRoleId(Long roleId);
+
+    @Select("SELECT m.*  FROM menu m LEFT JOIN r_role__menu rm ON m.id = rm.menu_id " +
+            "WHERE rm.role_id = #{roleId} AND menu_type = 'F'ORDER BY order_num")
+    List<Menu> selectAuthenListByRoleId(Long roleId);
+
+    @Select("SELECT id  FROM menu  WHERE menu_name = #{menuName} LIMIT 1")
+    Long selectMenuIdByMenuName(String menuName);
 }

@@ -17,4 +17,6 @@ public interface RoleMapper extends BaseMapper<Role> {
     @Select("SELECT role_name FROM role WHERE id = #{id}")
     String getRolenameByRoleId(Long id);
 
+    @Select("SELECT id FROM role WHERE  role_name= #{roleName}")
+    Long getRoleIdByRoleName(String roleName);
 }
