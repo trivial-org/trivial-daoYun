@@ -163,4 +163,41 @@ public class ActivityController {
         }
     }
 
+    // 根据 activity id 获取活动所以信息
+    @GetMapping(value = "/activities/recordsByActivityId")
+    public String getActivityByActivityId(
+            @RequestParam(value = "activityId" ,required = true) Long activityId,
+            HttpServletRequest request){
+        try{
+            return activityService.getActivityByActivityId(activityId, request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+    // 根据 activity id  和用户id 获取该用户参与的那个参与活动的信息
+    @GetMapping(value = "/activities/recordsByActivityIdAndUserId")
+    public String getActivityByUserId(
+            @RequestParam(value = "activityId" ,required = true) Long activityId,
+            @RequestParam(value = "userId" ,required = true) Long userId,
+            HttpServletRequest request){
+        try{
+            return activityService.getActivityByActivityIdAndUserId(activityId,userId ,request);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
+    // 根据 用户id 获取该用户参与所有的课程信息及课程的成绩分数
+    @GetMapping(value = "/activities/getOrgScoreByUserId")
+    public String getOrgScoreByUserId(
+            @RequestParam(value = "userId" ,required = true) Long userId,
+            HttpServletRequest request){
+        try{
+            return activityService.getOrgScoreByUserId(userId);
+        } catch (Exception e) {
+            return responseService.responseFactory(StatusCode.RESPONSE_ERR,e.toString());
+        }
+    }
+
 }

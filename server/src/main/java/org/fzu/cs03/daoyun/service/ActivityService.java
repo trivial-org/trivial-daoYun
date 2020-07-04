@@ -1,6 +1,7 @@
 package org.fzu.cs03.daoyun.service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -48,6 +49,10 @@ public class ActivityService {
     private ResponseService responseService;
     @Autowired
     private DateFormater dateFormater;
+
+    @Autowired
+    private RichTextService richTextService;
+
 
     private final Logger logger = LoggerFactory.getLogger(ActivityService.class);
 
@@ -516,6 +521,46 @@ public class ActivityService {
         List<OrgMemberScore> results = activityMapper.getOrgMemberScoreByOrgCode(orgCode);
         return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
     }
+
+
+    public String getActivityByActivityId(Long activityId,
+                                            HttpServletRequest request) throws Exception{
+
+        //权限验证
+
+
+        PublishedActivity publishedActivity = publishedActivityMapper.selectById(activityId);
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",publishedActivity);
+    }
+
+
+
+    public String getActivityByActivityIdAndUserId(Long activityId, Long userId,
+                                            HttpServletRequest request) throws Exception{
+
+        //权限验证
+
+
+//        String userName = request.getSession().getAttribute(GlobalConstant.sessionUser).toString();
+
+        AttendActivity results;
+        QueryWrapper<AttendActivity> wrapper = new QueryWrapper<>();
+        wrapper.eq("activity_id",activityId);
+        wrapper.eq("user_id",userId);
+        results = activityMapper.selectOne(wrapper);
+
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",results);
+    }
+
+
+    public String getOrgScoreByUserId(Long userId){
+
+        List<OrgMemberScore> results = activityMapper.getOrgScoreByUserId(userId);
+        JSONArray jsonArray = richTextService.objectListPlusRichText(results,"className");
+        return responseService.responseFactory(StatusCode.RESPONSE_OK,"查询成功",jsonArray);
+    }
+
 
 
 }

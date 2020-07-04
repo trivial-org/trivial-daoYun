@@ -28,17 +28,34 @@ public interface ActivityMapper extends BaseMapper<AttendActivity> {
     List<Activity_UserState> getClassActivitiesState(Long activityId, Long orgId);
 
 
-    @Select(" select r.user_id userId , u.role_id roleId ,  u.username username, u.student_id studentId, o.id orgId , o.org_code orgCode  ,'yes' as isPar from user as u , org as o,user_org_info as r " +
-            "where u.id = r.user_id and o.id = r.org_id and o.id in (select org_id from published_activity where id = #{activityId} ) and u.id in (select u.id from participate_in_activity as p,user as u where p.activity_id=#{activityId} and u.id = p.user_id)" +
-            " union" +
-            "  select r.user_id userId , u.role_id roleId ,  u.username username, u.student_id studentId, o.id orgId , o.org_code orgCode ,'no' as isPar from user as u , org as o,user_org_info as r where u.id = r.user_id and o.id = r.org_id and o.id in (select org_id from published_activity " +
-            "where id = #{activityId}) and u.id not in (select u.id from participate_in_activity as p,user as u where p.activity_id=#{activityId} and u.id = p.user_id)")
+//    @Select(" select  p.score score,r.user_id userId , u.role_id roleId ,  u.username username, u.student_id studentId, o.id orgId , o.org_code orgCode  ,'yes' as isPar from user as u , org as o,user_org_info as r ,participate_in_activity as p" +
+//            "where u.id = r.user_id and o.id = r.org_id and o.id in (select org_id from published_activity where id = #{activityId} ) and u.id in (select u.id from participate_in_activity as p,user as u where p.activity_id=#{activityId} and u.id = p.user_id)" +
+//            " union" +
+//            "  select  p.score score , r.user_id userId , u.role_id roleId ,  u.username username, u.student_id studentId, o.id orgId , o.org_code orgCode ,'no' as isPar from user as u , org as o,user_org_info as r ,participate_in_activity as p " +
+//            "where u.id = r.user_id and o.id = r.org_id and o.id in (select org_id from published_activity " +
+//            "where id = #{activityId}) and u.id not in (select u.id from participate_in_activity as p,user as u where p.activity_id=#{activityId} and u.id = p.user_id)")
+//    List<ActivityParticipateState>getActivitiesOrgParStateByActivityId(Long activityId);
+
+
+    @Select("select  #{activityId} as activityId , r.user_id as userId, u.role_id as roleId, u.username as username, u.student_id as studentId, o.id as orgId, o.org_code as orgCode, score, p.id as parId, 'yes'as isPar from user as u, org as o, user_org_info as r, participate_in_activity as p where p.activity_id = #{activityId} and u.id = p.user_id and u.id = r.user_id and o.id = r.org_id and o.id in(select org_id from published_activity where id = #{activityId})\n" +
+            " union\n"+
+            " select #{activityId} as activityId , r.user_id as userId , u.role_id as roleId ,  u.username as username, u.student_id  as studentId, o.id  as orgId , o.org_code as  orgCode,0 as score,0 as parId,'no' as isPar from user as u , org as o,user_org_info as r where  u.id = r.user_id and o.id = r.org_id and o.id in (select org_id from published_activity where id = #{activityId}) and u.id not in (select u.id from participate_in_activity as p,user as u where p.activity_id=#{activityId} and u.id = p.user_id)")
     List<ActivityParticipateState>getActivitiesOrgParStateByActivityId(Long activityId);
 
-    @Select("SELECT user_id userId,username username ,student_id studentId ,sum(score) sumScore FROM participate_in_activity as pi ,user as u\n" +
-            " WHERE u.id = pi.user_id AND  pi.activity_id IN (SELECT id  FROM  published_activity as pa \n" +
-            " WHERE pa.org_id =(SELECT id FROM org WHERE org_code = #{orgCode})  ) GROUP BY user_id")
+
+    @Select("select o.org_code as orgCode ,u.id as userId ,u.username as username ,u.student_id as studentId,sum(score) as sumScore from user as u, participate_in_activity as p,published_activity as a,org as o " +
+            "where o.org_code = #{orgCode} and o.id= a.org_id and p.activity_id = a.id  and u.id = p.user_id and o.id = a.org_id GROUP BY u.id \n" +
+            "union\n" +
+            "select o.org_code as orgCode ,u.id as userId ,u.username as username,u.student_id as studentId,0 as sumScore from user_org_info as uo ,user as u ,org as o " +
+            "where o.org_code= #{orgCode}  and o.id=uo.org_id and u.id = uo.user_id and u.id not in (select u.id from user as u, participate_in_activity as p,published_activity as a,org as o " +
+            "where o.org_code = #{orgCode}  and o.id= a.org_id and p.activity_id = a.id  and u.id = p.user_id and o.id = a.org_id )")
     List<OrgMemberScore> getOrgMemberScoreByOrgCode(Long orgCode);
 
+    @Select("select o.extend_json as richTextId,o.org_code as orgCode,o.id as orgId,sum(score) as sumScore from  rich_text as r,participate_in_activity as p,published_activity as a,org as o " +
+            "where p.user_id = #{userId} and p.activity_id = a.id and o.extend_json = r.id  and o.id = a.org_id GROUP BY o.id\n" +
+            "\tunion\n" +
+            "\tselect o.extend_json as richTextId,o.org_code as orgCode,uo.org_id as orgId ,0 as sumScore from rich_text as r,user_org_info as uo,org as o " +
+            "where uo.user_id = #{userId} and uo.org_id = o.id and o.extend_json = r.id and uo.org_id not in (select o.id from participate_in_activity as p,published_activity as a,org as o where p.user_id = #{userId} and p.activity_id = a.id and o.id = a.org_id  )")
+    List<OrgMemberScore> getOrgScoreByUserId(Long userId);
 
 }

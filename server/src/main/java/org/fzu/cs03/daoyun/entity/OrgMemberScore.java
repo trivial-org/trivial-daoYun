@@ -15,7 +15,14 @@ public class OrgMemberScore {
     private Long studentId;
 
     @TableField(exist = false)
-    private String sumScore;//是否参与
+    private int sumScore;//是否参与
+    private Long orgId;
+    private Long orgCode;
+
+
+    private Long richTextId;
+    //private String richText;
+
 
 
 }

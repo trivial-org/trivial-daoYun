@@ -17,6 +17,95 @@ Engeering practice
 - mapper层逐步取消exister，直接使用getter，如果为空返回null。
 
 
+
+### 功能更新 2020/7/4
+
+---
+
+- 新增用户获取全部课程分数功能
+- 新增活动id和用户id获取该活动信息
+- 新增activity id 获取活动所有信息
+- 新增班课码获取该班课下所有成员及对应成绩分数
+- 新增活动id获取该活动对应班课下所有成员参与该活动的状态 
+- 新增菜单管理里面菜单和权限（按钮）分离的接口
+- 修改角色分配菜单时，给的参数条件，角色和菜单  的id和名字 给其一就行
+- 新增修改密码是邮箱验证，也就是密保改密功能
+
+#### post/get/put/delete示例
+
+- **@GetMapping(value = "/activities/getOrgScoreByUserId")// 根据 用户id 获取该用户参与所有的课程信息及课程的成绩分数**
+  带上userId参数
+
+  返回信息示例
+
+            "richTextId": "1",
+            "orgCode": "10000",
+            //该用户该课程总分
+            "sumScore": 27,
+            "userId": "4",
+            "orgId": "1",
+            "username": "hzqhzq222",
+            //班课信息
+            "className": {
+                "college": "计算机技术",
+                "teacherName": "林老师",
+                "school": "福州大学",
+                "grade": "2020",
+                "lessonEndDate": "2020-11-28",
+                "className": "人工智能",
+                "lessonStartDate": "2020-06-29",
+                "introduction": "",
+                "teachingMateria": "西瓜书"
+  
+
+**@GetMapping(value = "/activities/recordsByActivityIdAndUserId")// 根据 activity id  和用户id 获取该用户参与的那个参与活动的信息，也就是一次签到或者作业的信息**
+带上userId，activityId参数
+
+
+
+**@GetMapping(value = "/activities/recordsByActivityId")// 根据 activity id 获取活动所有信息**
+带上activityId参数
+
+
+
+**@GetMapping(value = "/activities/orgMemberScore")//根据班课码获取该班课下所有成员及对应成绩分数**
+带上orgCode参数
+
+
+
+**@GetMapping(value = "/activities/orgParState")//根据活动id获取该活动对应班课下所有成员参与该活动的状态  ，就是是否参与**
+带上activityId参数
+
+
+
+**新增菜单管理一些功能 **
+
+
+
+**@GetMapping(value = "/menuPageTreeAll"//获取所有菜单，不包括按钮（权限）信息 ，是菜单树)**
+
+
+
+**@GetMapping(value = "/authenAll")//获取按钮（权限）信息，是列表结构，不是树**
+
+
+
+**@GetMapping(value = "menuPageTreeAllByUser/{userId}")//根据用户id获取对应的菜单树**
+
+
+
+**@GetMapping(value = "authenByRole/{roleId}")//根据角色id获取对应的按钮权限列表**
+
+
+
+**角色菜单（分配菜单 分配权限）的时候只要角色id 或者角色名给一个就行 菜单id和菜单名也是给其中一个就行**
+
+
+
+
+
+
+
 ### 功能更新 2020/7/3
 
 ---

@@ -21,6 +21,10 @@ public class ActivityParticipateState {
     @TableField(exist = false)
     private String isPar;//是否参与
 
+    private Long activityId;
 
+    private int score;
+
+    private Long parId;
 
 }
