@@ -20,7 +20,7 @@ import java.util.Random;
 public class MailVerificationService {
 
     // 进行验证的最大等待时间
-    static public final int maxMailVerificationInterval = 120;
+    static public final int maxMailVerificationInterval = 1200;
     // 两次产生验证码的最小等待时间
     static public final int minMailWaitInterval = 60;
     static public final int mailVerificationCodeLength = 6;

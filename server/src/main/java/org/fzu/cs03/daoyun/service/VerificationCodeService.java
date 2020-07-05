@@ -17,7 +17,7 @@ import java.util.Date;
 public class VerificationCodeService {
 
     // 进行验证的最大等待时间
-    static public final int maxVerificationInterval = 60;
+    static public final int maxVerificationInterval = 600;
     // 两次产生验证码的最小等待时间(s)
     static public final int minWaitInterval = 1;
 
