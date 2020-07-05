@@ -84,6 +84,9 @@ public class UserSecurityInterceptor implements HandlerInterceptor {
         SystemParams.userId = userId;
         SystemParams.token = token;
 
+
+
+
 //        SystemParams.userName = userName;
 
 //        String info = userName + "：已验证的登录";

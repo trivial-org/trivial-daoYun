@@ -2,14 +2,17 @@ package org.fzu.cs03.daoyun.service.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.Role;
 import org.fzu.cs03.daoyun.entity.User;
 import org.fzu.cs03.daoyun.exception.RoleException;
+import org.fzu.cs03.daoyun.exception.SignUpException;
 import org.fzu.cs03.daoyun.exception.UserException;
 import org.fzu.cs03.daoyun.mapper.RoleMapper;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
 import org.fzu.cs03.daoyun.service.ResponseService;
+import org.fzu.cs03.daoyun.shiroPackage.util.SHA256Util;
 import org.fzu.cs03.daoyun.utils.StringVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,6 +63,16 @@ public class UserService {
         User res = userMapper.selectOne(wrapper);
         if (res != null)
             throw new UserException("用户名已存在");
+
+        //对密码加密一下
+            //设置为正常状态
+            user.setState("NORMAL");
+            // 随机生成盐值
+            String salt = RandomStringUtils.randomAlphanumeric(20);
+            user.setSalt(salt);
+            // 进行加密
+            String password =  user.getPassword();
+            user.setPassword(SHA256Util.sha256(password, user.getSalt()));
 
         userMapper.insert(user);
 

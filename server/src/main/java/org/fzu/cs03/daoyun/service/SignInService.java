@@ -1,6 +1,7 @@
 package org.fzu.cs03.daoyun.service;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -12,6 +13,7 @@ import org.fzu.cs03.daoyun.StatusCode;
 import org.fzu.cs03.daoyun.entity.User;
 import org.fzu.cs03.daoyun.exception.SignInException;
 import org.fzu.cs03.daoyun.mapper.UserMapper;
+import org.fzu.cs03.daoyun.shiroPackage.util.SHA256Util;
 import org.fzu.cs03.daoyun.utils.TokenMapUtils;
 import org.fzu.cs03.daoyun.shiroPackage.util.ShiroUtils;
 import org.slf4j.Logger;
@@ -62,10 +64,21 @@ public class SignInService {
         if (username == null || password == null) throw new SignInException("用户名或密码为空");
         if (! userMapper.userExist(username)) throw new SignInException("用户不存在");
         //if (! userMapper.getUserPassword(username).equals(password)) throw new SignInException("密码不正确");
-        //验证码认证
-//        verificationCodeService.verify(new Date(),user.getVerificationCode(),request.getSession());
 
-        userId = userMapper.getUserIdByUserName(username);
+
+//        // 获取数据库里面存的用户注册时生成的盐值
+//        String salt =userMapper.getSaltByUsername(username);
+//        // 进行加密
+//        String postPasswordEncryed  =  SHA256Util.sha256(password,salt);
+//        if (! userMapper.getUserPassword(username).equals(postPasswordEncryed )) throw new SignInException("密码不正确");
+
+
+
+
+        //验证码认证
+        verificationCodeService.verify(new Date(),user.getVerificationCode(),request.getSession());
+
+         userId = userMapper.getUserIdByUserName(username);
 
 //        String oldUserName ;
 //        Object obj = request.getSession().getAttribute("userName");
@@ -87,7 +100,7 @@ public class SignInService {
 //        request.getSession().setAttribute("userId",userId);
 
 
-        //进行身份验证
+        //shiro进行身份验证
         try{
             //验证身份和登陆
             Subject subject = SecurityUtils.getSubject();
@@ -104,14 +117,26 @@ public class SignInService {
         } catch (Exception e) {
             return responseService.responseFactory(StatusCode.RESPONSE_ERR,"未知异常");
         }
+
+
         //设置shiroSession的过期时间，token是sessionid，也就是过期时间 24 * 60 * 60 * 1000 。好像有异常，先关了
         //SecurityUtils.getSubject().getSession().setTimeout(GlobalConstant.tokenExpiryTime);
         //SecurityUtils.getSubject().getSession().setTimeout(10 * 60 * 1000);
+
+
+
+
+
+
+
+
+
         //String token = request.getSession().getId();
-        String token = ShiroUtils.getSession().getId().toString();
+        String token = ShiroUtils.getSession().getId().toString();//shiro的sessionid
         JSONObject loginResult = new JSONObject();
         loginResult.put("id", userId);
         loginResult.put("token", token);
+        loginResult.put("username", username);
 
         tokenMapUtils.updateToken(userId,token, request);
 

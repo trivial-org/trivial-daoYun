@@ -16,8 +16,8 @@ public interface UserMapper extends BaseMapper<User> {
 
 //    @Select("select * from student order by id asc")
 //    List<Student> getStudentList();
-    @Insert("INSERT INTO user (role_id, username, password, salt, state,email, creation_date, is_active, is_deleted) VALUES (#{roleId},#{userName}, #{password},#{salt},#{state} ,#{email}, #{createDate}, #{isActive}, #{isDeleted} )")
-    void createAccount(Long roleId,String userName, String password, String salt, String state,String email, String createDate, boolean isActive, boolean isDeleted);
+    @Insert("INSERT INTO user (role_id, username, password, salt, state,email, phone,creation_date, is_active, is_deleted) VALUES (#{roleId},#{userName}, #{password},#{salt},#{state} ,#{email},#{phone}, #{createDate}, #{isActive}, #{isDeleted} )")
+    void createAccount(Long roleId,String userName, String password, String salt, String state,String email,String phone, String createDate, boolean isActive, boolean isDeleted);
 
     @Select("SELECT * FROM user ORDER BY id")
     List<User> getUserList();
@@ -100,4 +100,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Select("SELECT o.org_code, o.org_name, o.extend_json richTextId, o.creation_date, o.creator FROM org AS o INNER JOIN user_org_info AS r ON r.user_id = #{userId} and r.org_id = o.id WHERE o.creator = #{creator} LIMIT #{limit} OFFSET #{offset}")
     List<Orgnization> getUserCreatedOrgnizationPage(Long userId, String creator, Long limit, Long offset);
+
+
+    @Select("SELECT salt FROM user WHERE username = #{username} limit 1")
+    String getSaltByUsername(String username);
 }

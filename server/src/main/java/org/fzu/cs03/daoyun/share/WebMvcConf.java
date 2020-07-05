@@ -43,7 +43,6 @@ public class WebMvcConf implements WebMvcConfigurer {
                 .excludePathPatterns("/signin")
                 .excludePathPatterns("/signup")
                 .excludePathPatterns("/verification/**")
-                .excludePathPatterns("/verification/code")
                 .excludePathPatterns("/signup/users")
                 .excludePathPatterns("/device")
                 .excludePathPatterns("/dataDictionary")

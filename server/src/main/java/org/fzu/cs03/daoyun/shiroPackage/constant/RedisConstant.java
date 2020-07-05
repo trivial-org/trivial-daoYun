@@ -2,8 +2,6 @@ package org.fzu.cs03.daoyun.shiroPackage.constant;
 
 /**
  * @Description redis常量类
- * @Author Sans
- * @CreateTime 2019/6/11 10:04
  */
 public interface RedisConstant {
     /**
